@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <title>找合租室友</title>
+
+    <style >
+        body {
+            margin-left: 3rem;
+            margin-right:  3rem;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            word-wrap: break-word;
+            display: block;
+            font-size: 25px;
+            font-weight: bold;
+            color: #494949;
+            margin: 0;
+            padding: 0 0 5px 0;
+            line-height: 1.1;
+        }
+
+        h3 {
+            margin-left: 4px;
+            font: 14px Arial, Helvetica, sans-serif;
+            color: #666666;
+            margin-bottom: 1px;
+            line-height: 1.8;
+            background-color: #f2fbf2;
+        }
+        .container {
+
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 7rem;
+            padding-top: 1rem;
+            height: 100%;
+            background-color: #f5dcc8;
+        }
+
+        .container-head {
+            height: 25rem;
+            background-size: cover;
+
+            background-color: rgba(193, 177, 245, 0.48);
+        }
+
+        .container-img{
+
+            padding-left: 2rem;
+            padding-right: 2rem;
+            max-width: 40rem;
+            margin-left: auto;
+            margin-right: auto;
+            height: 20rem;
+            background-color: #3c763d;
+        }
+
+        .container-content{
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #382576;
+
+            position: relative;
+
+        }
+
+        .card-container{
+            width: 500px;
+            min-height: 400px;
+            background-color: rgba(46, 67, 79, 0.48);
+
+        }
+
+        .card-container ul{
+            line-height: 40px;
+
+        }
+
+
+        .input{
+            width:50px;
+            height:20px;
+
+            float: left;
+
+            color: rgba(4, 3, 1, 0.48);
+        }
+
+        .label{
+            float: left;
+            width: 10rem;
+            padding-right: 5px;
+            text-align: right;
+            height: 1.5rem;
+            color: rgba(4, 3, 1, 0.48);
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 id="title">
+        登录
+    </h1>
+    <div class="container-head">
+
+        <div class="card-container">
+
+            <ul>
+                <li>
+                    <div class="label">
+                        用户名:
+                    </div>
+                    <div class="input">
+                        <input class="" placeholder="邮箱" name="username" id="username" value="306917331@qq.com">
+                    </div>
+                </li>
+                <li>
+                    <div class="label">
+                        密码:
+                    </div>
+                    <div class="input">
+                        <input class="" placeholder=""  type="text" name="password" id="password" value="123">
+                    </div>
+                </li>
+
+
+                <li>
+                    <div class="input">
+                        <input class=""   type="button" value="忘记密码" onclick="location.href='/findpwd'">
+                    </div>
+                    <div class="input" style="float: right ">
+                        <input class=""   type="button" value="登录" onclick="login()">
+                    </div>
+                </li>
+            </ul>
+
+
+            <!--<ul>-->
+            <!--<li>hi  hhh </li>-->
+            <!--<li>ss</li>-->
+            <!--</ul>-->
+        </div>
+    </div>
+
+
+    <div class="container-bottom">
+        bottom
+    </div>
+
+</div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+    function findPwd() {
+        var aj = $.ajax({
+            url: '/findpwd',// 跳转到 action
+            type: 'get',
+            cache: true,
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 0) {
+
+                }
+            },
+            error: function () {
+                alert("acount 异常！");
+            }
+
+
+        });
+    }
+    function login() {
+        var aj = $.ajax({
+            url: '/login',// 跳转到 action
+            type: 'post',
+            cache: false,
+            data: {username: $('#username').val(), password: $('#password').val()},
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 0) {
+
+                   alert('success')
+                }
+            },
+            error: function () {
+                // view("异常！");
+                alert("acount 异常！");
+            }
+
+
+        });
+    }
+</script>

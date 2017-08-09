@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!--<script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>-->
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=UpzR4c4VaIwOE7SXhnm7Iy7igT0vq1nD"></script>
+    <title>找合租室友</title>
+
+    <style>
+        body {
+            margin-left: 3rem;
+            margin-right: 3rem;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            word-wrap: break-word;
+            display: block;
+            font-size: 25px;
+            font-weight: bold;
+            color: #494949;
+            margin: 0;
+            padding: 0 0 5px 0;
+            line-height: 1.1;
+        }
+
+        h3 {
+            margin-left: 4px;
+            font: 14px Arial, Helvetica, sans-serif;
+            color: #666666;
+            margin-bottom: 1px;
+            line-height: 1.8;
+            background-color: #f2fbf2;
+        }
+
+        .container {
+
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 7rem;
+            padding-top: 3rem;
+            height: 100%;
+            /*background-color: #f5dcc8;*/
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+
+        }
+
+        .card {
+            margin: 20px;
+            background-color: #f5dcc8;
+            width: 300px;
+            border-radius: 10px;
+        }
+
+
+        ul.hor li {
+            display: inline;
+        }
+
+
+    </style>
+
+    <script>
+        $(document).ready(function(){
+            $("#title").click(function(){
+                $(".card-wraper").toggle(200);
+            });
+        });
+    </script>
+
+
+
+
+</head>
+<body>
+
+<div class="container">
+
+    <!--username:String,//邮箱或者手机号 唯一标识-->
+    <!--personNum:Number,-->
+    <!--workplace:String,-->
+    <!--workplace_geo:String,//工作地点经纬度字符串 精度|维度-->
+    <!--homeplace:String,-->
+    <!--homeplace_geo:String,//期望居住地点经纬度字符串 精度|维度-->
+    <!--gender:Number,//1:男;2:女 登录情况下自动根据注册用户性别数据填充-->
+    <!--checkin_date:String, //入住日期-->
+    <!--money_rang:String,//租金范围-->
+    <!--want_gender:Number,//1:男;2:女;0:无要求-->
+    <!--call_number:String,//联系方式 手机或者邮箱-->
+    <!--others:String,//微信/QQ/个人介绍等等-->
+    <% friendlist.forEach(function(item){ %>
+
+    <div class="card">
+        <div class="card-header">
+            Featured
+        </div>
+        <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">期望租房日期:<%=item.checkin_date%></li>
+            <li class="list-group-item">期望居住地点:<%=item.homeplace%></li>
+
+            <li class="list-group-item">工作地点:<%=item.workplace%></li>
+            <li class="list-group-item">当前人数:<%=item.personNum%></li>
+            <li class="list-group-item">本人性别:<%=item.gender%></li>
+            <li class="list-group-item">期望租金范围:<%=item.money_rang%></li>
+            <li class="list-group-item">期望室友性别:<%=item.want_gender%></li>
+            <li class="list-group-item">联系方式:<%=item.call_number%></li>
+            <li class="list-group-item">其他信息:<%=item.others%></li>
+        </ul>
+        <div class="card-block">
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>
+
+    <% }) %>
+
+
+
+    <div class="card">
+        <div class="card-header">
+            Featured
+        </div>
+        <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
+        <div class="card-block">
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    // 百度地图API功能
+
+    var index = 0;
+    var myGeo = new BMap.Geocoder();
+
+    var address = [];
+    var adds = [];
+
+    function confirm() {
+
+        adds.push($('#workplace').val());
+        adds.push($('#checkin_place').val());
+
+        bdGEO();
+    }
+
+    function bdGEO() {
+        var add = adds.pop();
+        geocodeSearch(add);
+        index++;
+    }
+
+    function splice(json) {
+        return '\"' + json.split('[')[1].split(']')[0] + '\"';
+    }
+
+    function geocodeSearch(add) {
+        if (index < adds.length) {
+            setTimeout(window.bdGEO, 400);
+        }
+        myGeo.getPoint(add, function (point) {
+            if (point) {
+//                document.getElementById("result").innerHTML +=  index + "、" + add + ":" + point.lng + "," + point.lat + "</br>";
+//                var address = new BMap.Point(point.lng, point.lat);
+                address.push({address: add, lng: point.lng, lat: point.lat});
+                if (address.length == 2) {
+
+                    var friender = [];
+                    var persion_num = $('#person_num').val();
+                    var workplace = $('#workplace').val();
+                    var homeplace = $('#checkin_place').val();
+                    var money_range = $('#money_range').val();
+                    var checkin_date = $('#checkin_date').val();
+
+                    var current_gender = $("#current_gender").find("option:selected").attr("value");
+
+                    var other_gender =  $("#other_gender").find("option:selected").attr("value");
+                    var call_number = $('#call_number').val();
+                    var others = $('#others').val();
+
+
+                    var workplace_geo;
+                    var homeplace_geo;
+                    address.forEach(function(item, index, arr){
+
+                        if (item.address == workplace) {
+                            workplace_geo = item.lng + '_' + item.lat;
+                        }
+
+                        if (item.address == homeplace) {
+                            homeplace_geo = item.lng + '_' + item.lat;
+                        }
+                    });
+
+                    var json = splice(JSON.stringify(friender));
+
+                    var aj = $.ajax({
+                        url: '/hoursefriend/create',// 跳转到 action
+                        type: 'post',
+                        data: {
+                            person_num: persion_num,
+                            workplace: workplace,
+                            workplace_geo: workplace_geo,
+                            homeplace_geo: homeplace_geo,
+                            homeplace: homeplace,
+                            money_range: money_range,
+                            checkin_date: checkin_date,
+                            current_gender: current_gender,
+                            other_gender: other_gender,
+                            call_number: call_number,
+                            others: others
+                        },
+                        cache: false,
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.code == 0) {
+//
+//                                $('#username').text(data.acountname);
+//                                $('#password').text(data.password);
+
+                                $('#myModal').modal('show')
+                            }
+                        },
+                        error: function () {
+                            // view("异常！");
+                            alert("acount 异常！");
+                        }
+
+
+                    });
+                }
+
+            } else {
+                alert(add + ' 地址无效')
+            }
+        }, "北京市");
+    }
+
+</script>

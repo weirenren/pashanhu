@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=UpzR4c4VaIwOE7SXhnm7Iy7igT0vq1nD"></script>
+
+    <script type="text/javascript">
+
+                $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd'});
+    </script>
+
+    <title>找合租室友</title>
+
+    <style>
+        body {
+            margin-left: 3rem;
+            margin-right: 3rem;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            word-wrap: break-word;
+            display: block;
+            font-size: 25px;
+            font-weight: bold;
+            color: #494949;
+            margin: 0;
+            padding: 0 0 5px 0;
+            line-height: 1.1;
+        }
+
+        h3 {
+            margin-left: 4px;
+            font: 14px Arial, Helvetica, sans-serif;
+            color: #666666;
+            margin-bottom: 1px;
+            line-height: 1.8;
+            background-color: #f2fbf2;
+        }
+
+        .container {
+
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 7rem;
+            padding-top: 1rem;
+            height: 100%;
+            background-color: #f5dcc8;
+        }
+
+        .container-head {
+            height: 25rem;
+            background-size: cover;
+
+            background-color: rgba(193, 177, 245, 0.48);
+        }
+
+        .container-img {
+
+            padding-left: 2rem;
+            padding-right: 2rem;
+            max-width: 40rem;
+            margin-left: auto;
+            margin-right: auto;
+            height: 20rem;
+            background-color: #3c763d;
+        }
+
+        .container-content {
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #382576;
+
+            position: relative;
+
+        }
+
+        .list-date {
+            position: absolute;
+            font-size: 2rem;
+            text-align: center;
+            top: 2rem;
+            left: 1rem;
+            color: #b2bac2;
+            font-weight: 500;
+        }
+
+        .list-item {
+            width: 100%;
+            padding: 1rem 6rem 1rem .5rem;
+            box-sizing: border-box;
+            margin: .5rem 0;
+        }
+
+        .card-container {
+            width: 500px;
+            min-height: 400px;
+            background-color: rgba(46, 67, 79, 0.48);
+
+        }
+
+        .card-container ul {
+            line-height: 5px;
+            list-style-type: none;
+        }
+
+        .value {
+            width: 50px;
+            height: 20px;
+
+            color: rgba(4, 3, 1, 0.48);
+        }
+
+        .label {
+
+            width: 10rem;
+            padding-right: 5px;
+            text-align: right;
+            height: 1.5rem;
+            color: rgba(4, 3, 1, 0.48);
+
+        }
+
+
+        ul.hor li {
+            display: inline;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 id="title">
+        找室友主页
+    </h1>
+    <div class="container-head">
+
+        <div class="card-container">
+
+            <ul class="hor">
+                <li class="label">当前人数:</li>
+                <li class="value"><input class="" placeholder="1" value="1" id="persion_num" name="persion_num" type="text"></li>
+                <li>人</li>
+            </ul>
+            <ul class="hor">
+                <li  class="label">工作地点:</li>
+                <li class="value"><input class="" id="workplace" placeholder="例如:马连洼西站" value="西二旗地铁" type="text" name="workplace"></li>
+            </ul>
+            <ul class="hor">
+                <li  class="label">期望居住地点:</li>
+                <li class="value"> <input class="" id="checkin_place" placeholder="例如:马连洼西站(详细地址)" value="北京西站" type="text"
+                            name="checkin_place"></li>
+            </ul>
+            <ul class="hor">
+                <li  class="label">  租金不大于:</li>
+                <li>  <input class="" placeholder="2000" type="text" id="money_range" name="money_range"></li>
+            </ul>
+            <ul class="hor">
+                <li>   期望入住日期::</li>
+                <li>
+                    <input size="16" type="text" value="2012-06-15 14:45" readonly class="form_datetime" id="checkin_date">
+                </li>
+            </ul>
+            <ul class="hor">
+                <li>  性别:</li>
+                <li> <input class="" placeholder="例如:男" type="text" value="无" id="current_gender"
+                            name="current_gender"></li>
+            </ul>
+            <ul class="hor">
+                <li>  希望室友性别:</li>
+                <li>  <input class="" placeholder="例如:男" type="text" value="无" id="other_gender" name="other_gender"></li>
+            </ul>
+            <ul class="hor">
+                <li>     邮箱:</li>
+                <li>    <input class="" placeholder="邮箱" type="text" id="call_number" name="call_number"></li>
+
+            </ul>
+            <ul class="hor">
+                <li>    其他信息:</li>
+                <li>           <input class="" placeholder="联系方式/自我介绍/室友要求等等" id="others" type="text" name="others"></li>
+
+            </ul>
+
+
+                <li>
+
+                    <div class="input" style="float: right">
+                        <input type="button" value="确认" onclick="confirm()">
+                    </div>
+                </li>
+            </ul>
+
+
+            <!--<ul>-->
+            <!--<li>hi  hhh </li>-->
+            <!--<li>ss</li>-->
+            <!--</ul>-->
+        </div>
+    </div>
+
+    <div class="container-content">
+
+    </div>
+
+    <div class="container-bottom">
+        bottom
+    </div>
+
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    // 百度地图API功能
+
+    var index = 0;
+    var myGeo = new BMap.Geocoder();
+
+    var address = [];
+    var adds = [];
+
+    function confirm() {
+
+        adds.push($('#workplace').val());
+        adds.push($('#checkin_place').val());
+
+        bdGEO();
+    }
+
+    function bdGEO() {
+        var add = adds.pop();
+        geocodeSearch(add);
+        index++;
+    }
+
+    function geocodeSearch(add) {
+        if (index < adds.length) {
+            setTimeout(window.bdGEO, 400);
+        }
+        myGeo.getPoint(add, function (point) {
+            if (point) {
+//                document.getElementById("result").innerHTML +=  index + "、" + add + ":" + point.lng + "," + point.lat + "</br>";
+//                var address = new BMap.Point(point.lng, point.lat);
+                address.push({lng: point.lng, lat: point.lat});
+                if (address.length == 2) {
+                    alert(address[1]['lat'])
+
+                    var aj = $.ajax({
+                        url: '/hoursefriend/create',// 跳转到 action
+                        type: 'post',
+                        cache: false,
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.code == 0) {
+
+                                $('#')
+                                $('#username').text(data.acountname);
+                                $('#password').text(data.password);
+
+                                $('#myModal').modal('show')
+                            }
+                        },
+                        error: function () {
+                            // view("异常！");
+                            alert("acount 异常！");
+                        }
+
+
+                    });
+                }
+
+            } else {
+                alert(add + ' 地址无效')
+            }
+        }, "北京市");
+    }
+
+</script>

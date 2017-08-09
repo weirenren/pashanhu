@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!---->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!--<script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>-->
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=UpzR4c4VaIwOE7SXhnm7Iy7igT0vq1nD"></script>
+
+
+    <!--<link href="/date-picker/sample%20in%20bootstrap%20v2/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">-->
+    <link href="/date-picker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+    <title>找合租室友
+
+
+    </title>
+
+    <style>
+        body {
+            margin-left: 3rem;
+            margin-right: 3rem;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            word-wrap: break-word;
+            display: block;
+            font-size: 25px;
+            font-weight: bold;
+            color: #494949;
+            margin: 0;
+            padding: 0 0 5px 0;
+            line-height: 1.1;
+        }
+
+        h3 {
+            margin-left: 4px;
+            font: 14px Arial, Helvetica, sans-serif;
+            color: #666666;
+            margin-bottom: 1px;
+            line-height: 1.8;
+            background-color: #f2fbf2;
+        }
+
+        .container {
+
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 7rem;
+            padding-top: 1rem;
+            height: 100%;
+            background-color: #f5dcc8;
+        }
+
+        .container-head {
+            height: 25rem;
+            background-size: cover;
+
+            background-color: rgba(193, 177, 245, 0.48);
+        }
+
+        .container-content {
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #382576;
+
+            position: relative;
+
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            /*width: 100%;*/
+            /*min-width: 300px;*/
+
+            background-color: rgba(253, 253, 255, 0.48);
+
+        }
+
+        .form {
+            background-color: rgba(193, 177, 245, 0.48);
+            width: 400px;
+            min-height: 650px;
+        }
+
+        .card-wraper {
+            margin: 5px;
+            width: 300px;
+            height: 450px;
+            border-radius: 20px;
+            border: solid #d9d7d7;
+            border-width: 2px;
+            background-color: rgba(253, 253, 255, 0.98);
+
+        }
+
+        .card-parent {
+            overflow: scroll;
+            width: 700px;
+            height: 1000px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .col-sm-input {
+            width: 250px;
+        }
+
+        ul.hor li {
+            display: inline;
+        }
+
+
+    </style>
+
+    <!--<script>-->
+        <!---->
+<!--//        $(function () {-->
+<!--//            $('#collapseTwo').collapse('hide')-->
+<!--//        });-->
+<!--//        $(function () {-->
+<!--//            $('#collapseTwo').collapse('hide')-->
+<!--//        });-->
+<!--//        $(function () {-->
+<!--//            $('#collapseThree').collapse('hide')-->
+<!--//        });-->
+<!--//        $(function () {-->
+<!--//            $('#collapseOne').collapse('hide')-->
+<!--//        });-->
+
+    <!--</script>-->
+
+    <script type="text/javascript">
+        // 百度地图API功能
+        $(document).ready(function () {
+            $("#title").click(function () {
+                $(".form").toggle(200);
+            });
+        });
+
+        var index = 0;
+        var myGeo = new BMap.Geocoder();
+
+        var address = [];
+        var adds = [];
+
+        function deleteFriend(id) {
+
+            $.confrim({
+                title: '提示!',
+                content: '确认要删除么',
+                confirm: function(){
+
+                    var aj = $.ajax({
+                        url: '/hoursefriend/delete',// 跳转到 action
+                        type: 'post',
+                        data: {
+                            friend_id: id
+                        },
+                        cache: false,
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.code == 0) {
+//
+//                                $('#username').text(data.acountname);
+//                                $('#password').text(data.password);
+
+                                $("div#id").remove();
+
+
+                            } else {
+                                alert(data.msg);
+                            }
+                        },
+                        error: function () {
+                            // view("异常！");
+                            alert("acount 异常！");
+                        }
+
+                    })
+                },
+                cancel: function(){
+
+                }
+            });
+
+
+
+        }
+
+        function confirm() {
+
+            var persion_num = $('#person_num').val();
+            var workplace = $('#workplace').val();
+            var homeplace = $('#checkin_place').val();
+            var money_range = $('#money_range').val();
+            var checkin_date = $('#checkin_date').val();
+
+            var current_gender = $("#current_gender").find("option:selected").attr("value");
+            var other_gender = $("#other_gender").find("option:selected").attr("value");
+            var call_number = $('#call_number').val();
+            var others = $('#others').val();
+
+
+
+            var integer = new RegExp('^[0-9]*$ ');
+
+            if (integer.test(persion_num)) {
+                alert("请输入人数:1-9");
+                return;
+            }
+
+            if (workplace.trim() == '') {
+                alert('请输入工作地点');
+                return;
+            }
+
+            if (homeplace.trim() == '') {
+                alert('请输入居住地点');
+                return;
+            }
+
+            if (checkin_date == '') {
+                alert('请选择日期');
+                return;
+            }
+
+            var email = new RegExp('#^[a-z_0-9.-]{1,64}@([a-z0-9-]{1,200}.){1,5}[a-z]{1,6}$#i');
+            if (email.test(call_number)) {
+                alert('请输入有效邮箱');
+                return;
+            }
+
+            adds.push(workplace);
+            adds.push(homeplace);
+
+
+            bdGEO();
+        }
+
+        function bdGEO() {
+            var add = adds.pop();
+            geocodeSearch(add);
+            index++;
+        }
+
+        function splice(json) {
+            return '\"' + json.split('[')[1].split(']')[0] + '\"';
+        }
+
+        function geocodeSearch(add) {
+            if (index < adds.length) {
+                setTimeout(window.bdGEO, 400);
+            }
+            myGeo.getPoint(add, function (point) {
+                if (point) {
+//                document.getElementById("result").innerHTML +=  index + "、" + add + ":" + point.lng + "," + point.lat + "</br>";
+//                var address = new BMap.Point(point.lng, point.lat);
+                    address.push({address: add, lng: point.lng, lat: point.lat});
+                    if (address.length == 2) {
+
+                        var persion_num = $('#person_num').val();
+                        var workplace = $('#workplace').val();
+                        var homeplace = $('#checkin_place').val();
+                        var money_range = $('#money_range').val();
+                        var checkin_date = $('#checkin_date').val();
+
+                        var current_gender = $("#current_gender").find("option:selected").attr("value");
+
+                        var other_gender = $("#other_gender").find("option:selected").attr("value");
+                        var call_number = $('#call_number').val();
+                        var others = $('#others').val();
+
+
+                        var workplace_geo;
+                        var homeplace_geo;
+                        address.forEach(function (item, index, arr) {
+
+                            if (item.address == workplace) {
+                                workplace_geo = item.lng + '_' + item.lat;
+                            }
+
+                            if (item.address == homeplace) {
+                                homeplace_geo = item.lng + '_' + item.lat;
+                            }
+                        });
+
+                        var aj = $.ajax({
+                            url: '/hoursefriend/create',// 跳转到 action
+                            type: 'post',
+                            data: {
+                                person_num: persion_num,
+                                workplace: workplace,
+                                workplace_geo: workplace_geo,
+                                homeplace_geo: homeplace_geo,
+                                homeplace: homeplace,
+                                money_range: money_range,
+                                checkin_date: checkin_date,
+                                current_gender: current_gender,
+                                other_gender: other_gender,
+                                call_number: call_number,
+                                others: others
+                            },
+                            cache: false,
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data.code == 0) {
+
+                                    alert('success')
+                                    var result = '';
+                                    data.friendlist.forEach(function (item) {
+
+                                        result += '<div class="card-wraper">'
+                                                + '<div class="card">'
+//                                            + '<div class="card-header">'
+//                                            + 'Featured'
+//                                            + '</div>'
+                                                + '<div class="card-block">'
+                                                + '<h4 class="card-title">用户名:' + item.friend.username + '</h4>'
+//                                            + '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card content.</p>'
+                                                + '</div>'
+                                                + '<ul class="list-group list-group-flush">'
+                                                + '<li class="list-group-item">期望租房日期:' + item.friend.checkin_date + '</li>'
+                                                + '<li class="list-group-item">期望居住地点:' + item.friend.homeplace + '</li>'
+
+                                                + '<li class="list-group-item">工作地点:' + item.friend.workplace + '</li>'
+                                                + '<li class="list-group-item">当前人数:' + item.friend.personNum + '</li>'
+                                                + '<li class="list-group-item">本人性别:' + item.friend.gender + '</li>'
+                                                + '<li class="list-group-item">期望租金范围:' + item.friend.money_rang + '</li>'
+                                                + '<li class="list-group-item">期望室友性别:' + item.friend.want_gender + '</li>'
+                                                + '<li class="list-group-item">联系方式:' + item.friend.call_number + '</li>'
+                                                + '<li class="list-group-item">其他信息:' + item.friend.others + '</li>'
+                                                + '</ul>'
+                                                + '<div class="card-block">'
+                                                + '<a href="#" class="card-link">Card link</a>'
+                                                + '<a href="#" class="card-link">Another link</a>'
+                                                + '</div>'
+                                                + '</div>'
+                                                + '</div>'
+                                    });
+
+                                    // 如果没有数据
+//                        }else{
+//                            // 锁定
+//                            me.lock();
+//                            // 无数据
+//                            me.noData();
+//                        }
+                                    $('#container').html('');
+                                    $('#container').append(result);
+
+
+                                    var posts = '';
+
+                                    data.postfriends.forEach(function (item) {
+
+                                        posts +=
+                                                '<div class="panel panel-info" id="' + item._id + '_end">' +
+                                                '<div class="panel-heading">' +
+                                                '<h4 class="panel-title">' +
+                                                '<a data-toggle="collapse" data-parent="#accordion"' +
+                                                'href="#' + item._id + '">' +
+                                                '(租房日期)->' + item.checkin_date + '; (居住地点)->' + item.homeplace + '; (工作地点)->' + item.workplace +
+                                        '</a></h4> </div>' +
+                                        '<div id="' + item._id + '" class="panel-collapse collapse">' +
+                                        '<div class="panel-body">' +
+                                        '<div class="card-wraper">' +
+                                        '<div class="card">' +
+                                        '<ul class="list-group list-group-flush">' +
+                                        '<li class="list-group-item">' +
+                                        '期望租房日期:' + item.checkin_date + ' </li>' +
+                                        '<li class="list-group-item">' +
+                                        '期望居住地点:' + item.homeplace + '</li>' +
+
+                                        '<li class="list-group-item">' +
+                                        '工作地点:' + item.workplace + '</li>' +
+                                        '<li class="list-group-item">' +
+                                        '当前人数:' + item.personNum + '</li>' +
+                                        '<li class="list-group-item">本人性别:' + item.gender + '</li>' +
+                                        '<li class="list-group-item">' +
+                                        '期望租金范围:' + item.money_rang + '</li>' +
+                                        '<li class="list-group-item">' +
+                                        '期望室友性别:' + item.want_gender + '</li>' +
+                                        '<li class="list-group-item">' +
+                                        '联系方式:' + item.call_number + '</li>' +
+                                        '<li class="list-group-item">' +
+                                        '其他信息:' + item.others + ' </li>' +
+                                        '<li class="list-group-item">' +
+                                        '<button class="button button-pill button-primary"' +
+                                        'onclick="deleteFriend(' + item._id +"'_end'"+')">' +
+                                        '删除' +
+                                        '</button>' +
+                                        '</li>' +
+                                        '</ul>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div >'
+
+
+
+                                    })
+
+                                    $('#postdiv').html('');
+                                    $('#postdiv').append(posts);
+
+                                } else {
+                                    alert(data.msg);
+                                }
+                            },
+                            error: function () {
+                                // view("异常！");
+                                alert("acount 异常！");
+                            }
+
+
+                        });
+                    }
+
+                } else {
+                    alert(add + ' 地址无效')
+                }
+            }, "北京市");
+        }
+
+    </script>
+
+
+</head>
+<body>
+
+<div class="container">
+    <h1 id="title">
+        找室友主页
+    </h1>
+    <!--<div class="container-head">-->
+
+    <div class="card-container">
+        <div class="form">
+            提示:登录后才能创建本人找室友信息,进行匹配
+            <div class="panel-group" id="accordion">
+
+                <div id="postdiv">
+                <%postfriends.forEach(function(item){ %>
+
+                <div class="panel panel-info" id="<%=item._id%>_end">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#<%=item._id%>">
+                                (租房日期)-><%= item.checkin_date %>; (居住地点)-><%= item.homeplace %>; (工作地点)-><%= item.workplace %> ...
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="<%=item._id%>" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="card-wraper">
+                                <div class="card">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">期望租房日期:<%= item.checkin_date %> </li>
+                                        <li class="list-group-item">期望居住地点:<%= item.homeplace %></li>
+
+                                        <li class="list-group-item">工作地点:<%= item.workplace %></li>
+                                        <li class="list-group-item">当前人数:<%= item.personNum %></li>
+                                        <li class="list-group-item">本人性别:<%= item.gender %></li>
+                                        <li class="list-group-item">期望租金范围:<%= item.money_rang %></li>
+                                        <li class="list-group-item">期望室友性别:<%= item.want_gender %></li>
+                                        <li class="list-group-item">联系方式:<%= item.call_number %></li>
+                                        <li class="list-group-item">其他信息:<%= item.others %> </li>
+                                        <li class="list-group-item"> <button class="button button-pill button-primary" onclick="deleteFriend(<%=item._id%>+'_end')">删除</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <% }) %>
+                </div>
+                <!--<div class="panel panel-info">-->
+                    <!--<div class="panel-heading">-->
+                        <!--<h4 class="panel-title">-->
+                            <!--<a data-toggle="collapse" data-parent="#accordion"-->
+                               <!--href="#collapseThree">-->
+                                <!--点击我进行展开，再次点击我进行折叠。第 3 部分&#45;&#45;toggle 方法-->
+                            <!--</a>-->
+                        <!--</h4>-->
+                    <!--</div>-->
+                    <!--<div id="collapseThree" class="panel-collapse collapse">-->
+                        <!--<div class="panel-body">-->
+                            <!--Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred-->
+                            <!--nesciunt sapiente ea proident. Ad vegan excepteur butcher vice-->
+                            <!--lomo.-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseFour">
+                                点我->发布本人找房信息
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="form-horizontal" role="form">
+                                <div class="form-group" style="{min-width: 500px}">
+                                    <label class="col-sm-4 control-label">当前人数</label>
+                                    <div class="col-sm-4 col-sm-input">
+                                        <input class="form-control" id="person_num" placeholder="1" value="1"
+                                               name="person_num"
+                                               type="text">
+                                    </div>
+                                    <label class=" ">*</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">工作地点</label>
+                                    <div class="col-sm-4 col-sm-input">
+                                        <input class="form-control" id="workplace" placeholder="例如:马连洼西站" value="西二旗地铁"
+                                               type="text"
+                                               name="workplace">
+                                    </div>
+                                    <label class=" ">*</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">期望居住地点</label>
+                                    <div class="col-sm-4 col-sm-input">
+                                        <input class="form-control" id="checkin_place" placeholder="例如:马连洼西站(详细地址)"
+                                               value="北京西站"
+                                               type="text" name="checkin_place">
+                                    </div>
+                                    <label class=" ">*</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">租金不大于</label>
+                                    <div class="col-sm-4 col-sm-input">
+                                        <input class="form-control" id="money_range" placeholder="2000" type="text"
+                                               name="money_range">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">选择入住日期</label>
+                                    <div class="col-sm-4 col-sm-input">
+                                        <input size="16" type="text" value="" readonly
+                                               class="form_datetime form-control" id="checkin_date">
+                                    </div>
+                                    <label class=" ">*</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">本人性别</label>
+                                    <div class="col-sm-4 col-sm-input">
+                                        <select class="form-control" name="current_gender" id="current_gender">
+                                            <option value="男">男</option>
+                                            <option value="女">女</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">室友要求性别</label>
+                                    <div class="col-sm-4 col-sm-input">
+                                        <select class="form-control" name="other_gender" id="other_gender">
+                                            <option value="男">男</option>
+                                            <option value="女">女</option>
+                                            <option value="无" selected="true">无</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">邮箱</label>
+                                    <div class="col-sm-4 col-sm-input">
+                                        <input class="form-control" id="call_number" placeholder="邮箱" type="text"
+                                               name="call_number">
+                                    </div>
+                                    <label class=" ">*</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">其他信息</label>
+                                    <div class="col-sm-4 col-sm-input">
+                        <textarea class="form-control" id="others" rows="3" placeholder="联系方式/自我介绍/室友要求等等" type="text"
+                                  name="others"></textarea>
+                                        <!--<input class="form-control" id="focusedInput" placeholder="联系方式/自我介绍/室友要求等等" type="text"-->
+                                        <!--name="others">-->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-20">
+                                        <button type="button" class="btn btn-default " id="submit" onclick="confirm()">
+                                            提交
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-parent" id="container">
+
+            <% friendlist.forEach(function(item){ %>
+
+            <div class="card-wraper">
+                <div class="card">
+
+                    <div class="card-block">
+                        <h4 class="card-title">用户名: <%= item.username %></h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">期望租房日期:<%= item.checkin_date %> </li>
+                        <li class="list-group-item">期望居住地点:<%= item.homeplace %></li>
+
+                        <li class="list-group-item">工作地点:<%= item.workplace %></li>
+                        <li class="list-group-item">当前人数:<%= item.personNum %></li>
+                        <li class="list-group-item">本人性别:<%= item.gender %></li>
+                        <li class="list-group-item">期望租金范围:<%= item.money_rang %></li>
+                        <li class="list-group-item">期望室友性别:<%= item.want_gender %></li>
+                        <li class="list-group-item">联系方式:<%= item.call_number %></li>
+                        <li class="list-group-item">其他信息:<%= item.others %> </li>
+                    </ul>
+                </div>
+            </div>
+
+            <% }) %>
+        </div>
+
+        <div class="container-content">
+
+        </div>
+
+        <div class="container-bottom">
+            bottom
+        </div>
+    </div>
+</div>
+
+
+<!--<script type="text/javascript" src="/date-picker/sample%20in%20bootstrap%20v2/jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>-->
+<!--<script type="text/javascript" src="/date-picker/sample%20in%20bootstrap%20v2/bootstrap/js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="/date-picker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/date-picker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        minView: 2,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+        format: 'yyyy-mm-dd'
+    });
+
+</script>
+
+
+
+
+</body>
+</html>
