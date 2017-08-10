@@ -10,17 +10,17 @@
     <script>
         function home() {
             var frameid = document.getElementById("home");
-            frameid.src = "<%=settings.server_host%>/home";
+            frameid.src = "<%=global.server_host%>/home";
         }
 
         function find_parter(){
             var frameid = document.getElementById("home");
-            frameid.src = "<%=settings.server_host%>/friendfinder/find";
+            frameid.src = "<%=global.server_host%>/friendfinder/find";
         }
 
         function login() {
             var frameid = document.getElementById("home");
-            frameid.src = "<%=settings.server_host%>/login";
+            frameid.src = "<%=global.server_host%>/login";
         }
 
         $(function() {
@@ -66,27 +66,27 @@
                 <%}else{%>
                 <li><a href="#" onclick="login()">登录/注册</a> </li>
                 <%}%>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Java <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">jmeter</a></li>
-                        <li><a href="#">EJB</a></li>
-                        <li><a href="#">Jasper Report</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">分离的链接</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">另一个分离的链接</a></li>
-                    </ul>
-                </li>
+                <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                        <!--Java <b class="caret"></b>-->
+                    <!--</a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li><a href="#">jmeter</a></li>-->
+                        <!--<li><a href="#">EJB</a></li>-->
+                        <!--<li><a href="#">Jasper Report</a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <!--<li><a href="#">分离的链接</a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <!--<li><a href="#">另一个分离的链接</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
             </ul>
         </div>
     </div>
 </nav>
 
 <div style="width: 100%; height: 100%;margin-top: -15px">
-    <iframe id="home" src="<%=settings.server_host%>/home" frameborder="0.1" width="100%" height="100%"></iframe>
+    <iframe id="home" src="<%=global.server_host%>/home" frameborder="0.1" width="100%" height="100%"></iframe>
     <!--<br>-->
     <!--<iframe id="findfrend" src="https://my.oschina.net/lgscofield/blog/471162" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>-->
 
