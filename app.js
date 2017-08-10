@@ -54,7 +54,8 @@ var esClient = new elasticsearch.Client({
 
 //noinspection BadExpressionStatementJS
 
-global.server_host = "http://127.0.0.1:3000";
+app.locals.server_host = "http://127.0.0.1:3000";
+
 //用户点击注册按钮
 app.post('/reg', function (req, res) {
     //if(req.body['password']!= req.body['passwordconf']){
@@ -641,7 +642,8 @@ app.get('/', function (req, res) {
 
     res.render('launch', {
         isLogined: req.session.isLogined,
-        username: req.session.username || ''
+        username: req.session.username || '',
+        server_host: 'http://127.0.0.1:3000'
     });
 });
 

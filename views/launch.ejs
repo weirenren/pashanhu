@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Bootstrap 实例 - 倒置的导航栏</title>
@@ -7,21 +7,21 @@
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <style>
+        html,body{
+            margin: 0;
+            height: 100%;
+        }
+        /*#bg{*/
+        /*width:100%;*/
+        /*height:100%;*/
+        /*MARGIN: 0px auto;*/
+        /*background-color:blue;*/
+        /*}*/
+    </style>
+
     <script>
-        function home() {
-            var frameid = document.getElementById("home");
-            frameid.src = "<%=global.server_host%>/home";
-        }
 
-        function find_parter(){
-            var frameid = document.getElementById("home");
-            frameid.src = "<%=global.server_host%>/friendfinder/find";
-        }
-
-        function login() {
-            var frameid = document.getElementById("home");
-            frameid.src = "<%=global.server_host%>/login";
-        }
 
         $(function() {
 //            $("h1").animate({
@@ -35,22 +35,27 @@
 
         });
 
+        function home() {
+            var frameid = document.getElementById("home");
+
+            frameid.src = '<%=server_host%>' + "/home";
+        }
+
+        function findparter(){
+            var frameid = document.getElementById("home");
+
+            frameid.src = '<%=server_host%>' + "/friendfinder/find";
+        }
+
+        function login() {
+            var frameid = document.getElementById("home");
+            frameid.src = '<%=server_host%>' + "/login";
+        }
     </script>
 
-    <style>
-        html,body{
-            margin: 0;
-            height: 100%;
-        }
-        /*#bg{*/
-            /*width:100%;*/
-            /*height:100%;*/
-            /*MARGIN: 0px auto;*/
-            /*background-color:blue;*/
-        /*}*/
-    </style>
+
 </head>
-<body>
+<body onload="home()">
 
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
@@ -60,7 +65,7 @@
         <div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#" onclick="home()">租房</a></li>
-                <li><a href="#" onclick="find_parter()">舍友</a></li>
+                <li><a href="#" onclick="findparter()">舍友</a></li>
                 <%if(isLogined == true){%>
                 <li><a href="#" onclick="">个人主页</a> </li>
                 <%}else{%>
@@ -86,7 +91,7 @@
 </nav>
 
 <div style="width: 100%; height: 100%;margin-top: -15px">
-    <iframe id="home" src="<%=global.server_host%>/home" frameborder="0.1" width="100%" height="100%"></iframe>
+    <iframe id="home" src="" frameborder="0.1" width="100%" height="100%"></iframe>
     <!--<br>-->
     <!--<iframe id="findfrend" src="https://my.oschina.net/lgscofield/blog/471162" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>-->
 
