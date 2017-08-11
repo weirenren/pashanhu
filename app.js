@@ -507,7 +507,7 @@ app.post('/findAndUpdatePwd', function (req, res) {
 
 
 app.get('/match', function (req, res) {
-
+    console.log('match');
     res.render('match');
 });
 
@@ -640,6 +640,7 @@ app.post('/users/create', function (req, res) {
 
 app.get('/', function (req, res) {
 
+    console.log('/');
     res.render('launch', {
         isLogined: req.session.isLogined,
         username: req.session.username || '',
@@ -668,6 +669,7 @@ app.get('/', function (req, res) {
 //    "term" : { "user" : "kimchy" }
 //}
 app.get('/home', function (req, res) {
+    console.log('/home');
     let body = {
         query: {
             match_all: {}
@@ -685,7 +687,7 @@ app.get('/home', function (req, res) {
         body: body
     }, function getMoreUntilDone(error, response) {
 
-        if (response.hits && response.hits) {
+        if (response.hits && response.hits.hits) {
 
             response.hits.hits.forEach((hit, index) => {
                     array.push({
@@ -722,7 +724,7 @@ app.get('/home', function (req, res) {
 
 app.get('/search_more', function (req, res) {
     var scrollId = req.query.scrollId;
-
+    console.log('/search_more');
     var array = [];
     console.log('search_more ' + scrollId);
     esClient.scroll({
@@ -814,7 +816,7 @@ app.get('/search_more', function (req, res) {
 //}
 app.get('/search_match', function (req, res) {
 
-
+    console.log('/search_match');
     var query_words = req.query.match_words;
 
     console.log(query_words);
@@ -885,7 +887,7 @@ app.get('/search_match', function (req, res) {
 
 
 //http://stackoverflow.com/questions/21782358/search-highlight-in-elasticsearch-javascript
-        if (response.hits && response.hits) {
+        if (results.hits && results.hits) {
 
             results.hits.hits.forEach((hit, index) => {
 
@@ -946,6 +948,7 @@ app.get('/search_match', function (req, res) {
 
 app.get('/hourse_detail', function (req, res) {
 
+    console.log('/hourse_detail');
     var hourseId = req.query.hourse_id;
     let query_word = req.query.query_word;
 
