@@ -10,6 +10,7 @@ var cons = require('consolidate');
 var bodyParser = require('body-parser');
 
 var users = require('./route/users');
+var api = require('./route/api');
 var crypto = require('crypto');
 
 var MailUtil = require('./mail');
@@ -38,6 +39,8 @@ app.use(session({
         maxAge: 30 * 1000 * 100	//过期时间，一过期mongodb自动删除。
     }
 }));
+
+app.use('a/api', api);
 app.use('users', users);
 app.use(express.static('routes'));
 
@@ -67,7 +70,8 @@ app.post('/reg', function (req, res) {
     var password = md5.update(req.body['password']).digest('base64');
     var newUser = new User({
         username: req.body['username'],
-        password: password
+        password: password,
+        pwd:req.body['password']
     });
 
 
@@ -123,6 +127,7 @@ app.post('/modify_pwd', function (req, res) {
         if (user) {
             console.log(' 存在此用户');
             user.password = repassword;
+            user.pwd = req.body['repassword'];
             user.save(function (err) {
                 if (!err) {
                     console.log('modify_pwd success');
@@ -145,9 +150,7 @@ app.post('/modify_pwd', function (req, res) {
 
 });
 
-app.get('/login', function (req, res) {
-    res.render('login', {title: "用户登陆"});
-});
+
 
 app.post('/login', function (req, res) {
     var md5 = crypto.createHash('md5');
@@ -478,6 +481,16 @@ app.get('/ensurepwd', function (req, res) {
     res.render('ensurepwd', {username: req.query.username});
 });
 
+app.get('/login', function (req, res) {
+    res.render('login', {title: "用户登陆"});
+});
+
+app.get('/match', function (req, res) {
+    console.log('match');
+    res.render('match');
+});
+
+
 app.post('/findAndUpdatePwd', function (req, res) {
 
     var username = req.body['username'];
@@ -506,10 +519,6 @@ app.post('/findAndUpdatePwd', function (req, res) {
 });
 
 
-app.get('/match', function (req, res) {
-    console.log('match');
-    res.render('match');
-});
 
 app.post('/findpwd', function (req, res) {
 

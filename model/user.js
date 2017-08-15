@@ -6,6 +6,7 @@ var mongoose=require('../db').mongoose;
 var schema=new mongoose.Schema({
     username:String,
     password:String,
+    pwd:String, //明文
     gender:String, // 男;女
     date:Date
 });
