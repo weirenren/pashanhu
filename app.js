@@ -40,7 +40,7 @@ app.use(session({
     }
 }));
 
-app.use('a/api', api);
+app.use('/a/api', api);
 app.use('users', users);
 app.use(express.static('routes'));
 
@@ -75,7 +75,9 @@ app.post('/reg', function (req, res) {
     });
 
 
+    console.log(newUser);
     User.findOne({username: newUser.username}, function (err, user) {
+
         if (user) {
             err = "用户名已经存在";
             return res.json({
@@ -155,10 +157,11 @@ app.post('/modify_pwd', function (req, res) {
 app.post('/login', function (req, res) {
     var md5 = crypto.createHash('md5');
 
+    console.log('login');
     var password = md5.update(req.body['password']).digest('base64');
     User.findOne({username: req.body['username']}, function (err, user) {
-
-        if (!user) {
+        console.log('login:' + user);
+        if (!user.username) {
             err = "用户不存在";
             return res.json({
                 msg: err,

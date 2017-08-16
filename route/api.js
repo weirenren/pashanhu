@@ -7,7 +7,7 @@ var User = require('../model/user');
 var Util = require('../util');
 let Settings = require('../settings');
 var AppUserInfo = require('../model/appUserInfo');
-
+var crypto = require('crypto');
 
 router.get('/checkversion', function (req, res) {
 
@@ -44,8 +44,8 @@ router.get('/checkversion', function (req, res) {
 //用户点击注册按钮
 router.post('/register', function (req, res) {
 
+    console.log('register');
     let username = req.body['username'];
-    let password = req.body['password'];
     let deviceid = req.body['deviceid'];
 
     var md5 = crypto.createHash('md5');
@@ -68,7 +68,7 @@ router.post('/register', function (req, res) {
                 code: -1
             });
         }
-        newUser.save(function (err) {
+        newUser.save(function (err, u) {
             if (err) {
                 return res.json({
                     msg: '内部错误',
@@ -78,22 +78,23 @@ router.post('/register', function (req, res) {
 
             let app = new AppUserInfo();
             app.deviceid = deviceid;
-            app.save(function (e, a) {
-
+            app.username = u.username;
+            app.save(function (e,a) {
 
                 if (a) {
-                    console.log('注册成功' + user);
+                    console.log('注册成功' + a);
                     let tokendata = {
-                        id: user._id,
-                        username: user.username
+                        id: u._id,
+                        username: u.username,
+                        deviceid: deviceid
                     };
-                    let token = Util.genToken(tokendata + deviceid);;
+                    let token = Util.genToken(tokendata);
                     return res.json({
                         msg: '注册成功',
                         code: 0,
                         data: {
-                            id: user._id,
-                            username: user.username,
+                            id: u._id,
+                            username: u.username,
                             token: token
                         }
                     });
@@ -105,6 +106,7 @@ router.post('/register', function (req, res) {
 });
 
 router.post('/payshadow', function (req, res) {
+    console.log('payshadow');
     let username = req.body['username'];
     let password = req.body['password'];
     let deviceid = req.body['deviceid'];
@@ -133,44 +135,49 @@ router.post('/payshadow', function (req, res) {
             });
         }
 
-        let vipuser = new AppUserInfo();
 
-        vipuser.viplevel = viplevel;
-        vipuser.deadline = 30;
-        vipuser.username = username;
-        vipuser.deviceid = deviceid;
+        AppUserInfo.findOne({username: username}, function(err, vipuser) {
 
-        vipuser.save(function (err, vip) {
+            if(vipuser) {
+                vipuser.viplevel = viplevel;
+                vipuser.deadline = 30;
+                vipuser.username = username;
+                vipuser.deviceid = deviceid;
 
-            let token;
-            if (vip) {
+                vipuser.save(function(err, vip) {
 
-                let tokendata = {
-                    id: user._id,
-                    username: user.username
-                };
+                    if (vip) {
 
-                token = Util.genToken(tokendata + deviceid);
-                return res.json({
-                    msg: '支付成功',
-                    code: 0,
-                    data: {
-                        id: user._id,
-                        username: user.username,
-                        token: token,
-                        deadline: vipuser.deadline,
-                        shadow:''
+                        let tokendata = {
+                            id: user._id,
+                            username: user.username,
+                            deviceid:deviceid
+                        };
+
+                        let token = Util.genToken(tokendata);
+                        return res.json({
+                            msg: '支付成功',
+                            code: 0,
+                            data: {
+                                id: user._id,
+                                username: user.username,
+                                token: token,
+                                deadline: vipuser.deadline,
+                                shadow:''
+                            }
+                        });
                     }
-                });
-            }
 
-            if (err) {
-                return res.json({
-                    msg: '内部错误',
-                    code: -1
+                    if (err) {
+                        return res.json({
+                            msg: '内部错误',
+                            code: -1
+                        });
+                    }
+
                 });
             }
-        })
+        });
 
     });
 
@@ -190,6 +197,7 @@ router.post('/login', function (req, res) {
     let deviceid = req.body['deviceid'];
     User.findOne({username: username}, function (err, user) {
 
+        console.log('User.findOne' + user);
         if (!user) {
             err = "用户不存在";
             return res.json({
@@ -211,7 +219,7 @@ router.post('/login', function (req, res) {
             });
         }
 
-        AppUserInfo.findOne({username:username}, function (err, u){
+        AppUserInfo.findOne({username:username}, function (err, a){
 
             if (err) {
                 return res.json({
@@ -222,28 +230,30 @@ router.post('/login', function (req, res) {
 
             let tokendata = {
                 id: user._id,
-                username: user.username
+                username: user.username,
+                deviceid: deviceid
             };
             let token;
 
-            if (u) {
+            console.log(a);
+            if (a) {
 
-                if (u.deviceid !== deviceid) {
+                if (a.deviceid !== deviceid) {
                     return res.json({
                         msg: '请用注册的手机登录账号',
                         code: -1001
                     });
                 } else {
 
-                    token = Util.genToken(tokendata + u.deviceid);
+                    token = Util.genToken(tokendata);
                     return res.json({
                         msg: '登录成功',
                         code: 0,
                         data: {
                             id: user._id,
-                            username: u.username,
+                            username: a.username,
                             token: token,
-                            deadline: u.deadline,
+                            deadline: a.deadline,
                             shadow:''
                         }
                     });
@@ -252,12 +262,13 @@ router.post('/login', function (req, res) {
             } else {
                 token = Util.genToken(tokendata);
 
+
                 return res.json({
                     msg: '登录成功',
                     code: 0,
                     data: {
                         id: user._id,
-                        username: u.username,
+                        username: user.username,
                         token: token
                     }
                 });
