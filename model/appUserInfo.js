@@ -6,7 +6,7 @@ var schema = new mongoose.Schema({
     username: String,
     deadline: Number, // 剩余天数
     deviceid: String,
-    viplevel: Number
+    viplevel: {type:Number, default: 0} // 0代码没有购买会员
 });
 var User = mongoose.model('App_User_Info', schema);
 module.exports = User;

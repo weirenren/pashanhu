@@ -44,6 +44,9 @@ router.get('/checkversion', function (req, res) {
 //用户点击注册按钮
 router.post('/register', function (req, res) {
 
+    let username = req.body['username'];
+    let password = req.body['password'];
+    let deviceid = req.body['deviceid'];
 
     var md5 = crypto.createHash('md5');
     var password = md5.update(req.body['password']).digest('base64');
@@ -73,18 +76,25 @@ router.post('/register', function (req, res) {
                 });
             }
 
-            AppUserInfo.save(function (e) {
+            let app = new AppUserInfo();
+            app.deviceid = deviceid;
+            app.save(function (e, a) {
 
-                if (e) {
+
+                if (a) {
+                    console.log('注册成功' + user);
+                    let tokendata = {
+                        id: user._id,
+                        username: user.username
+                    };
+                    let token = Util.genToken(tokendata + deviceid);;
                     return res.json({
-                        msg: '登录成功',
+                        msg: '注册成功',
                         code: 0,
                         data: {
-                            id: u._id,
-                            username: u.username,
-                            token: token,
-                            deadline: u.deadline,
-                            shadow:''
+                            id: user._id,
+                            username: user.username,
+                            token: token
                         }
                     });
                 }
