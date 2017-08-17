@@ -8,7 +8,7 @@ var schema = new mongoose.Schema({
     deviceid: String,
     date: Date, // 激活日期
     qrcode: String,
-    vipcode: {type:String, default: ''} // 0代码没有购买会员
+    vipcode: {type:String, default: 'null'} // 0代码没有购买会员
 });
 var User = mongoose.model('app_user_info', schema);
 module.exports = User;
