@@ -314,7 +314,7 @@ router.post('/login', function (req, res) {
 
                     token = Util.genToken(tokendata);
                     let days;
-                    if (a.qrcode == 'null') {
+                    if (a.qrcode.length == 0) {
                         days = -1;
                     } else {
                         days = a.time - Util.getDays(a.date, new Date());
