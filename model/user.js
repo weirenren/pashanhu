@@ -10,5 +10,5 @@ var schema=new mongoose.Schema({
     gender:String, // 男;女
     date:Date
 });
-var User=mongoose.model('User',schema);
+var User=mongoose.model('user',schema);
 module.exports=User;

@@ -4,6 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../model/user');
+var Vip = require('../model/vip');
 var Util = require('../util');
 let Settings = require('../settings');
 var AppUserInfo = require('../model/appUserInfo');
@@ -105,12 +106,48 @@ router.post('/register', function (req, res) {
     });
 });
 
+//vipcode: String, // 激活码
+//    qrcode: String, // 二维码
+//    time: 10, // 剩余天数
+router.post('/addshadow', function(req, res){
+
+    console.log('addshadow');
+    let vipcode = req.body['vipcode'];
+    let qrcode = req.body['qrcode'];
+    let time = req.body['time'];
+    Vip.findOne({vipcode: vipcode}, function(err, vip) {
+
+        if (vip) {
+            return res.json({
+                msg: '添加失败,激活码:' +vipcode+ ' 已存在',
+                code: -2
+            });
+        }
+
+        let newVip = new Vip();
+        newVip.vipcode = vipcode;
+        newVip.qrcode = qrcode;
+        newVip.time = time;
+
+        newVip.save(function(err, v){
+            if (v) {
+                console.log('addshadow-> success:' + v);
+                return res.json({
+                    msg: '添加成功',
+                    vip: v,
+                    code: 0
+                });
+            }
+        });
+    });
+});
 router.post('/payshadow', function (req, res) {
     console.log('payshadow');
     let username = req.body['username'];
     let password = req.body['password'];
     let deviceid = req.body['deviceid'];
-    let viplevel = req.body['viplevel'];
+    //let viplevel = req.body['viplevel'];
+    let vipcode = req.body['vipcode']; // vip激活码
 
     User.findOne({username: username}, function (err, user) {
 
@@ -135,52 +172,82 @@ router.post('/payshadow', function (req, res) {
             });
         }
 
+        Vip.findOne({vipcode: vipcode}, function(err, v){
 
-        AppUserInfo.findOne({username: username}, function(err, vipuser) {
+            if (v) {
+                if (v.payed !== true) {
 
-            if(vipuser) {
-                vipuser.viplevel = viplevel;
-                vipuser.deadline = 30;
-                vipuser.username = username;
-                vipuser.deviceid = deviceid;
+                    AppUserInfo.findOne({username: username}, function(err, vipuser) {
 
-                vipuser.save(function(err, vip) {
+                        vipuser.date = new Date();
+                        vipuser.vipcode = v.vipcode;
+                        vipuser.qrcode = v.qrcode;
+                        vipuser.time = v.time;
 
-                    if (vip) {
+                        if (vipuser.deviceid !== deviceid) {
+                            return res.json({
+                                msg: '请用注册的手机登录账号',
+                                code: -1001
+                            });
+                        }
 
-                        let tokendata = {
-                            id: user._id,
-                            username: user.username,
-                            deviceid:deviceid
-                        };
+                        vipuser.save(function(err, vu) {
 
-                        let token = Util.genToken(tokendata);
-                        return res.json({
-                            msg: '支付成功',
-                            code: 0,
-                            data: {
-                                id: user._id,
-                                username: user.username,
-                                token: token,
-                                deadline: vipuser.deadline,
-                                shadow:''
+                            if (vu) {
+
+                                let tokendata = {
+                                    id: vu._id,
+                                    username: vu.username,
+                                    deviceid:deviceid
+                                };
+
+                                let token = Util.genToken(tokendata);
+
+                                return res.json({
+                                    msg: '支付成功',
+                                    code: 0,
+                                    data: {
+                                        id: vu._id,
+                                        username: vu.username,
+                                        token: token,
+                                        deadline: v.time,
+                                        shadow: v.qrcode
+                                    }
+                                });
                             }
-                        });
-                    }
 
-                    if (err) {
-                        return res.json({
-                            msg: '内部错误',
-                            code: -1
-                        });
-                    }
+                            if (err) {
+                                return res.json({
+                                    msg: '内部错误',
+                                    code: -1
+                                });
+                            }
+                        })
 
+                        v.date = new Date();
+                        v.payed = true;
+                        v.save();
+
+                    });
+
+
+
+                } else {
+                    return res.json({
+                        msg: '已经被激活',
+                        code: 1
+                    });
+                }
+            }else {
+                return res.json({
+                    msg: '此激活码无效',
+                    code: 1
                 });
             }
-        });
+        })
+
 
     });
-
 
 })
 //router.post('/users/create', isLogin);
@@ -246,6 +313,8 @@ router.post('/login', function (req, res) {
                 } else {
 
                     token = Util.genToken(tokendata);
+
+                    let days = a.time - Util.getDays(a.date, new Date());
                     return res.json({
                         msg: '登录成功',
                         code: 0,
@@ -253,8 +322,8 @@ router.post('/login', function (req, res) {
                             id: user._id,
                             username: a.username,
                             token: token,
-                            deadline: a.deadline,
-                            shadow:''
+                            deadline: days,
+                            shadow: a.qrcode
                         }
                     });
 

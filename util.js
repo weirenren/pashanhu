@@ -145,6 +145,12 @@ util.getDays = function(sDate1,  sDate2){
 	console.log('getDays:' + iDays + ' -> ' + oDate1 + ' ' +oDate2);
 	return  iDays;
 }
+
+util.minusDays = function(sDate1, sDate2) {
+	var days = parseInt((oDate1  -  oDate2)  /  1000  /  60  /  60  /24);
+
+	return days > 0 ? days : -days;
+}
 //使用
 function  btnCount_Click(){
 	//s1  =  "2002-1-10";

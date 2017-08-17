@@ -4,9 +4,11 @@
 var mongoose = require('../db').mongoose;
 var schema = new mongoose.Schema({
     username: String,
-    deadline: Number, // 剩余天数
+    time: Number, // 会员天数
     deviceid: String,
-    viplevel: {type:Number, default: 0} // 0代码没有购买会员
+    date: Date, // 激活日期
+    qrcode: String,
+    vipcode: {type:String, default: ''} // 0代码没有购买会员
 });
-var User = mongoose.model('App_User_Info', schema);
+var User = mongoose.model('app_user_info', schema);
 module.exports = User;

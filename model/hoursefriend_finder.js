@@ -17,7 +17,7 @@ var schema=new mongoose.Schema({
     others:String,//微信/QQ/个人介绍等等
     is_done:{type : Boolean, default: true} //任务进行中
 });
-var FriendFinder=mongoose.model('Friend_Finder',schema);
+var FriendFinder=mongoose.model('friend_finder',schema);
 module.exports=FriendFinder;
 
 
