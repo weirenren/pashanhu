@@ -313,8 +313,12 @@ router.post('/login', function (req, res) {
                 } else {
 
                     token = Util.genToken(tokendata);
-
-                    let days = a.time - Util.getDays(a.date, new Date());
+                    let days;
+                    if (a.qrcode === '') {
+                        days = -1;
+                    } else {
+                        days = a.time - Util.getDays(a.date, new Date());
+                    }
                     return res.json({
                         msg: '登录成功',
                         code: 0,
