@@ -8,6 +8,7 @@ var Vip = require('../model/vip');
 var Util = require('../util');
 let Settings = require('../settings');
 var AppUserInfo = require('../model/appUserInfo');
+var Service = require('../model/service');
 var crypto = require('crypto');
 
 router.get('/checkversion', function (req, res) {
@@ -140,6 +141,22 @@ router.post('/addshadow', function(req, res){
             }
         });
     });
+});
+
+router.get('/services', function (req, res) {
+
+    console.log('/services');
+
+    Service.find({}, function(err, services) {
+
+        console.log(services);
+        return res.json({
+            msg: 'success',
+            code: 0,
+            data: services
+        });
+    });
+
 });
 router.post('/payshadow', function (req, res) {
     console.log('payshadow');
@@ -353,10 +370,6 @@ router.post('/login', function (req, res) {
 
 
 });
-
-
-
-
 
 function isLogin(req, res, next) {
     if (!req.session.user) {

@@ -1,7 +1,7 @@
 /**
  * Created by chaowei on 2017/5/15.
  */
-var express = require('express')
+var express = require('express');
 var app = express();
 var session = require("express-session");
 var path = require('path');
