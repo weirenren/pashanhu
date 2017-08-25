@@ -197,7 +197,7 @@ router.post('/updatevip', function (req, res) {
     let time = req.body['time'];
     let payed = req.body['payed'];
 
-    Vip.findOneAndUpdate({_id : id}, {$set: {vipcode: vipcode, qrcode: qrcode, time: time, payed: payed === '0'}},{new: true}, (err, v) => {
+    Vip.findOneAndUpdate({_id : id}, {$set: {vipcode: vipcode, qrcode: qrcode, time: time, payed: payed === 'true'}},{new: true}, (err, v) => {
         if (v) {
             return res.json({
                 msg: '修改成功',
