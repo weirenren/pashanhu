@@ -51,7 +51,7 @@ router.post('/login',function(req,res){
             return res.redirect('/login');
         }
 
-        if(user.is_used == true){
+        if(user.is_used === true){
             req.session.error="用户不能重复登录";
             return res.redirect('/login');
         }

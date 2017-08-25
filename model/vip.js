@@ -6,7 +6,6 @@ var schema = new mongoose.Schema({
     vipcode: String, // 激活码
     qrcode: String, // 二维码
     time: Number, // 剩余天数
-    date:Date, // 激活时间
     payed:{type : Boolean, default: false} //任务进行中 // 0代码没有购买会员
 });
 var User = mongoose.model('vip', schema);
