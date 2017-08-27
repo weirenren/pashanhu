@@ -109,7 +109,8 @@ function initServices() {
 
         let sexyvideo = new Service({
             title:'午夜空间',
-            url:'http://18sexyasians.com/'
+            url:'http://18sexyasians.com/',
+            type: 1
         })
 
         sexyvideo.save();
