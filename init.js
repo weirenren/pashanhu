@@ -109,9 +109,9 @@ function initServices() {
 
         let sexyvideo = new Service({
             title:'午夜空间',
-            url:'http://18sexyasians.com/',
+            url:'https://www.xnxx.com/?k=chinese',
             type: 1
-        })
+        });
 
         sexyvideo.save();
 
