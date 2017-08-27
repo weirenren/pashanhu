@@ -23,9 +23,9 @@ router.get('/checkversion', function (req, res) {
             code:0,
             data :{
                 vcode: Settings.apkVersionCode,
-                changelog:'',
-                downurl: '',
-                vname:''
+                changelog: Settings.changelog,
+                downurl: Settings.downurl,
+                vname: Settings.vname
             }
 
         })
@@ -34,9 +34,9 @@ router.get('/checkversion', function (req, res) {
             code:0,
             data :{
                 vcode: Settings.apkVersionCode,
-                changelog:'',
-                downurl: '',
-                vname:''
+                changelog: Settings.changelog,
+                downurl: Settings.downurl,
+                vname: Settings.vname
             }
         })
     }
@@ -232,7 +232,6 @@ router.get('/services', function (req, res) {
     });
 
 });
-
 router.post('/payshadow', function (req, res) {
     console.log('payshadow');
     let username = req.body['username'];
@@ -339,6 +338,15 @@ router.post('/payshadow', function (req, res) {
     });
 
 });
+
+router.post('/downloadapkurl', function (req, res) {
+    return res.json({
+        code: 0,
+        data: {
+            downurl: ''
+        }
+    });
+}) 
 //router.post('/users/create', isLogin);
 router.post('/login', function (req, res) {
 

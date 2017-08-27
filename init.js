@@ -87,7 +87,28 @@ function initServices() {
         title: '欧美大片',
         url: 'https://www.youtube.com/watch?v=832nC2tf5YQ',
         type: 1
-    })
+    });
+
     oumei.save();
+
+
+    let rentiyishu = new Service({
+        title: '人体艺术',
+        url: 'http://www.hkrenti.com/'
+    });
+    rentiyishu.save();
+
+    let korealive = new Service({
+        title: '韩国美女直播',
+        url: 'http://m.afreecatv.com/#/home'
+    });
+    korealive.save();
+
+    let sexyvideo = new Service({
+        title:'午夜空间',
+        url:'http://18sexyasians.com/'
+    })
+
+    sexyvideo.save();
 
 }
