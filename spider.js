@@ -603,7 +603,7 @@ function randomNum(minNum, maxNum) {
 
 Promise.resolve()
     //.then(test)
-    .then(dropIndex)
+//    .then(dropIndex)
     .then(initIndex)
     .then(init)
     .then(doCratch)
