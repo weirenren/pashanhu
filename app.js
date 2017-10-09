@@ -9,6 +9,9 @@ var cons = require('consolidate');
 
 var bodyParser = require('body-parser');
 
+var fs = require('fs');
+var OCR = require('./ocr');
+
 var users = require('./route/users');
 var api = require('./route/api');
 var crypto = require('crypto');
@@ -58,6 +61,63 @@ var esClient = new elasticsearch.Client({
 //noinspection BadExpressionStatementJS
 
 app.locals.server_host = "http://127.0.0.1:3000";
+
+var multer  = require('multer');
+
+var uploadDir = './public/apppay/upload/';
+
+var upload = multer({dest: uploadDir}).single('logo');
+
+// 单图上传
+app.post('/a/api/upload', function(req, res, next){
+
+    //文件上传
+    upload(req, res, function(err){
+        if(err){
+            console.error(err.message);
+        }else{
+            //获取文件的名称，然后拼接成将来要存储的文件路径
+            var des_file= uploadDir+req.file.originalname;
+
+            console.error('dest file:' + des_file);
+            //读取临时文件
+            fs.readFile(req.file.path,function(err,data){
+                //将data写入文件中，写一个新的文件
+                fs.writeFile(des_file,data,function(err){
+                    if(err){
+                        console.error(err.message);
+                    }else{
+                        var reponse={
+                            message:'File uploaded successfully',
+                            filename:req.file.originalname
+                        };
+                        //删除临时文件
+                        fs.unlink(req.file.path,function(err){
+                            if(err){
+                                console.error(err.message);
+                            }else{
+                                console.log('delete '+req.file.path+' successfully!');
+                            }
+                        });
+                    }
+
+                    OCR.ocr(des_file, function(words) {
+                        var json = JSON.parse(words);
+
+
+                        json['words_result'].forEach((item) => {
+                            console.log(item['words']);
+                        });
+                        //console.log('ocr words:' + words);
+                    });
+                    res.end(JSON.stringify(reponse));
+                });
+
+            });
+        }
+    });
+
+});
 
 //用户点击注册按钮
 app.post('/reg', function (req, res) {

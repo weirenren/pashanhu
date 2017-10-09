@@ -17,7 +17,7 @@ var util = {};
 
 util.genToken = function(tokendata) {
 	return jwt.sign(tokendata, cert, {expiresIn: TOKEN_EXPIRATION});	
-}
+};
 
 function randomWord(randomFlag, min, max){
 	var str = "",
