@@ -21,73 +21,100 @@ MongoClient.connect("mongodb://"+settings.ip+"/"+settings.db, function(err, db) 
 //list.add(new GridAdapter.ItemData("1", "折800", "https://m.zhe800.com", this));
 
 function initServices() {
-    let toutiao = new Service({
-        title:'头条',
-        url:'https://m.toutiao.com/?W2atIF=1'
-    });
-    toutiao.save();
 
-    let ximalaya = new Service({
-        title:'喜马拉雅FM',
-        url:'https://m.ximalaya.com'
-    });
+    Service.remove({}, () => {
 
-    ximalaya.save();
+        let toutiao = new Service({
+            title:'头条',
+            url:'https://m.toutiao.com/?W2atIF=1'
+        });
+        toutiao.save();
 
-    let dushu = new Service({
-        title:'读书',
-        url:'http://dushu.xiaomi.com/#page=main&tab=0'
-    });
-    dushu.save();
+        let ximalaya = new Service({
+            title:'喜马拉雅FM',
+            url:'https://m.ximalaya.com'
+        });
 
-    let music = new Service({
-        title: '音乐',
-        url: 'https://music.baidu.com/home'
-    });
-    music.save();
+        ximalaya.save();
 
-    let huanqiu = new Service({
-        title: '环球网',
-        url: 'http://m.huanqiu.com'
-    });
-    huanqiu.save();
+        let dushu = new Service({
+            title:'读书',
+            url:'http://dushu.xiaomi.com/#page=main&tab=0'
+        });
+        dushu.save();
 
-    let tiexue = new Service({
-        title: '铁血',
-        url: 'http://m.tiexue.net'
-    });
-    tiexue.save();
+        let music = new Service({
+            title: '音乐',
+            url: 'https://music.baidu.com/home'
+        });
+        music.save();
 
-    let qiushibaike = new Service({
-        title: '糗事百科',
-        url: 'https://www.qiushibaike.com'
-    });
-    qiushibaike.save();
+        let huanqiu = new Service({
+            title: '环球网',
+            url: 'http://m.huanqiu.com'
+        });
+        huanqiu.save();
 
-    let aiqiyi = new Service({
-        title: '爱奇艺',
-        url: 'http://m.iqiyi.com'
-    });
-    aiqiyi.save();
+        let tiexue = new Service({
+            title: '铁血',
+            url: 'http://m.tiexue.net'
+        });
+        tiexue.save();
 
-    let zhe800 = new Service({
-        title:'折800',
-        url: 'https://m.zhe800.com'
-    });
-    zhe800.save();
-    let korean = new Service({
-        title: '日韩看片',
-        url: 'https://www.youtube.com/watch?v=9iMMHXHHwQg',
-        type: 1
-    });
+        let qiushibaike = new Service({
+            title: '糗事百科',
+            url: 'https://www.qiushibaike.com'
+        });
+        qiushibaike.save();
 
-    korean.save();
+        let aiqiyi = new Service({
+            title: '爱奇艺',
+            url: 'http://m.iqiyi.com'
+        });
+        aiqiyi.save();
 
-    let oumei = new Service({
-        title: '欧美大片',
-        url: 'https://www.youtube.com/watch?v=832nC2tf5YQ',
-        type: 1
+        let zhe800 = new Service({
+            title:'折800',
+            url: 'https://m.zhe800.com'
+        });
+        zhe800.save();
+        let korean = new Service({
+            title: '日韩看片',
+            url: 'https://www.youtube.com/watch?v=9iMMHXHHwQg',
+            type: 1
+        });
+
+        korean.save();
+
+        let oumei = new Service({
+            title: '欧美大片',
+            url: 'https://www.youtube.com/watch?v=832nC2tf5YQ',
+            type: 1
+        });
+
+        oumei.save();
+
+
+        let rentiyishu = new Service({
+            title: '人体艺术',
+            url: 'http://www.hkrenti.com/'
+        });
+        rentiyishu.save();
+
+        let korealive = new Service({
+            title: '韩国美女直播',
+            url: 'http://m.afreecatv.com/#/home'
+        });
+        korealive.save();
+
+        let sexyvideo = new Service({
+            title:'午夜空间',
+            url:'https://www.xnxx.com/?k=chinese',
+            type: 1
+        });
+
+        sexyvideo.save();
+
     })
-    oumei.save();
 
 }

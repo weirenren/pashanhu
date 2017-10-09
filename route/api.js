@@ -23,9 +23,9 @@ router.get('/checkversion', function (req, res) {
             code:0,
             data :{
                 vcode: Settings.apkVersionCode,
-                changelog:'',
-                downurl: '',
-                vname:''
+                changelog: Settings.changelog,
+                downurl: Settings.downurl,
+                vname: Settings.vname
             }
 
         })
@@ -34,9 +34,9 @@ router.get('/checkversion', function (req, res) {
             code:0,
             data :{
                 vcode: Settings.apkVersionCode,
-                changelog:'',
-                downurl: '',
-                vname:''
+                changelog: Settings.changelog,
+                downurl: Settings.downurl,
+                vname: Settings.vname
             }
         })
     }
@@ -113,6 +113,15 @@ router.post('/register', function (req, res) {
 router.post('/addshadow', function(req, res){
 
     console.log('addshadow');
+
+    let admincode = req.body['admincode'];
+    if (Settings.admincode !== admincode) {
+        return res.json({
+            msg: '没有权限',
+            code: -1
+        });
+    }
+
     let vipcode = req.body['vipcode'];
     let qrcode = req.body['qrcode'];
     let time = req.body['time'];
@@ -135,12 +144,77 @@ router.post('/addshadow', function(req, res){
                 console.log('addshadow-> success:' + v);
                 return res.json({
                     msg: '添加成功',
-                    vip: v,
+                    data : {
+                        vip: v
+                    },
                     code: 0
                 });
             }
         });
     });
+});
+
+
+router.post('/getvips', function (req, res) {
+
+    let admincode = req.body['admincode'];
+    if (Settings.admincode !== admincode) {
+        return res.json({
+            msg: '没有权限',
+            code: -1
+        });
+    }
+
+    //todo 权限验证 只有管理员才能
+    Vip.find({}, (err, vips) => {
+        console.log("getvips -> " + vips);
+
+        return res.json({
+            msg: '获取成功',
+            data : {
+                vips: vips
+            },
+            code: 0
+        });
+
+    });
+
+});
+
+router.post('/updatevip', function (req, res) {
+
+    let admincode = req.body['admincode'];
+    if (Settings.admincode !== admincode) {
+        return res.json({
+            msg: '没有权限',
+            code: -1
+        });
+    }
+
+    let id = req.body['_id'];
+    let vipcode = req.body['vipcode'];
+    let qrcode = req.body['qrcode'];
+    let time = req.body['time'];
+    let payed = req.body['payed'];
+
+    Vip.findOneAndUpdate({_id : id}, {$set: {vipcode: vipcode, qrcode: qrcode, time: time, payed: payed === 'true'}},{new: true}, (err, v) => {
+        if (v) {
+            return res.json({
+                msg: '修改成功',
+                data : {
+                    vip: v
+                },
+                code: 0
+            });
+        } else {
+            return res.json({
+                msg: '没有该会员账号',
+                code: -1
+            });
+        }
+
+    });
+
 });
 
 router.get('/services', function (req, res) {
@@ -239,15 +313,12 @@ router.post('/payshadow', function (req, res) {
                                     code: -1
                                 });
                             }
-                        })
+                        });
 
-                        v.date = new Date();
                         v.payed = true;
                         v.save();
 
                     });
-
-
 
                 } else {
                     return res.json({
@@ -266,7 +337,16 @@ router.post('/payshadow', function (req, res) {
 
     });
 
-})
+});
+
+router.post('/downloadapkurl', function (req, res) {
+    return res.json({
+        code: 0,
+        data: {
+            downurl: ''
+        }
+    });
+}) 
 //router.post('/users/create', isLogin);
 router.post('/login', function (req, res) {
 
@@ -351,7 +431,6 @@ router.post('/login', function (req, res) {
                 }
             } else {
                 token = Util.genToken(tokendata);
-
 
                 return res.json({
                     msg: '登录成功',

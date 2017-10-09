@@ -401,7 +401,7 @@ app.get('/matchfriend', function (req, res) {
 });
 
 app.get('/hoursefriend/match', function(req, res){
-    if (req.session.isLogined !=true) {
+    if (req.session.isLogined !==true) {
         return res.json({
             msg:"没有登录",
             code: -100
@@ -414,7 +414,7 @@ app.get('/hoursefriend/match', function(req, res){
 
 app.post('/hoursefriend/delete', function (req, res) {
 
-    if (req.session.isLogined !=true) {
+    if (req.session.isLogined !==true) {
         return res.json({
             msg:"没有登录",
             code: -100
@@ -440,7 +440,7 @@ app.post('/hoursefriend/create', function (req, res) {
     console.log('/hoursefriend/create');
     var finder = new FriendFinder;
 
-    if (req.session.isLogined !=true) {
+    if (req.session.isLogined !==true) {
         return res.json({
             msg:"没有登录",
             code: -100

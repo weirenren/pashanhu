@@ -166,11 +166,17 @@ util.parseGeoString = function(geoString) {
 	return geoString.split('_');
 };
 
+function testDateFormat() {
+	let da = new Date("<YYYY-mm-ddTHH:MM:ss>");
+
+	console.log(da.toDateString());
+}
+
 function testDateSort() {
 
 	var arr = util.parseGeoString('12345_123');
 
-	new Date("<YYYY-mm-ddTHH:MM:ss>");
+
 
 	//User.remove({});
 
@@ -221,8 +227,8 @@ function testDateSort() {
 	
 }
 
-//Promise.resolve()
-//	.then(testDateSort());
+Promise.resolve()
+	.then(testDateFormat());
 
 
 module.exports = util;
