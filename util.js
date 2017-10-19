@@ -9,6 +9,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 var User = require('./model/user');
+var PayInfo = require('./model/payinfo');
 
 const cert = fs.readFileSync('./private.key');	// 加密私钥
 const TOKEN_EXPIRATION = 60;	// token 过期时间，默认单位为s，Eg: 60, "2 days", "10h", "7d"
@@ -167,9 +168,21 @@ util.parseGeoString = function(geoString) {
 };
 
 function testDateFormat() {
-	let da = new Date("<YYYY-mm-ddTHH:MM:ss>");
+	let da = new Date();
 
 	console.log(da.toDateString());
+}
+
+function testSave() {
+	var newPayinfo = new PayInfo({
+		username: 'weichao'
+	});
+
+
+	PayInfo.find({}, (err,obj) => {
+		console.log('find:' + obj);
+	})
+
 }
 
 function testDateSort() {
@@ -193,7 +206,7 @@ function testDateSort() {
 	user1.save(function(err, obj){
 
 
-		//console.log(user1)
+		console.log(user1)
 
 	});
 
@@ -203,7 +216,7 @@ function testDateSort() {
 	user2.save(function(err, obj){
 
 
-		//console.log(user2)
+		console.log(user2)
 
 	});
 
@@ -213,22 +226,66 @@ function testDateSort() {
 	user3.save(function(err, obj){
 
 
-		//console.log(user3)
+		console.log(user3)
 
 	});
 
 
-	User.find().sort({date :-1}).exec(function(err, users) {
-
-		users.forEach(function(user) {
-			console.log(user);
-		});
-	});
+	//User.find().sort({date :-1}).exec(function(err, users) {
+    //
+	//	users.forEach(function(user) {
+	//		console.log(user);
+	//	});
+	//});
 	
 }
 
+util.getNowFormatDate = function() {
+	var date = new Date();
+	var seperator1 = "-";
+	var seperator2 = ":";
+	var month = date.getMonth() + 1;
+	var strDate = date.getDate();
+	if (month >= 1 && month <= 9) {
+		month = "0" + month;
+	}
+	if (strDate >= 0 && strDate <= 9) {
+		strDate = "0" + strDate;
+	}
+	var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+
+	//var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+	//	+ " " + date.getHours() + seperator2 + date.getMinutes()
+	//	+ seperator2 + date.getSeconds();
+	console.log(currentdate);
+	return currentdate;
+};
+
+util.getFilePath = function(filepath, next) {
+
+	//创建文件夹存储图片
+	fs.exists(filepath, function (exists) {
+
+		if (!exists) {
+
+			fs.mkdir(filepath, 0o777, function (err) {
+
+				if (!err) {
+
+					console.log(filepath + ' not exists');
+					next();
+				}
+			});
+
+		} else {
+			console.log(filepath + ' exists');
+			next();
+		}
+	});
+};
+
 Promise.resolve()
-	.then(testDateFormat());
+	.then();
 
 
 module.exports = util;

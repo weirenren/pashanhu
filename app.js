@@ -29,7 +29,9 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 var User = require('./model/user');
+var PayInfo = require('./model/payinfo');
 var FriendFinder = require('./model/hoursefriend_finder');
+var Vip = require('./model/vip');
 
 var PAGE_NUM = 25;
 
@@ -52,7 +54,6 @@ var elasticsearch = require('elasticsearch');
 var indexname = 'hourse_datasource';
 var typename = 'hourse_type';
 
-
 var esClient = new elasticsearch.Client({
     host: 'localhost:9200',
     log: 'error'
@@ -65,52 +66,433 @@ app.locals.server_host = "http://127.0.0.1:3000";
 var multer  = require('multer');
 
 var uploadDir = './public/apppay/upload/';
-
 var upload = multer({dest: uploadDir}).single('logo');
+
+function checkPayInfo(paycontent, callback) {
+//
+//    下午4:30
+//    ⑧令aMll
+//    交易记录
+//    微信支付
+//    付款金额
+//    ￥10.00
+//    收款方
+//    曾经的我。
+//    收款方备注
+//    二维码收款
+//    当前状态
+//    已转账
+//    转账时间
+//    2017-10-0511:36:45
+//    支付方式
+//    零钱
+//    转账单号10000503011710050007003288560202355
+//    5
+//    常见问题
+//    投诉
+    let jiaoyijilu_tag = '交易记录';
+    let weixinzhifu_tag = '微信支付';
+    let fukuanjine_tag = '付款金额';
+    // money
+    let shoukuanfang_tag = '收款方';
+    // 收款方昵称
+    let shoukuanfangbeizhu_tag = '收款方备注';
+    let erweimashoukuan_tag = '二维码收款';
+    let dangqianzhuangtai_tag = '当前状态';
+    let yizhuanzhang_tag = '已转账';
+    let zhuangzhangshijian_tag = '转账时间';
+    // datetime
+    let zhifufangshi_tag = '支付方式';
+    //lingqian
+    let zhuanzhangdanhao_tag = '转账单号';
+    let changjianwenti_tag = '常见问题';
+
+    let money;
+    let shoukuan_name;
+    let datetime;
+    let orderid = '-1';
+
+    let status = 0;
+
+    let content = '';
+    paycontent['words_result'].forEach((item) => {
+        let word = item['words'];
+
+        content += word + '|';
+        if (word == jiaoyijilu_tag) {
+            status = 1;
+            console.log('1');
+
+        } else {
+
+            if (1<=status<=14) {
+
+                switch (status) {
+                    case 1:
+                        if (word == weixinzhifu_tag) {
+                            status = 2;
+                            console.log('2');
+                        } else {
+                            console.log('2fail');
+                            status = -1;
+                        }
+                        break;
+                    case 2:
+                        if (word == fukuanjine_tag) {
+                            status = 3;
+                            console.log('3');
+                        } else {
+                            status = -1;
+                        }
+                        break;
+                    case 3:
+                        money = word.substring(1); // 判断是否为数字
+                        status = 4;
+                        break;
+                    case 4:
+                        if (word == shoukuanfang_tag) {
+                            status = 5;
+                        } else {
+                            status = -1;
+                        }
+                        break;
+                    case 5:
+                        shoukuan_name = word; // 收款人名判断
+                        status = 6;
+                        break;
+                    case 6:
+                        if (word == shoukuanfangbeizhu_tag) {
+                            status = 7;
+                            console.log('7');
+                        } else {
+                            status = -1;
+                        }
+                        break;
+                    case 7:
+                        if (word == erweimashoukuan_tag) {
+                            status = 8;
+                            console.log('8');
+                        } else {
+                            status = -1;
+                        }
+                        break;
+                    case 8:
+                        if (word == dangqianzhuangtai_tag) {
+                            status = 9;
+                            console.log('9');
+                        } else {
+                            status = -1;
+                        }
+                        break;
+                    case 9:
+                        if (word == yizhuanzhang_tag) {
+                            status = 10;
+                            console.log('10');
+                        } else {
+                            status = -1;
+                        }
+                        break;
+                    case 10:
+                        if (word == zhuangzhangshijian_tag) {
+                            status = 11;
+                            console.log('11');
+                        } else {
+                            status = -1;
+                        }
+                        break;
+                    case 11:
+
+                        datetime = word.substring(0,10) + ' ' + word.substring(10); // 格式判断
+
+                        console.log('datetime:' + datetime);
+                        status = 12;
+                        break;
+                    case 12:
+                        if (word == zhifufangshi_tag) {
+                            status = 13;
+                            console.log('13');
+                        } else {
+                            status = -1;
+                        }
+                        break;
+                    case 13:
+                        let fangshi = word;
+                        console.log('13');
+                        status = 14;
+                        break;
+                    case 14:
+                        orderid = word;
+                        console.log('14 ' + orderid);
+                        status = 15;
+                        break;
+                    case 15:
+                        if (word == changjianwenti_tag) {
+                            console.log('15');
+                        } else {
+                            orderid += word;
+                            // let num = word; // 数字验证
+
+                        }
+                        status = 16;
+                        break;
+                    case 16:
+                        // do nothing
+                        break;
+                    default:
+                        console.log('d-1');
+                        status = 0;
+                        break;
+                }
+            }
+        }
+
+    });
+
+
+
+    console.log(status);
+
+    if (orderid != '-1') {
+        orderid = orderid.split('号')[1];
+    }
+    if (status == 16) {
+
+        callback(0, money, shoukuan_name, datetime, orderid, content);
+
+        return true;
+    }
+
+    callback(1, money, shoukuan_name, datetime, orderid, content);
+
+
+    return false;
+
+}
+
+function getviptime(money) {
+    if (2 <=money < 15) {
+        return 1;
+    }
+
+    if (15<=money<65) {
+       return 30;
+    }
+
+    if (65 <= money <100) {
+        return 180;
+    }
+
+    if (money>=100) {
+        return 360;
+    }
+}
+
 
 // 单图上传
 app.post('/a/api/upload', function(req, res, next){
 
+    console.log('上传图片');
+
     //文件上传
-    upload(req, res, function(err){
-        if(err){
+    upload(req, res, function (err) {
+
+        if (err) {
             console.error(err.message);
-        }else{
+        } else {
+
+            var filepath =  uploadDir + Util.getNowFormatDate();
+            var filename = new Date().getTime() + '.jpg'; // 时间戳表示文件名
+
             //获取文件的名称，然后拼接成将来要存储的文件路径
-            var des_file= uploadDir+req.file.originalname;
+            var des_file= filepath + '/' + filename;
 
-            console.error('dest file:' + des_file);
-            //读取临时文件
-            fs.readFile(req.file.path,function(err,data){
-                //将data写入文件中，写一个新的文件
-                fs.writeFile(des_file,data,function(err){
-                    if(err){
-                        console.error(err.message);
-                    }else{
-                        var reponse={
-                            message:'File uploaded successfully',
-                            filename:req.file.originalname
-                        };
-                        //删除临时文件
-                        fs.unlink(req.file.path,function(err){
-                            if(err){
-                                console.error(err.message);
-                            }else{
-                                console.log('delete '+req.file.path+' successfully!');
-                            }
+            Util.getFilePath(filepath, function() {
+
+                //读取临时文件
+                fs.readFile(req.file.path,function(err,data) {
+                    //将data写入文件中，写一个新的文件
+                    fs.writeFile(des_file,data,function(err) {
+
+                        if (err) {
+                            console.error(err.message);
+                        } else {
+                            //删除临时文件
+                            fs.unlink(req.file.path,function(err){
+                                if(err){
+                                    console.error(err.message);
+                                }else{
+                                    console.log('delete '+req.file.path+' successfully!');
+                                }
+                            });
+                        }
+
+                        OCR.ocr(des_file, function(words) {
+                            console.log('ocr:' + words);
+                            var json = JSON.parse(words);
+
+                            //  callback(0, money, shoukuan_name, datetime, orderid);
+                            let succ = checkPayInfo(json, function(success, money,shoukuanname, datetime,orderid, content) {
+
+                                let reponse;
+                                if (success == 0) {
+
+                                    PayInfo.find({}, function(err,pay) {
+                                        console.log('pay:' + pay);
+                                    });
+
+                                    PayInfo.findOne({orderid: orderid}, function (err, payinfo) {
+
+                                        if (!payinfo) {
+                                            reponse={
+                                                code:-2,
+                                                msg:'已经上传过'
+                                            };
+
+                                        } else {
+
+                                            //var schema = new mongoose.Schema({
+                                            //    username: String, // 用户名
+                                            //    orderid: String, // 微信支付生产的订单id
+                                            //    totalmoney: String, // 钱数
+                                            //    filename: String, // 支付详情图片文件路径
+                                            //    datetime: String, // 支付日期
+                                            //    content: String, // 支付图片扫描内容
+                                            //    checked: {type : Boolean, default: false} // 是否人工审核过
+                                            //});
+
+                                            if (money < 1) {
+                                                reponse = {
+                                                    code:-1,
+                                                    msg:'付款金额不对:' + money,
+                                                    data:{
+                                                        money:money
+                                                    }
+                                                };
+                                            } else {
+
+
+                                                var newPayinfo = new PayInfo({
+                                                    username: req.body['username'],
+                                                    orderid: orderid,
+                                                    totalmoney: money,
+                                                    filename: filename,
+                                                    datetime: datetime,
+                                                    content: content
+                                                });
+
+                                                newPayinfo.save(function(err, obj){
+
+                                                    console.log('save:' + obj);
+                                                });
+
+
+                                                let days = getviptime(money);
+
+                                                Vip.findOne({time: days, payed: false}, function(err, v) {
+
+                                                    if (v) {
+
+                                                        AppUserInfo.findOne({username: username}, function(err, vipuser) {
+
+                                                            vipuser.date = new Date();
+                                                            vipuser.vipcode = v.vipcode;
+                                                            vipuser.qrcode = v.qrcode;
+                                                            vipuser.time = v.time;
+
+                                                            if (vipuser.deviceid !== deviceid) {
+                                                                return res.json({
+                                                                    msg: '请用注册的手机登录账号',
+                                                                    code: -1001
+                                                                });
+                                                            }
+
+                                                            vipuser.save(function(err, vu) {
+
+                                                                if (vu) {
+
+                                                                    let tokendata = {
+                                                                        id: vu._id,
+                                                                        username: vu.username,
+                                                                        deviceid:deviceid
+                                                                    };
+
+                                                                    let token = Util.genToken(tokendata);
+
+                                                                    return res.json({
+                                                                        msg: '支付成功',
+                                                                        code: 0,
+                                                                        data: {
+                                                                            id: vu._id,
+                                                                            username: vu.username,
+                                                                            token: token,
+                                                                            deadline: v.time,
+                                                                            shadow: v.qrcode
+                                                                        }
+                                                                    });
+                                                                }
+
+                                                                if (err) {
+                                                                    return res.json({
+                                                                        msg: '内部错误',
+                                                                        code: -1
+                                                                    });
+                                                                }
+                                                            });
+
+                                                            v.payed = true;
+                                                            v.save();
+
+                                                        });
+
+
+                                                    } else {
+
+
+                                                        reponse={
+                                                            code:0,
+                                                            msg:'success',
+                                                            data:{
+                                                                money:money
+                                                            }
+                                                        };
+                                                    }
+
+                                                    res.end(JSON.stringify(reponse));
+                                                });
+
+
+
+                                            }
+
+                                        }
+
+
+                                    });
+
+                                    console.log('ocr parse words:' + money + ' ' + shoukuanname + ' ' + datetime + ' ' + orderid);
+                                } else {
+                                    reponse={
+                                        code:-1,
+                                        msg:'图片格式错误'
+                                    };
+
+                                    //删除临时文件
+                                    fs.unlink(des_file,function(err){
+                                        if(err){
+                                            console.error(err.message);
+                                        }else{
+                                            console.log('delete '+req.file.path+' successfully!');
+                                        }
+                                    });
+
+                                    res.end(JSON.stringify(reponse));
+                                }
+                            });
+                            //console.log('ocr words:' + words);
                         });
-                    }
 
-                    OCR.ocr(des_file, function(words) {
-                        var json = JSON.parse(words);
-
-
-                        json['words_result'].forEach((item) => {
-                            console.log(item['words']);
-                        });
-                        //console.log('ocr words:' + words);
                     });
-                    res.end(JSON.stringify(reponse));
+
                 });
 
             });
@@ -134,8 +516,6 @@ app.post('/reg', function (req, res) {
         pwd:req.body['password']
     });
 
-
-    console.log(newUser);
     User.findOne({username: newUser.username}, function (err, user) {
 
         if (user) {
@@ -818,7 +1198,6 @@ app.get('/search_more', function (req, res) {
 
             response.hits.hits.forEach((hit, index) => {
 
-
                     console.log('hit datetime:' + hit.datatime);
                     array.push({
                         'title': hit._source.title,
@@ -1075,7 +1454,7 @@ app.use(function (req, res, next) {
 });
 
 
-app.listen(3000, function () {
+app.listen(3000,'172.22.126.184', function () {
     console.log('Example app listening on port 3000!')
 })
 

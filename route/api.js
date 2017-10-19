@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../model/user');
 var Vip = require('../model/vip');
+var Qrcode = require('../model/qrcode');
 var Util = require('../util');
 let Settings = require('../settings');
 var AppUserInfo = require('../model/appUserInfo');
@@ -105,6 +106,19 @@ router.post('/register', function (req, res) {
 
         });
     });
+});
+
+// 禁止用户会员
+router.post('/forbid', function(req, res){
+
+    let admincode = req.body['admincode'];
+    if (Settings.admincode !== admincode) {
+        return res.json({
+            msg: '没有权限',
+            code: -1
+        });
+    }
+
 });
 
 //vipcode: String, // 激活码
@@ -232,6 +246,28 @@ router.get('/services', function (req, res) {
     });
 
 });
+
+
+router.get('/gerqcode', function (req, res) {
+
+    Qrcode.find({forbid:false}, function(err, qrs) {
+
+        qrs.sort(function (s, t) {
+            return s.usernumber < t.usernumber;
+        });
+
+        return res.json({
+            data:{
+              qrcodes: qrs
+            },
+            code: 0
+        });
+
+    });
+});
+
+
+
 router.post('/payshadow', function (req, res) {
     console.log('payshadow');
     let username = req.body['username'];
@@ -339,6 +375,34 @@ router.post('/payshadow', function (req, res) {
 
 });
 
+router.get('/getviprices', function(req, res) {
+
+    return res.json({
+        code: 0,
+        data: {
+            vipprices:[
+                {name:'倔强青铜',
+                    price:2,
+                    des:"2元/天"
+                },
+                {name:'黄金荣耀',
+                    price:15,
+                    des:"15元/月"
+                },
+                { name:'尊贵铂金',
+                    price:65,
+                    des:"60元/半年"
+                },
+                {name:'钻石新耀',
+                    price:100,
+                    des:"100元/年"
+                }
+
+            ]
+        }
+    });
+});
+
 router.post('/downloadapkurl', function (req, res) {
     return res.json({
         code: 0,
@@ -346,7 +410,7 @@ router.post('/downloadapkurl', function (req, res) {
             downurl: ''
         }
     });
-}) 
+})
 //router.post('/users/create', isLogin);
 router.post('/login', function (req, res) {
 
@@ -424,7 +488,8 @@ router.post('/login', function (req, res) {
                             username: a.username,
                             token: token,
                             deadline: days,
-                            shadow: a.qrcode
+                            shadow: a.qrcode,
+                            date: a.date
                         }
                     });
 

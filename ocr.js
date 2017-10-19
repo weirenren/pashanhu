@@ -16,7 +16,6 @@ var OCR = {};
 
 //'./public/demo.png'
 OCR.ocr = function(filepath,next){
-
     var image = fs.readFileSync(filepath);
     var base64Img = new Buffer(image).toString('base64');
     client.generalBasic(base64Img).then(function(result) {
