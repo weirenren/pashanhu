@@ -14,33 +14,47 @@ var crypto = require('crypto');
 
 router.get('/checkversion', function (req, res) {
 
-    let packageName = req.body['packageName'];
-    let versionCode = req.body['versionCode'];
+    //let packageName = req.body['packageName'];
+    //let versionCode = req.body['versionCode'];
 
 
-    if (versionCode < Settings.apkVersionCode) { // todo 选择用户升级
+    console.log('checkversion');
 
-        return res.json({
-            code:0,
-            data :{
-                vcode: Settings.apkVersionCode,
-                changelog: Settings.changelog,
-                downurl: Settings.downurl,
-                vname: Settings.vname
-            }
+    return res.json({
+        code:0,
+        data :{
+            vcode: Settings.apkVersionCode,
+            changelog: Settings.changelog,
+            downurl: Settings.downurl,
+            vname: Settings.vname
+        }
 
-        })
-    } else {
-        return res.json({
-            code:0,
-            data :{
-                vcode: Settings.apkVersionCode,
-                changelog: Settings.changelog,
-                downurl: Settings.downurl,
-                vname: Settings.vname
-            }
-        })
-    }
+    })
+
+    //if (versionCode < Settings.apkVersionCode) { // todo 选择用户升级
+    //    console.log('需要升级')
+    //    return res.json({
+    //        code:0,
+    //        data :{
+    //            vcode: Settings.apkVersionCode,
+    //            changelog: Settings.changelog,
+    //            downurl: Settings.downurl,
+    //            vname: Settings.vname
+    //        }
+    //
+    //    })
+    //} else {
+    //    console.log('不需要升级')
+    //    return res.json({
+    //        code:0,
+    //        data :{
+    //            vcode: Settings.apkVersionCode,
+    //            changelog: Settings.changelog,
+    //            downurl: Settings.downurl,
+    //            vname: Settings.vname
+    //        }
+    //    })
+    //}
 
 });
 
@@ -120,11 +134,100 @@ router.post('/forbid', function(req, res){
     }
 
 });
+router.post('/deleteshadow', function(req, res){
+
+
+    let admincode = req.body['admincode'];
+    if (Settings.admincode !== admincode) {
+        return res.json({
+            msg: '没有权限',
+            code: -1
+        });
+    }
+
+    let shadowcode = req.body['shadowcode'];
+
+    Qrcode.remove({qrcode: shadowcode}, function(err, obeject){
+
+        if (obeject) {
+            Qrcode.find({forbid:false}, function(err, qrcodes) {
+                if (qrcodes) {
+                    return res.json({
+                        msg: '成功',
+                        data : {
+                            qrcodes: qrcodes
+                        },
+                        code: 0
+                    });
+                }
+            })
+        }
+    });
+
+});
+
+
+router.get('/getqcode', function (req, res) {
+
+    Qrcode.find({forbid:false}, function(err, qrs) {
+
+        return res.json({
+            data:{
+                qrcodes: qrs
+            },
+            code: 0
+        });
+
+    });
+});
+
+router.post('/addshadow', function(req, res){
+
+
+    let admincode = req.body['admincode'];
+    if (Settings.admincode !== admincode) {
+        return res.json({
+            msg: '没有权限',
+            code: -1
+        });
+    }
+
+    let shadowcode = req.body['shadowcode'];
+    let name = req.body['name'];
+    Qrcode.findOne({qrcode: shadowcode}, function(err, vip) {
+
+        if (vip) {
+            return res.json({
+                msg: '添加失败,二维码:' +shadowcode+ ' 已存在',
+                code: -2
+            });
+        }
+
+
+        let qrcode = new Qrcode();
+        qrcode.name = name;
+        qrcode.qrcode = shadowcode;
+
+        qrcode.save(function(err, v){
+            if (v) {
+                console.log('addshadow-> success:' + v);
+                return res.json({
+                    msg: '添加成功',
+                    data : {
+                        qrcode: v
+                    },
+                    code: 0
+                });
+            }
+        });
+    });
+});
+
 
 //vipcode: String, // 激活码
 //    qrcode: String, // 二维码
 //    time: 10, // 剩余天数
-router.post('/addshadow', function(req, res){
+router.post('/addvipcode', function(req, res){
 
     console.log('addshadow');
 
@@ -248,24 +351,6 @@ router.get('/services', function (req, res) {
 });
 
 
-router.get('/gerqcode', function (req, res) {
-
-    Qrcode.find({forbid:false}, function(err, qrs) {
-
-        qrs.sort(function (s, t) {
-            return s.usernumber < t.usernumber;
-        });
-
-        return res.json({
-            data:{
-              qrcodes: qrs
-            },
-            code: 0
-        });
-
-    });
-});
-
 
 
 router.post('/payshadow', function (req, res) {
@@ -375,8 +460,18 @@ router.post('/payshadow', function (req, res) {
 
 });
 
-router.get('/getviprices', function(req, res) {
+router.get('/payqcode', function(req, res){
 
+    return res.json({
+        code: 0,
+        data: {
+            qcode:Settings.payweixin
+        }
+    });
+})
+
+router.get('/getviprices', function(req, res) {
+    console.log("getviprices");
     return res.json({
         code: 0,
         data: {
