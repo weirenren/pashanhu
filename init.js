@@ -2,6 +2,11 @@
  * Created by chaowei on 2017/8/19.
  */
 var Service = require('./model/service');
+var Vip = require('./model/vip');
+var User = require('./model/user');
+var Payinfo = require('./model/payinfo');
+var AppUserInfo = require('./model/appuserInfo');
+
 var Promise = require('bluebird');
 
 var MongoClient = require('mongodb').MongoClient;
@@ -21,7 +26,15 @@ MongoClient.connect("mongodb://"+settings.ip+"/"+settings.db, function(err, db) 
 //list.add(new GridAdapter.ItemData("1", "折800", "https://m.zhe800.com", this));
 
 function initServices() {
+    console.log('initServices');
+    Vip.remove({},()=>{});
+    AppUserInfo.remove({},()=>{});
+    User.remove({},()=>{});
+    Payinfo.remove({},()=>{});
 
+    Vip.find({}, (v)=>{
+        console.log(v);
+    })
     Service.remove({}, () => {
 
         let toutiao = new Service({
@@ -86,20 +99,30 @@ function initServices() {
 
         korean.save();
 
-        let oumei = new Service({
-            title: '欧美大片',
-            url: 'https://www.youtube.com/watch?v=832nC2tf5YQ',
-            type: 1
-        });
-
-        oumei.save();
+        // let oumei = new Service({
+        //     title: '欧美大片',
+        //     url: 'https://www.youtube.com/watch?v=832nC2tf5YQ',
+        //     type: 1
+        // });
+        //
+        // oumei.save();
 
 
         let rentiyishu = new Service({
             title: '人体艺术',
             url: 'http://www.hkrenti.com/'
+
         });
         rentiyishu.save();
+
+        let guochan = new Service(
+            {
+                title: '国产看片',
+                url:'https://www.pornhub.com/view_video.php?viewkey=ph59976f957d4de',
+                type: 1
+            }
+        );
+        guochan.save();
 
         let korealive = new Service({
             title: '韩国美女直播',
@@ -109,7 +132,7 @@ function initServices() {
 
         let sexyvideo = new Service({
             title:'午夜空间',
-            url:'https://www.xnxx.com/?k=chinese',
+            url:'https://www.xvideos.com/tags/sexy-girl-sex',
             type: 1
         });
 
@@ -118,3 +141,6 @@ function initServices() {
     })
 
 }
+
+Promise.resolve()
+    .then(initServices);

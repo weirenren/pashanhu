@@ -8,7 +8,8 @@ var schema=new mongoose.Schema({
     password:String,
     pwd:String, //明文
     gender:String, // 男;女
-    date:Date
+    date:Date,
+    forbid: {type:Boolean, default: false} // 是否禁用该账户
 });
 var User=mongoose.model('user',schema);
 module.exports=User;

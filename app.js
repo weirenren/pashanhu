@@ -32,6 +32,7 @@ var User = require('./model/user');
 var PayInfo = require('./model/payinfo');
 var FriendFinder = require('./model/hoursefriend_finder');
 var Vip = require('./model/vip');
+var AppUserInfo = require('./model/appuserInfo');
 
 var PAGE_NUM = 25;
 
@@ -287,11 +288,26 @@ function getviptime(money) {
     }
 }
 
+app.post('/appget', function (req, res) {
+
+
+    AppUserInfo.find({}, function(err, services) {
+
+        console.log(services);
+        return res.json({
+            msg: 'success',
+            code: 0,
+            data: services
+        });
+    });
+})
 
 // 单图上传
 app.post('/a/api/upload', function(req, res, next){
 
     console.log('上传图片');
+
+    let deviceid = req.body['deviceid'];
 
     //文件上传
     upload(req, res, function (err) {
@@ -336,20 +352,20 @@ app.post('/a/api/upload', function(req, res, next){
                                 let reponse;
                                 if (success == 0) {
 
-                                    PayInfo.find({}, function(err,pay) {
-                                        console.log('pay:' + pay);
-                                    });
 
                                     PayInfo.findOne({orderid: orderid}, function (err, payinfo) {
 
-                                        if (!payinfo) {
-                                            reponse={
+                                        if (payinfo) {
+                                            console.log('已经上传过')
+                                            let reponse={
                                                 code:-2,
                                                 msg:'已经上传过'
                                             };
 
-                                        } else {
+                                            res.end(JSON.stringify(reponse));
 
+                                        } else {
+                                            console.log('没有上传过')
                                             //var schema = new mongoose.Schema({
                                             //    username: String, // 用户名
                                             //    orderid: String, // 微信支付生产的订单id
@@ -361,6 +377,7 @@ app.post('/a/api/upload', function(req, res, next){
                                             //});
 
                                             if (money < 1) {
+                                                console.log("付款金额不对")
                                                 reponse = {
                                                     code:-1,
                                                     msg:'付款金额不对:' + money,
@@ -368,9 +385,11 @@ app.post('/a/api/upload', function(req, res, next){
                                                         money:money
                                                     }
                                                 };
+
+                                                res.end(JSON.stringify(reponse));
                                             } else {
 
-
+                                                console.log('付款金额正确')
                                                 var newPayinfo = new PayInfo({
                                                     username: req.body['username'],
                                                     orderid: orderid,
@@ -391,73 +410,97 @@ app.post('/a/api/upload', function(req, res, next){
                                                 Vip.findOne({time: days, payed: false}, function(err, v) {
 
                                                     if (v) {
+                                                        console.log("Vip.findOne:" + v);
+                                                        AppUserInfo.findOne({username: req.body['username']}, function(err, vipuser) {
 
-                                                        AppUserInfo.findOne({username: username}, function(err, vipuser) {
+                                                            console.log("Vip.findOne:" + v);
 
-                                                            vipuser.date = new Date();
-                                                            vipuser.vipcode = v.vipcode;
-                                                            vipuser.qrcode = v.qrcode;
-                                                            vipuser.time = v.time;
+                                                            if (vipuser) {
+                                                                console.log('appuserinfo:' + vipuser);
+                                                                if (vipuser.deviceid !== deviceid) {
 
-                                                            if (vipuser.deviceid !== deviceid) {
-                                                                return res.json({
-                                                                    msg: '请用注册的手机登录账号',
-                                                                    code: -1001
-                                                                });
-                                                            }
+                                                                    let response = {
+                                                                        msg: '请用注册的手机登录账号',
+                                                                        code: -1001
+                                                                    }
 
-                                                            vipuser.save(function(err, vu) {
+                                                                    res.end(JSON.stringify(reponse));
+                                                                }
+                                                            } else {
+                                                                console.log('appuserinfo:not found');
+                                                                let vipuser = new AppUserInfo();
+                                                                vipuser.vipcode = v.vipcode;
+                                                                vipuser.qrcode = v.qrcode;
+                                                                vipuser.username = req.body['username'];
+                                                                vipuser.time = v.time;
 
-                                                                if (vu) {
+                                                                vipuser.save(function(err, vu) {
 
-                                                                    let tokendata = {
-                                                                        id: vu._id,
-                                                                        username: vu.username,
-                                                                        deviceid:deviceid
-                                                                    };
+                                                                    if (vu) {
 
-                                                                    let token = Util.genToken(tokendata);
-
-                                                                    return res.json({
-                                                                        msg: '支付成功',
-                                                                        code: 0,
-                                                                        data: {
+                                                                        let tokendata = {
                                                                             id: vu._id,
                                                                             username: vu.username,
-                                                                            token: token,
-                                                                            deadline: v.time,
-                                                                            shadow: v.qrcode
-                                                                        }
-                                                                    });
-                                                                }
+                                                                            deviceid: deviceid
+                                                                        };
 
-                                                                if (err) {
-                                                                    return res.json({
-                                                                        msg: '内部错误',
-                                                                        code: -1
-                                                                    });
-                                                                }
-                                                            });
+                                                                        let token = Util.genToken(tokendata);
+                                                                        console.log('支付成功：');
 
-                                                            v.payed = true;
-                                                            v.save();
+                                                                        let re = {
+                                                                            code: 0,
+                                                                            msg: '支付成功',
+                                                                            data: {
+                                                                                id: vu._id,
+                                                                                token: token,
+                                                                                deadline: v.time,
+                                                                                shadow: v.qrcode,
+                                                                                money: money
+                                                                            }
+                                                                        };
+
+
+                                                                        console.log(re);
+
+                                                                        res.end(JSON.stringify(re));
+
+                                                                    } else {
+                                                                        console.log('支付失败：');
+                                                                    }
+
+                                                                    if (err) {
+
+                                                                        let response = {
+                                                                            msg: '内部错误',
+                                                                            code: -1
+                                                                        };
+                                                                        res.end(JSON.stringify(response));
+                                                                    }
+                                                                });
+
+                                                                v.payed = true;
+                                                                v.save();
+
+                                                            }
+
 
                                                         });
 
 
                                                     } else {
+                                                        console.log("Vip.findOne: not found");
 
-
-                                                        reponse={
+                                                        let reponse={
                                                             code:0,
                                                             msg:'success',
                                                             data:{
                                                                 money:money
                                                             }
                                                         };
+                                                        res.end(JSON.stringify(reponse));
                                                     }
 
-                                                    res.end(JSON.stringify(reponse));
+                                                    //
                                                 });
 
 
@@ -1454,7 +1497,7 @@ app.use(function (req, res, next) {
 });
 
 
-app.listen(3000,'192.168.199.159', function () {
+app.listen(3000,'127.0.0.1', function () {
     console.log('Example app listening on port 3000!')
 });
 

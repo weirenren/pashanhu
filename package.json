@@ -10,8 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "async": "^2.5.0",
+    "baidu-ai": "^1.2.0",
     "bluebird": "^3.5.0",
-
     "body-parser": "^1.17.2",
     "cheerio": "^1.0.0-rc.2",
     "consolidate": "^0.14.5",
@@ -26,10 +26,10 @@
     "mongo": "^0.1.0",
     "mongoose": "^4.11.6",
     "mongoose-recursive-upsert": "^0.8.1",
+    "multer": "^1.3.0",
     "nodemailer": "^4.0.1",
     "request": "^2.81.0",
     "sleep": "^5.1.1",
-    "superagent": "^3.5.2",
-    "multer": "^1.3.0"
+    "superagent": "^3.5.2"
   }
 }

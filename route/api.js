@@ -3,15 +3,147 @@
  */
 var express = require('express');
 var router = express.Router();
-var User = require('../model/user');
-var Vip = require('../model/vip');
 var Qrcode = require('../model/qrcode');
 var Util = require('../util');
 let Settings = require('../settings');
-var AppUserInfo = require('../model/appUserInfo');
-var Service = require('../model/service');
+
 var crypto = require('crypto');
 
+var Service = require('../model/service');
+var Vip = require('../model/vip');
+var User = require('../model/user');
+var Payinfo = require('../model/payinfo');
+var AppUserInfo = require('../model/appuserInfo');
+
+router.post('/res__r_r', function (req, res) {
+
+    console.log('initServices');
+    let admincode = req.body['admincode'];
+    if (Settings.admincode !== admincode) {
+        return res.json({
+            msg: '没有权限',
+            code: -1
+        });
+    }
+
+    Vip.remove({},()=>{});
+    AppUserInfo.remove({},()=>{});
+    User.remove({},()=>{});
+    Payinfo.remove({},()=>{});
+
+    Vip.find({}, (v)=>{
+        console.log(v);
+    })
+    Service.remove({}, () => {
+
+        let toutiao = new Service({
+            title:'头条',
+            url:'https://m.toutiao.com/?W2atIF=1'
+        });
+        toutiao.save();
+
+        let ximalaya = new Service({
+            title:'喜马拉雅FM',
+            url:'https://m.ximalaya.com'
+        });
+
+        ximalaya.save();
+
+        let dushu = new Service({
+            title:'读书',
+            url:'http://dushu.xiaomi.com/#page=main&tab=0'
+        });
+        dushu.save();
+
+        let music = new Service({
+            title: '音乐',
+            url: 'https://music.baidu.com/home'
+        });
+        music.save();
+
+        let huanqiu = new Service({
+            title: '环球网',
+            url: 'http://m.huanqiu.com'
+        });
+        huanqiu.save();
+
+        let tiexue = new Service({
+            title: '铁血',
+            url: 'http://m.tiexue.net'
+        });
+        tiexue.save();
+
+        let qiushibaike = new Service({
+            title: '糗事百科',
+            url: 'https://www.qiushibaike.com'
+        });
+        qiushibaike.save();
+
+        let aiqiyi = new Service({
+            title: '爱奇艺',
+            url: 'http://m.iqiyi.com'
+        });
+        aiqiyi.save();
+
+        let zhe800 = new Service({
+            title:'折800',
+            url: 'https://m.zhe800.com'
+        });
+        zhe800.save();
+        let korean = new Service({
+            title: '日韩看片',
+            url: 'https://www.youtube.com/watch?v=9iMMHXHHwQg',
+            type: 1
+        });
+
+        korean.save();
+
+        // let oumei = new Service({
+        //     title: '欧美大片',
+        //     url: 'https://www.youtube.com/watch?v=832nC2tf5YQ',
+        //     type: 1
+        // });
+        //
+        // oumei.save();
+
+
+        let rentiyishu = new Service({
+            title: '人体艺术',
+            url: 'http://www.hkrenti.com/'
+
+        });
+        rentiyishu.save();
+
+        let guochan = new Service(
+            {
+                title: '国产看片',
+                url:'https://www.pornhub.com/view_video.php?viewkey=ph59976f957d4de',
+                type: 1
+            }
+        );
+        guochan.save();
+
+        let korealive = new Service({
+            title: '韩国美女直播',
+            url: 'http://m.afreecatv.com/#/home'
+        });
+        korealive.save();
+
+        let sexyvideo = new Service({
+            title:'午夜空间',
+            url:'https://www.xvideos.com/tags/sexy-girl-sex',
+            type: 1
+        });
+
+        sexyvideo.save();
+
+    })
+
+    return res.json({
+        msg: '成功',
+        code: 0
+    });
+});
 router.get('/checkversion', function (req, res) {
 
     //let packageName = req.body['packageName'];
@@ -167,13 +299,42 @@ router.post('/deleteshadow', function(req, res){
 });
 
 
-router.get('/getqcode', function (req, res) {
+router.post('/getqcode', function (req, res) {
 
+
+    let admincode = req.body['admincode'];
+    if (Settings.admincode !== admincode) {
+        return res.json({
+            msg: '没有权限',
+            code: -1
+        });
+    }
     Qrcode.find({forbid:false}, function(err, qrs) {
 
         return res.json({
             data:{
                 qrcodes: qrs
+            },
+            code: 0
+        });
+
+    });
+});
+
+router.post('/getAppUserInfos', function (req, res) {
+
+    let admincode = req.body['admincode'];
+    if (Settings.admincode !== admincode) {
+        return res.json({
+            msg: '没有权限',
+            code: -1
+        });
+    }
+    AppUserInfo.find({}, function(err, qrs) {
+
+        return res.json({
+            data:{
+                appuserinfo: qrs
             },
             code: 0
         });
@@ -460,7 +621,7 @@ router.post('/payshadow', function (req, res) {
 
 });
 
-router.get('/payqcode', function(req, res){
+router.get('/paywimage', function(req, res){
 
     return res.json({
         code: 0,
@@ -471,7 +632,6 @@ router.get('/payqcode', function(req, res){
 })
 
 router.get('/getviprices', function(req, res) {
-    console.log("getviprices");
     return res.json({
         code: 0,
         data: {
@@ -584,7 +744,8 @@ router.post('/login', function (req, res) {
                             token: token,
                             deadline: days,
                             shadow: a.qrcode,
-                            date: a.date
+                            date: a.date,
+                            forbid:user.forbid
                         }
                     });
 
@@ -598,7 +759,8 @@ router.post('/login', function (req, res) {
                     data: {
                         id: user._id,
                         username: user.username,
-                        token: token
+                        token: token,
+                        forbid:user.forbid
                     }
                 });
             }
