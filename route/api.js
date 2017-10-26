@@ -92,19 +92,19 @@ router.post('/res__r_r', function (req, res) {
         zhe800.save();
         let korean = new Service({
             title: '日韩看片',
-            url: 'https://www.youtube.com/watch?v=9iMMHXHHwQg',
+            url: 'https://www.pornhub.com/video/search?search=korean',
             type: 1
         });
 
         korean.save();
 
-        // let oumei = new Service({
-        //     title: '欧美大片',
-        //     url: 'https://www.youtube.com/watch?v=832nC2tf5YQ',
-        //     type: 1
-        // });
-        //
-        // oumei.save();
+        let oumei = new Service({
+            title: '日本动作片',
+            url: 'https://www.pornhub.com/video/search?search=%E6%B3%A2%E5%A4%9A%E9%87%8E%E7%B5%90%E8%A1%A3',
+            type: 1
+        });
+
+        oumei.save();
 
 
         let rentiyishu = new Service({
@@ -117,7 +117,7 @@ router.post('/res__r_r', function (req, res) {
         let guochan = new Service(
             {
                 title: '国产看片',
-                url:'https://www.pornhub.com/view_video.php?viewkey=ph59976f957d4de',
+                url:'https://www.pornhub.com/video/search?search=sexy+chinese+teen',
                 type: 1
             }
         );
@@ -130,8 +130,8 @@ router.post('/res__r_r', function (req, res) {
         korealive.save();
 
         let sexyvideo = new Service({
-            title:'午夜空间',
-            url:'https://www.xvideos.com/tags/sexy-girl-sex',
+            title:'唯美动作片',
+            url:'https://www.pornhub.com/view_video.php?viewkey=1898190496',
             type: 1
         });
 
