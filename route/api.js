@@ -304,13 +304,13 @@ router.post('/deleteshadow', function(req, res){
 router.post('/getqcode', function (req, res) {
 
 
-    let admincode = req.body['admincode'];
-    if (Settings.admincode !== admincode) {
-        return res.json({
-            msg: '没有权限',
-            code: -1
-        });
-    }
+    // let admincode = req.body['admincode'];
+    // if (Settings.admincode !== admincode) {
+    //     return res.json({
+    //         msg: '没有权限',
+    //         code: -1
+    //     });
+    // }
     Qrcode.find({forbid:false}, function(err, qrs) {
 
         return res.json({
