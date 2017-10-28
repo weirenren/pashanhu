@@ -389,119 +389,150 @@ app.post('/a/api/upload', function(req, res, next){
                                                 res.end(JSON.stringify(reponse));
                                             } else {
 
-                                                console.log('付款金额正确')
-                                                var newPayinfo = new PayInfo({
-                                                    username: req.body['username'],
-                                                    orderid: orderid,
-                                                    totalmoney: money,
-                                                    filename: filename,
-                                                    datetime: datetime,
-                                                    content: content
-                                                });
+                                                let today = new Date();
 
-                                                newPayinfo.save(function(err, obj){
-
-                                                    console.log('save:' + obj);
-                                                });
+                                                let paytime = new Date(Date.parse(datetime.replace("-", "/")));
 
 
-                                                let days = getviptime(money);
 
-                                                Vip.findOne({time: days, payed: false}, function(err, v) {
+                                                console.log('付款金额正确');
 
-                                                    if (v) {
-                                                        console.log("Vip.findOne:" + v);
-                                                        AppUserInfo.findOne({username: req.body['username']}, function(err, vipuser) {
+                                                let minus = (today-paytime)/(1000*60*60);
+                                                if (minus < 0) {
+                                                    let response = {
+                                                        msg: '支付日期有误',
+                                                        code: -1
+                                                    };
+                                                    res.end(JSON.stringify(response));
 
-                                                            console.log("Vip.findOne:" + v);
+                                                } else {
 
-                                                            if (vipuser) {
-                                                                console.log('appuserinfo:' + vipuser);
-                                                                if (vipuser.deviceid !== deviceid) {
+                                                    if (minus > 1) {
+                                                        let response = {
+                                                            msg: '支付日期已失效，请重新支付会员费用，提交支付截图凭证',
+                                                            code: -1
+                                                        };
+                                                        res.end(JSON.stringify(response));
 
-                                                                    let response = {
-                                                                        msg: '请用注册的手机登录账号',
-                                                                        code: -1001
-                                                                    }
+                                                    } else {
 
-                                                                    res.end(JSON.stringify(reponse));
-                                                                }
-                                                            } else {
-                                                                console.log('appuserinfo:not found');
-                                                                let vipuser = new AppUserInfo();
-                                                                vipuser.vipcode = v.vipcode;
-                                                                vipuser.qrcode = v.qrcode;
-                                                                vipuser.username = req.body['username'];
-                                                                vipuser.time = v.time;
+                                                        var newPayinfo = new PayInfo({
+                                                            username: req.body['username'],
+                                                            orderid: orderid,
+                                                            totalmoney: money,
+                                                            filename: filename,
+                                                            datetime: datetime,
+                                                            content: content
+                                                        });
 
-                                                                vipuser.save(function(err, vu) {
+                                                        newPayinfo.save(function(err, obj){
 
-                                                                    if (vu) {
-
-                                                                        let tokendata = {
-                                                                            id: vu._id,
-                                                                            username: vu.username,
-                                                                            deviceid: deviceid
-                                                                        };
-
-                                                                        let token = Util.genToken(tokendata);
-                                                                        console.log('支付成功：');
-
-                                                                        let re = {
-                                                                            code: 0,
-                                                                            msg: '支付成功',
-                                                                            data: {
-                                                                                id: vu._id,
-                                                                                token: token,
-                                                                                deadline: v.time,
-                                                                                shadow: v.qrcode,
-                                                                                money: money
-                                                                            }
-                                                                        };
-
-
-                                                                        console.log(re);
-
-                                                                        res.end(JSON.stringify(re));
-
-                                                                    } else {
-                                                                        console.log('支付失败：');
-                                                                    }
-
-                                                                    if (err) {
-
-                                                                        let response = {
-                                                                            msg: '内部错误',
-                                                                            code: -1
-                                                                        };
-                                                                        res.end(JSON.stringify(response));
-                                                                    }
-                                                                });
-
-                                                                v.payed = true;
-                                                                v.save();
-
-                                                            }
-
-
+                                                            console.log('save:' + obj);
                                                         });
 
 
-                                                    } else {
-                                                        console.log("Vip.findOne: not found");
+                                                        let days = getviptime(money);
 
-                                                        let reponse={
-                                                            code:0,
-                                                            msg:'success',
-                                                            data:{
-                                                                money:money
+                                                        Vip.findOne({time: days, payed: false}, function(err, v) {
+
+                                                            if (v) {
+                                                                console.log("Vip.findOne:" + v);
+                                                                AppUserInfo.findOne({username: req.body['username']}, function(err, vipuser) {
+
+                                                                    console.log("Vip.findOne:" + v);
+
+                                                                    if (vipuser) {
+                                                                        console.log('appuserinfo:' + vipuser);
+                                                                        if (vipuser.deviceid !== deviceid) {
+
+                                                                            let response = {
+                                                                                msg: '请用注册的手机登录账号',
+                                                                                code: -1001
+                                                                            }
+
+                                                                            res.end(JSON.stringify(reponse));
+                                                                        }
+                                                                    } else {
+                                                                        console.log('appuserinfo:not found');
+                                                                        let vipuser = new AppUserInfo();
+                                                                        vipuser.vipcode = v.vipcode;
+                                                                        vipuser.qrcode = v.qrcode;
+                                                                        vipuser.username = req.body['username'];
+                                                                        vipuser.time = v.time;
+
+                                                                        vipuser.save(function(err, vu) {
+
+                                                                            if (vu) {
+
+                                                                                let tokendata = {
+                                                                                    id: vu._id,
+                                                                                    username: vu.username,
+                                                                                    deviceid: deviceid
+                                                                                };
+
+                                                                                let token = Util.genToken(tokendata);
+                                                                                console.log('支付成功：');
+
+                                                                                let re = {
+                                                                                    code: 0,
+                                                                                    msg: '支付成功',
+                                                                                    data: {
+                                                                                        id: vu._id,
+                                                                                        token: token,
+                                                                                        deadline: v.time,
+                                                                                        shadow: v.qrcode,
+                                                                                        money: money
+                                                                                    }
+                                                                                };
+
+
+                                                                                console.log(re);
+
+                                                                                res.end(JSON.stringify(re));
+
+                                                                            } else {
+                                                                                console.log('支付失败：');
+                                                                            }
+
+                                                                            if (err) {
+
+                                                                                let response = {
+                                                                                    msg: '内部错误',
+                                                                                    code: -1
+                                                                                };
+                                                                                res.end(JSON.stringify(response));
+                                                                            }
+                                                                        });
+
+                                                                        v.payed = true;
+                                                                        v.save();
+
+                                                                    }
+
+
+                                                                });
+
+
+                                                            } else {
+                                                                console.log("Vip.findOne: not found");
+
+                                                                let reponse={
+                                                                    code:0,
+                                                                    msg:'success',
+                                                                    data:{
+                                                                        money:money
+                                                                    }
+                                                                };
+                                                                res.end(JSON.stringify(reponse));
                                                             }
-                                                        };
-                                                        res.end(JSON.stringify(reponse));
-                                                    }
 
-                                                    //
-                                                });
+                                                            //
+                                                        });
+
+
+                                                    }
+                                                }
+
 
 
 

@@ -173,15 +173,22 @@ function testDateFormat() {
 	console.log(da.toDateString());
 }
 
-function testSave() {
-	var newPayinfo = new PayInfo({
-		username: 'weichao'
-	});
+function testDateCompare() {
+	let date = new Date();
 
+	let time = "2017-10-27 12:22";
+	time = time.replace("-", "/");
+	let d1 = new Date(Date.parse(time));
+	let today = new Date();
 
-	PayInfo.find({}, (err,obj) => {
-		console.log('find:' + obj);
-	})
+	if (d1 > today) {
+		console.log('大于');
+	} else {
+		console.log('小于');
+	}
+
+	console.log((today - d1) / (1000*60*60));
+
 
 }
 
@@ -284,8 +291,10 @@ util.getFilePath = function(filepath, next) {
 	});
 };
 
+
+
 Promise.resolve()
-	.then();
+	.then(testDateCompare);
 
 
 module.exports = util;

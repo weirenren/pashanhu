@@ -197,6 +197,8 @@ router.post('/register', function (req, res) {
     let username = req.body['username'];
     let deviceid = req.body['deviceid'];
 
+    console.log("register deviceid:" + deviceid);
+
     var md5 = crypto.createHash('md5');
     var password = md5.update(req.body['password']).digest('base64');
     var newUser = new User({
