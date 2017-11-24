@@ -4,7 +4,7 @@
 * */
 
 'use strict';
-
+var dateFormat = require('dateformat');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
@@ -131,6 +131,14 @@ function getDistance(lat1, lng1, lat2, lng2) {
 	function toRadians(d) {  return d * Math.PI / 180;}
 }
 
+util.formatDateISO = function (date) {
+    return dateFormat(date, 'isoDate');
+};
+
+util.formatDate = function (date) {
+    return dateFormat(date,'isoDate') + ' ' + dateFormat(date, 'isoTime');;
+};
+
 //sDate1和sDate2是2002-12-18格式
 util.getDays = function(sDate1,  sDate2){
 
@@ -176,21 +184,32 @@ function testDateFormat() {
 function testDateCompare() {
 	let date = new Date();
 
-	let time = "2017-10-27 12:22";
-	time = time.replace("-", "/");
-	let d1 = new Date(Date.parse(time));
-	let today = new Date();
+	let deviceid = 'b35425db93c760b4ff4e96d7a4fe50b2';
 
-	if (d1 > today) {
-		console.log('大于');
-	} else {
-		console.log('小于');
-	}
+	let j= 'b35425db93c760b4ff4e96d7a4fe50b2'
+	let time = "2017-11-24T12:27:52.979Z";
 
-	console.log((today - d1) / (1000*60*60));
+	// time = time.replace("-", "/");
+	// let d1 = new Date(Date.parse(time));
+	// let today = new Date();
+    //
+	// if (d1 > today) {
+	// 	console.log('大于');
+	// } else {
+	// 	console.log('小于');
+	// }
+    //
+	// console.log((today - d1) / (1000*60*60));
 
+	let d = new Date(Date.parse(time));
 
+    // let days = util.getDays(util.formatDate(d), util.formatDate(new Date()));
+
+	let st = dateFormat(new Date(time),'isoDate') + ' ' + dateFormat(new Date(time), 'isoTime');
+    console.log('days:' + st);
 }
+
+
 
 function testDateSort() {
 

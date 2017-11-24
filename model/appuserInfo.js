@@ -4,9 +4,9 @@
 var mongoose = require('../db').mongoose;
 var schema = new mongoose.Schema({
     username: String,
-    time: Number, // 会员天数
+    time: {type: Number, default: 0}, // 会员天数
     deviceid: String,
-    date: {type: Date, default: Date.now}, // 激活日期 年月日
+    date: Date, // 激活日期 年月日
     qrcode: {type:String, default: ''},
     vipcode: {type:String, default: ''},
     forbidden: {type:Boolean, default: false} // 是否禁用该账户

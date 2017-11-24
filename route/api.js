@@ -668,6 +668,14 @@ router.post('/downloadapkurl', function (req, res) {
         }
     });
 })
+
+function minusDays(before, after) {
+    console.log('before minus:' + before);
+    // let da = new Date(before.getFullYear() + '-' + before.getMonth() + '-' + before.getDay());
+    //
+    // console.log('minus:' + da);
+    return Util.getDays(before, Util.formatDateISO(after));
+}
 //router.post('/users/create', isLogin);
 router.post('/login', function (req, res) {
 
@@ -719,10 +727,12 @@ router.post('/login', function (req, res) {
                 deviceid: deviceid
             };
             let token;
-
-            console.log(a);
+;
             if (a) {
 
+
+                console.log('deviceid:' + deviceid);
+                console.log(a);
                 if (a.deviceid !== deviceid) {
                     return res.json({
                         msg: '请用注册的手机登录账号',
@@ -732,11 +742,22 @@ router.post('/login', function (req, res) {
 
                     token = Util.genToken(tokendata);
                     let days;
-                    if (a.qrcode.length === 0) {
-                        days = -1;
+                    // if (a.qrcode.length === 0) {
+                    //     days = -1;
+                    // } else {
+                    //     days = a.time - Util.getDays(a.date, new Date());
+                    // }
+                    //
+                    //
+
+                    if (!a.date) {
+                        days = 0;
                     } else {
-                        days = a.time - Util.getDays(a.date, new Date());
+
+                        days = a.time + minusDays(a.date, new Date());
                     }
+
+                    console.log('has buy vip,days:' + days);
                     return res.json({
                         msg: '登录成功',
                         code: 0,
@@ -746,7 +767,8 @@ router.post('/login', function (req, res) {
                             token: token,
                             deadline: days,
                             shadow: a.qrcode,
-                            date: a.date,
+                            date: Util.formatDate(a.date),
+                            time: a.time,
                             forbid:user.forbid
                         }
                     });
@@ -754,7 +776,7 @@ router.post('/login', function (req, res) {
                 }
             } else {
                 token = Util.genToken(tokendata);
-
+                console.log('has not buy vip');
                 return res.json({
                     msg: '登录成功',
                     code: 0,
