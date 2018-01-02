@@ -639,8 +639,8 @@ router.get('/getviprices', function(req, res) {
         data: {
             vipprices:[
                 {name:'倔强青铜',
-                    price:2,
-                    des:"2元/天"
+                    price:5,
+                    des:"5元/3天"
                 },
                 {name:'黄金荣耀',
                     price:15,
