@@ -648,7 +648,7 @@ router.get('/getviprices', function(req, res) {
                 },
                 { name:'尊贵铂金',
                     price:65,
-                    des:"60元/半年"
+                    des:"65元/半年"
                 },
                 {name:'钻石新耀',
                     price:100,

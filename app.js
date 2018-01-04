@@ -120,8 +120,8 @@ function checkPayInfo(paycontent, callback) {
         let word = item['words'];
 
         content += word + '|';
-        if (word == jiaoyijilu_tag) {
-            status = 1;
+        if (word == weixinzhifu_tag) {
+            status = 2;
             console.log('1');
 
         } else {
@@ -271,8 +271,8 @@ function checkPayInfo(paycontent, callback) {
 }
 
 function getviptime(money) {
-    if (2 <=money < 15) {
-        return 1;
+    if (5 <=money < 15) {
+        return 3;
     }
 
     if (15<=money<65) {
