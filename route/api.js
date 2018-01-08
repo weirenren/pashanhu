@@ -667,7 +667,9 @@ router.post('/downloadapkurl', function (req, res) {
             downurl: ''
         }
     });
-})
+});
+
+
 
 function minusDays(before, after) {
     console.log('before minus:' + before);
