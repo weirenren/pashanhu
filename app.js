@@ -71,18 +71,16 @@ var upload = multer({dest: uploadDir}).single('logo');
 
 function checkPayInfo(paycontent, callback) {
 //
-//    下午4:30
-//    ⑧令aMll
-//    交易记录
 //    微信支付
 //    付款金额
 //    ￥10.00
+//    当前状态
+//    已转账
 //    收款方
 //    曾经的我。
 //    收款方备注
 //    二维码收款
-//    当前状态
-//    已转账
+
 //    转账时间
 //    2017-10-0511:36:45
 //    支付方式
@@ -148,51 +146,71 @@ function checkPayInfo(paycontent, callback) {
                         break;
                     case 3:
                         money = word.substring(1); // 判断是否为数字
+                        console.log('4 before :' + money);
+
+                        if (money < 1) {
+                            status = -1;
+                            break;
+                        }
+                        if (money.indexOf(".")>=0) {
+
+                        } else {
+                            if (money.length >=3) {
+                                money = money / 100;
+                            }
+                        }
+                        console.log('4:' + money);
                         status = 4;
                         break;
                     case 4:
-                        if (word == shoukuanfang_tag) {
+                        if (word == dangqianzhuangtai_tag) {
                             status = 5;
+                            console.log('5');
                         } else {
                             status = -1;
                         }
                         break;
                     case 5:
-                        shoukuan_name = word; // 收款人名判断
-                        status = 6;
-                        break;
-                    case 6:
-                        if (word == shoukuanfangbeizhu_tag) {
-                            status = 7;
-                            console.log('7');
+                        if (word == yizhuanzhang_tag) {
+                            status = 6;
                         } else {
                             status = -1;
                         }
+                        break;
+                    case 6: // 跳过4 原因：收款方 三个字未识别
+                        // if (word == shoukuanfang_tag) {
+                        //     status = 5;
+                        // } else {
+                        //     status = -1;
+                        // }
+                        //
+                        status = 7;
+
                         break;
                     case 7:
-                        if (word == erweimashoukuan_tag) {
-                            status = 8;
-                            console.log('8');
-                        } else {
-                            status = -1;
-                        }
+                        shoukuan_name = word; // 收款人名判断
+                        console.log('8： ' + shoukuan_name);
+                        status = 8;
                         break;
                     case 8:
-                        if (word == dangqianzhuangtai_tag) {
+                        if (word == shoukuanfangbeizhu_tag) {
                             status = 9;
                             console.log('9');
                         } else {
                             status = -1;
                         }
+                        console.log('9： ' + word);
                         break;
                     case 9:
-                        if (word == yizhuanzhang_tag) {
+                        if (word == erweimashoukuan_tag) {
                             status = 10;
                             console.log('10');
                         } else {
                             status = -1;
                         }
+                        console.log('10： ' + word);
                         break;
+
                     case 10:
                         if (word == zhuangzhangshijian_tag) {
                             status = 11;

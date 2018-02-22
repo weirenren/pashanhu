@@ -628,7 +628,8 @@ router.get('/paywimage', function(req, res){
     return res.json({
         code: 0,
         data: {
-            qcode:Settings.payweixin
+            qcode:Settings.payweixin,
+            payinfo:Settings.payinfor
         }
     });
 })
@@ -639,18 +640,18 @@ router.get('/getviprices', function(req, res) {
         data: {
             vipprices:[
                 {name:'倔强青铜',
-                    price:5,
-                    des:"5元/3天"
+                    price:10,
+                    des:"10元/5天"
                 },
                 {name:'黄金荣耀',
-                    price:15,
-                    des:"15元/月"
+                    price:19,
+                    des:"19元/月"
                 },
                 { name:'尊贵铂金',
-                    price:65,
-                    des:"65元/半年"
+                    price:70,
+                    des:"70元/半年"
                 },
-                {name:'钻石新耀',
+                {name:'钻石星耀',
                     price:100,
                     des:"100元/年"
                 }
