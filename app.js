@@ -1110,6 +1110,12 @@ app.post('/findpwd', function (req, res) {
 
 });
 
+app.get('/1micfznU', function (req, res) {
+    res.redirect('https://pan.baidu.com/s/1micfznU');
+});
+
+
+
 //用户进入注册页面
 app.get('/register', function (req, res) {
     res.render('register', {title: "用户注册"});
