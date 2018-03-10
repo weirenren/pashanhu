@@ -26,32 +26,36 @@ router.post('/res__r_r', function (req, res) {
         });
     }
 
-    Vip.remove({},()=>{});
-    AppUserInfo.remove({},()=>{});
-    User.remove({},()=>{});
-    Payinfo.remove({},()=>{});
+    Vip.remove({}, () => {
+    });
+    AppUserInfo.remove({}, () => {
+    });
+    User.remove({}, () => {
+    });
+    Payinfo.remove({}, () => {
+    });
 
-    Vip.find({}, (v)=>{
+    Vip.find({}, (v) => {
         console.log(v);
     })
     Service.remove({}, () => {
 
         let toutiao = new Service({
-            title:'头条',
-            url:'https://m.toutiao.com/?W2atIF=1'
+            title: '头条',
+            url: 'https://m.toutiao.com/?W2atIF=1'
         });
         toutiao.save();
 
         let ximalaya = new Service({
-            title:'喜马拉雅FM',
-            url:'https://m.ximalaya.com'
+            title: '喜马拉雅FM',
+            url: 'https://m.ximalaya.com'
         });
 
         ximalaya.save();
 
         let dushu = new Service({
-            title:'读书',
-            url:'http://dushu.xiaomi.com/#page=main&tab=0'
+            title: '读书',
+            url: 'http://dushu.xiaomi.com/#page=main&tab=0'
         });
         dushu.save();
 
@@ -86,7 +90,7 @@ router.post('/res__r_r', function (req, res) {
         aiqiyi.save();
 
         let zhe800 = new Service({
-            title:'折800',
+            title: '折800',
             url: 'https://m.zhe800.com'
         });
         zhe800.save();
@@ -117,7 +121,7 @@ router.post('/res__r_r', function (req, res) {
         let guochan = new Service(
             {
                 title: '国产看片',
-                url:'https://www.pornhub.com/video/search?search=sexy+chinese+teen',
+                url: 'https://www.pornhub.com/video/search?search=sexy+chinese+teen',
                 type: 1
             }
         );
@@ -130,8 +134,8 @@ router.post('/res__r_r', function (req, res) {
         korealive.save();
 
         let sexyvideo = new Service({
-            title:'唯美动作片',
-            url:'https://www.pornhub.com/view_video.php?viewkey=1898190496',
+            title: '唯美动作片',
+            url: 'https://www.pornhub.com/view_video.php?viewkey=1898190496',
             type: 1
         });
 
@@ -153,8 +157,8 @@ router.get('/checkversion', function (req, res) {
     console.log('checkversion');
 
     return res.json({
-        code:0,
-        data :{
+        code: 0,
+        data: {
             vcode: Settings.apkVersionCode,
             changelog: Settings.changelog,
             downurl: Settings.downurl,
@@ -230,7 +234,7 @@ router.post('/register', function (req, res) {
             let app = new AppUserInfo();
             app.deviceid = deviceid;
             app.username = u.username;
-            app.save(function (e,a) {
+            app.save(function (e, a) {
 
                 if (a) {
                     console.log('注册成功' + a);
@@ -257,7 +261,7 @@ router.post('/register', function (req, res) {
 });
 
 // 禁止用户会员
-router.post('/forbid', function(req, res){
+router.post('/forbid', function (req, res) {
 
     let admincode = req.body['admincode'];
     if (Settings.admincode !== admincode) {
@@ -268,7 +272,7 @@ router.post('/forbid', function(req, res){
     }
 
 });
-router.post('/deleteshadow', function(req, res){
+router.post('/deleteshadow', function (req, res) {
 
 
     let admincode = req.body['admincode'];
@@ -279,16 +283,16 @@ router.post('/deleteshadow', function(req, res){
         });
     }
 
-    let shadowcode = req.body['shadowcode'];
+    let id = req.body['qcodeid'];
 
-    Qrcode.remove({qrcode: shadowcode}, function(err, obeject){
+    Qrcode.remove({_id: id}, function (err, obeject) {
 
         if (obeject) {
-            Qrcode.find({forbid:false}, function(err, qrcodes) {
+            Qrcode.find({forbid: false}, function (err, qrcodes) {
                 if (qrcodes) {
                     return res.json({
                         msg: '成功',
-                        data : {
+                        data: {
                             qrcodes: qrcodes
                         },
                         code: 0
@@ -311,10 +315,10 @@ router.post('/getqcode', function (req, res) {
     //         code: -1
     //     });
     // }
-    Qrcode.find({forbid:false}, function(err, qrs) {
+    Qrcode.find({forbid: false}, function (err, qrs) {
 
         return res.json({
-            data:{
+            data: {
                 qrcodes: qrs
             },
             code: 0
@@ -332,10 +336,10 @@ router.post('/getAppUserInfos', function (req, res) {
             code: -1
         });
     }
-    AppUserInfo.find({}, function(err, qrs) {
+    AppUserInfo.find({}, function (err, qrs) {
 
         return res.json({
-            data:{
+            data: {
                 appuserinfo: qrs
             },
             code: 0
@@ -344,7 +348,7 @@ router.post('/getAppUserInfos', function (req, res) {
     });
 });
 
-router.post('/addshadow', function(req, res){
+router.post('/addshadow', function (req, res) {
 
 
     let admincode = req.body['admincode'];
@@ -357,11 +361,11 @@ router.post('/addshadow', function(req, res){
 
     let shadowcode = req.body['shadowcode'];
     let name = req.body['name'];
-    Qrcode.findOne({qrcode: shadowcode}, function(err, vip) {
+    Qrcode.findOne({qrcode: shadowcode}, function (err, vip) {
 
         if (vip) {
             return res.json({
-                msg: '添加失败,二维码:' +shadowcode+ ' 已存在',
+                msg: '添加失败,二维码:' + shadowcode + ' 已存在',
                 code: -2
             });
         }
@@ -371,12 +375,12 @@ router.post('/addshadow', function(req, res){
         qrcode.name = name;
         qrcode.qrcode = shadowcode;
 
-        qrcode.save(function(err, v){
+        qrcode.save(function (err, v) {
             if (v) {
                 console.log('addshadow-> success:' + v);
                 return res.json({
                     msg: '添加成功',
-                    data : {
+                    data: {
                         qrcode: v
                     },
                     code: 0
@@ -390,7 +394,7 @@ router.post('/addshadow', function(req, res){
 //vipcode: String, // 激活码
 //    qrcode: String, // 二维码
 //    time: 10, // 剩余天数
-router.post('/addvipcode', function(req, res){
+router.post('/addvipcode', function (req, res) {
 
     console.log('addshadow');
 
@@ -405,11 +409,11 @@ router.post('/addvipcode', function(req, res){
     let vipcode = req.body['vipcode'];
     let qrcode = req.body['qrcode'];
     let time = req.body['time'];
-    Vip.findOne({vipcode: vipcode}, function(err, vip) {
+    Vip.findOne({vipcode: vipcode}, function (err, vip) {
 
         if (vip) {
             return res.json({
-                msg: '添加失败,激活码:' +vipcode+ ' 已存在',
+                msg: '添加失败,激活码:' + vipcode + ' 已存在',
                 code: -2
             });
         }
@@ -419,12 +423,12 @@ router.post('/addvipcode', function(req, res){
         newVip.qrcode = qrcode;
         newVip.time = time;
 
-        newVip.save(function(err, v){
+        newVip.save(function (err, v) {
             if (v) {
                 console.log('addshadow-> success:' + v);
                 return res.json({
                     msg: '添加成功',
-                    data : {
+                    data: {
                         vip: v
                     },
                     code: 0
@@ -451,7 +455,7 @@ router.post('/getvips', function (req, res) {
 
         return res.json({
             msg: '获取成功',
-            data : {
+            data: {
                 vips: vips
             },
             code: 0
@@ -481,7 +485,7 @@ router.post('/updatevip', function (req, res) {
         if (v) {
             return res.json({
                 msg: '修改成功',
-                data : {
+                data: {
                     vip: v
                 },
                 code: 0
@@ -501,7 +505,7 @@ router.get('/services', function (req, res) {
 
     console.log('/services');
 
-    Service.find({}, function(err, services) {
+    Service.find({}, function (err, services) {
 
         console.log(services);
         return res.json({
@@ -575,8 +579,6 @@ router.post('/update_service', function(req, res) {
 });
 
 
-
-
 router.post('/payshadow', function (req, res) {
     console.log('payshadow');
     let username = req.body['username'];
@@ -601,19 +603,19 @@ router.post('/payshadow', function (req, res) {
             });
         }
 
-        //if (user.pwd !== password) {
-        //    return res.json({
-        //        msg: '账号密码错误',
-        //        code: -2
-        //    });
-        //}
+        // if (user.pwd !== password) {
+        //     return res.json({
+        //         msg: '账号密码错误',
+        //         code: -2
+        //     });
+        // }
 
-        Vip.findOne({vipcode: vipcode}, function(err, v){
+        Vip.findOne({vipcode: vipcode}, function (err, v) {
 
             if (v) {
                 if (v.payed !== true) {
 
-                    AppUserInfo.findOne({username: username}, function(err, vipuser) {
+                    AppUserInfo.findOne({username: username}, function (err, vipuser) {
 
                         vipuser.date = new Date();
                         vipuser.vipcode = v.vipcode;
@@ -627,14 +629,14 @@ router.post('/payshadow', function (req, res) {
                             });
                         }
 
-                        vipuser.save(function(err, vu) {
+                        vipuser.save(function (err, vu) {
 
                             if (vu) {
 
                                 let tokendata = {
                                     id: vu._id,
                                     username: vu.username,
-                                    deviceid:deviceid
+                                    deviceid: deviceid
                                 };
 
                                 let token = Util.genToken(tokendata);
@@ -671,7 +673,7 @@ router.post('/payshadow', function (req, res) {
                         code: 1
                     });
                 }
-            }else {
+            } else {
                 return res.json({
                     msg: '此激活码无效',
                     code: 1
@@ -684,36 +686,42 @@ router.post('/payshadow', function (req, res) {
 
 });
 
-router.get('/paywimage', function(req, res){
+router.get('/paywimage', function (req, res) {
 
     return res.json({
         code: 0,
         data: {
-            qcode:Settings.payweixin
+            qcode: Settings.payweixin,
+            payinfo: Settings.payinfor,
+            shikantip: Settings.shikantip
         }
     });
 })
 
-router.get('/getviprices', function(req, res) {
+router.get('/getviprices', function (req, res) {
     return res.json({
         code: 0,
         data: {
-            vipprices:[
-                {name:'倔强青铜',
-                    price:5,
-                    des:"5元/3天"
+            vipprices: [
+                {
+                    name: '倔强青铜',
+                    price: 10,
+                    des: "10元/7天"
                 },
-                {name:'黄金荣耀',
-                    price:15,
-                    des:"15元/月"
+                {
+                    name: '黄金荣耀',
+                    price: 19,
+                    des: "19元/月"
                 },
-                { name:'尊贵铂金',
-                    price:65,
-                    des:"65元/半年"
+                {
+                    name: '尊贵铂金',
+                    price: 70,
+                    des: "70元/半年"
                 },
-                {name:'钻石星耀',
-                    price:100,
-                    des:"100元/年"
+                {
+                    name: '钻石星耀',
+                    price: 100,
+                    des: "100元/年"
                 }
 
             ]
@@ -729,7 +737,6 @@ router.post('/downloadapkurl', function (req, res) {
         }
     });
 });
-
 
 
 function minusDays(before, after) {
@@ -775,7 +782,7 @@ router.post('/login', function (req, res) {
             });
         }
 
-        AppUserInfo.findOne({username:username}, function (err, a){
+        AppUserInfo.findOne({username: username}, function (err, a) {
 
             if (err) {
                 return res.json({
@@ -790,7 +797,7 @@ router.post('/login', function (req, res) {
                 deviceid: deviceid
             };
             let token;
-;
+            ;
             if (a) {
 
 
@@ -813,10 +820,11 @@ router.post('/login', function (req, res) {
                     //
                     //
 
-                    if (!a.date) {
+                    if (a.date !== null) {
+                        console.log("no date");
                         days = 0;
                     } else {
-
+                        console.log("date:" + a.date);
                         days = a.time + minusDays(a.date, new Date());
                     }
 
@@ -828,11 +836,10 @@ router.post('/login', function (req, res) {
                             id: user._id,
                             username: a.username,
                             token: token,
-                            deadline: days,
                             shadow: a.qrcode,
                             date: Util.formatDate(a.date),
                             time: a.time,
-                            forbid:user.forbid
+                            forbid: user.forbid
                         }
                     });
 
@@ -847,7 +854,7 @@ router.post('/login', function (req, res) {
                         id: user._id,
                         username: user.username,
                         token: token,
-                        forbid:user.forbid
+                        forbid: user.forbid
                     }
                 });
             }

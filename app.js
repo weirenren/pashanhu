@@ -64,25 +64,23 @@ var esClient = new elasticsearch.Client({
 
 app.locals.server_host = "http://127.0.0.1:3000";
 
-var multer  = require('multer');
+var multer = require('multer');
 
 var uploadDir = './public/apppay/upload/';
 var upload = multer({dest: uploadDir}).single('logo');
 
 function checkPayInfo(paycontent, callback) {
 //
-//    下午4:30
-//    ⑧令aMll
-//    交易记录
 //    微信支付
 //    付款金额
 //    ￥10.00
+//    当前状态
+//    已转账
 //    收款方
 //    曾经的我。
 //    收款方备注
 //    二维码收款
-//    当前状态
-//    已转账
+
 //    转账时间
 //    2017-10-0511:36:45
 //    支付方式
@@ -126,7 +124,7 @@ function checkPayInfo(paycontent, callback) {
 
         } else {
 
-            if (1<=status<=14) {
+            if (1 <= status <= 14) {
 
                 switch (status) {
                     case 1:
@@ -148,51 +146,71 @@ function checkPayInfo(paycontent, callback) {
                         break;
                     case 3:
                         money = word.substring(1); // 判断是否为数字
+                        console.log('4 before :' + money);
+
+                        if (money < 1) {
+                            status = -1;
+                            break;
+                        }
+                        if (money.indexOf(".") >= 0) {
+
+                        } else {
+                            if (money.length >= 3) {
+                                money = money / 100;
+                            }
+                        }
+                        console.log('4:' + money);
                         status = 4;
                         break;
                     case 4:
-                        if (word == shoukuanfang_tag) {
+                        if (word == dangqianzhuangtai_tag) {
                             status = 5;
+                            console.log('5');
                         } else {
                             status = -1;
                         }
                         break;
                     case 5:
-                        shoukuan_name = word; // 收款人名判断
-                        status = 6;
-                        break;
-                    case 6:
-                        if (word == shoukuanfangbeizhu_tag) {
-                            status = 7;
-                            console.log('7');
+                        if (word == yizhuanzhang_tag) {
+                            status = 6;
                         } else {
                             status = -1;
                         }
+                        break;
+                    case 6: // 跳过4 原因：收款方 三个字未识别
+                        // if (word == shoukuanfang_tag) {
+                        //     status = 5;
+                        // } else {
+                        //     status = -1;
+                        // }
+                        //
+                        status = 7;
+
                         break;
                     case 7:
-                        if (word == erweimashoukuan_tag) {
-                            status = 8;
-                            console.log('8');
-                        } else {
-                            status = -1;
-                        }
+                        shoukuan_name = word; // 收款人名判断
+                        console.log('8： ' + shoukuan_name);
+                        status = 8;
                         break;
                     case 8:
-                        if (word == dangqianzhuangtai_tag) {
+                        if (word == shoukuanfangbeizhu_tag) {
                             status = 9;
                             console.log('9');
                         } else {
                             status = -1;
                         }
+                        console.log('9： ' + word);
                         break;
                     case 9:
-                        if (word == yizhuanzhang_tag) {
+                        if (word == erweimashoukuan_tag) {
                             status = 10;
                             console.log('10');
                         } else {
                             status = -1;
                         }
+                        console.log('10： ' + word);
                         break;
+
                     case 10:
                         if (word == zhuangzhangshijian_tag) {
                             status = 11;
@@ -203,7 +221,7 @@ function checkPayInfo(paycontent, callback) {
                         break;
                     case 11:
 
-                        datetime = word.substring(0,10) + ' ' + word.substring(10); // 格式判断
+                        datetime = word.substring(0, 10) + ' ' + word.substring(10); // 格式判断
 
                         console.log('datetime:' + datetime);
                         status = 12;
@@ -250,7 +268,6 @@ function checkPayInfo(paycontent, callback) {
     });
 
 
-
     console.log(status);
 
     if (orderid != '-1') {
@@ -271,19 +288,19 @@ function checkPayInfo(paycontent, callback) {
 }
 
 function getviptime(money) {
-    if (5 <=money < 15) {
-        return 3;
+    if (5 <= money < 19) {
+        return 7;
     }
 
-    if (15<=money<65) {
-       return 30;
+    if (19 <= money < 65) {
+        return 30;
     }
 
-    if (65 <= money <100) {
+    if (65 <= money < 100) {
         return 180;
     }
 
-    if (money>=100) {
+    if (money >= 100) {
         return 360;
     }
 }
@@ -291,7 +308,7 @@ function getviptime(money) {
 app.post('/appget', function (req, res) {
 
 
-    AppUserInfo.find({}, function(err, services) {
+    AppUserInfo.find({}, function (err, services) {
 
         console.log(services);
         return res.json({
@@ -303,63 +320,67 @@ app.post('/appget', function (req, res) {
 })
 
 // 单图上传
-app.post('/a/api/upload', function(req, res, next){
+app.post('/a/api/upload', function (req, res, next) {
 
     console.log('上传图片');
 
-    let deviceid = req.body['deviceid'];
-
     //文件上传
     upload(req, res, function (err) {
+
+        let deviceid = req.body['deviceid'];
+        let username = req.body['username'];
+
+        console.log("deviceid:" + deviceid + " " + username);
+
 
         if (err) {
             console.error(err.message);
         } else {
 
-            var filepath =  uploadDir + Util.getNowFormatDate();
+            var filepath = uploadDir + Util.getNowFormatDate();
             var filename = new Date().getTime() + '.jpg'; // 时间戳表示文件名
 
             //获取文件的名称，然后拼接成将来要存储的文件路径
-            var des_file= filepath + '/' + filename;
+            var des_file = filepath + '/' + filename;
 
-            Util.getFilePath(filepath, function() {
+            Util.getFilePath(filepath, function () {
 
                 //读取临时文件
-                fs.readFile(req.file.path,function(err,data) {
+                fs.readFile(req.file.path, function (err, data) {
                     //将data写入文件中，写一个新的文件
-                    fs.writeFile(des_file,data,function(err) {
+                    fs.writeFile(des_file, data, function (err) {
 
                         if (err) {
                             console.error(err.message);
                         } else {
                             //删除临时文件
-                            fs.unlink(req.file.path,function(err){
-                                if(err){
+                            fs.unlink(req.file.path, function (err) {
+                                if (err) {
                                     console.error(err.message);
-                                }else{
-                                    console.log('delete '+req.file.path+' successfully!');
+                                } else {
+                                    console.log('delete ' + req.file.path + ' successfully!');
                                 }
                             });
                         }
 
-                        OCR.ocr(des_file, function(words) {
+                        OCR.ocr(des_file, function (words) {
                             console.log('ocr:' + words);
                             var json = JSON.parse(words);
 
                             //  callback(0, money, shoukuan_name, datetime, orderid);
-                            let succ = checkPayInfo(json, function(success, money,shoukuanname, datetime,orderid, content) {
+                            let succ = checkPayInfo(json, function (success, money, shoukuanname, datetime, orderid, content) {
 
                                 let reponse;
-                                if (success == 0) {
+                                if (success === 0) {
 
 
                                     PayInfo.findOne({orderid: orderid}, function (err, payinfo) {
 
                                         if (payinfo) {
                                             console.log('已经上传过')
-                                            let reponse={
-                                                code:-2,
-                                                msg:'已经上传过'
+                                            let reponse = {
+                                                code: -2,
+                                                msg: '已经上传过'
                                             };
 
                                             res.end(JSON.stringify(reponse));
@@ -379,10 +400,10 @@ app.post('/a/api/upload', function(req, res, next){
                                             if (money < 1) {
                                                 console.log("付款金额不对")
                                                 reponse = {
-                                                    code:-1,
-                                                    msg:'付款金额不对:' + money,
-                                                    data:{
-                                                        money:money
+                                                    code: -1,
+                                                    msg: '付款金额不对:' + money,
+                                                    data: {
+                                                        money: money
                                                     }
                                                 };
 
@@ -394,10 +415,9 @@ app.post('/a/api/upload', function(req, res, next){
                                                 let paytime = new Date(Date.parse(datetime.replace("-", "/")));
 
 
-
                                                 console.log('付款金额正确');
 
-                                                let minus = (today-paytime)/(1000*60*60);
+                                                let minus = (today - paytime) / (1000 * 60 * 60);
                                                 if (minus < 0) {
                                                     let response = {
                                                         msg: '支付日期有误',
@@ -407,7 +427,7 @@ app.post('/a/api/upload', function(req, res, next){
 
                                                 } else {
 
-                                                    if (minus > 1) {
+                                                    if (false) {
                                                         let response = {
                                                             msg: '支付日期已失效，请重新支付会员费用，提交支付截图凭证',
                                                             code: -1
@@ -417,7 +437,7 @@ app.post('/a/api/upload', function(req, res, next){
                                                     } else {
 
                                                         var newPayinfo = new PayInfo({
-                                                            username: req.body['username'],
+                                                            username: username,
                                                             orderid: orderid,
                                                             totalmoney: money,
                                                             filename: filename,
@@ -425,7 +445,7 @@ app.post('/a/api/upload', function(req, res, next){
                                                             content: content
                                                         });
 
-                                                        newPayinfo.save(function(err, obj){
+                                                        newPayinfo.save(function (err, obj) {
 
                                                             console.log('save:' + obj);
                                                         });
@@ -433,107 +453,92 @@ app.post('/a/api/upload', function(req, res, next){
 
                                                         let days = getviptime(money);
 
-                                                        Vip.findOne({time: days, payed: false}, function(err, v) {
+                                                        AppUserInfo.findOne({username: username}, function (err, vipuser) {
 
-                                                            if (v) {
-                                                                console.log("Vip.findOne:" + v);
-                                                                AppUserInfo.findOne({username: req.body['username']}, function(err, vipuser) {
 
-                                                                    console.log("Vip.findOne:" + v);
+                                                            if (vipuser) {
+                                                                console.log('appuserinfo:' + vipuser);
+                                                                if (vipuser.deviceid !== deviceid) {
 
-                                                                    if (vipuser) {
-                                                                        console.log('appuserinfo:' + vipuser);
-                                                                        if (vipuser.deviceid !== deviceid) {
+                                                                    let response = {
+                                                                        msg: '请用注册的手机登录账号',
+                                                                        code: -1001
+                                                                    };
+                                                                    console.log('deviceid not match:');
+                                                                    res.end(JSON.stringify(reponse));
+                                                                    return;
+                                                                }
 
-                                                                            let response = {
-                                                                                msg: '请用注册的手机登录账号',
-                                                                                code: -1001
+                                                                let vuser = vipuser;
+                                                                vuser.vipcode = '0';
+                                                                vuser.qrcode = '';
+                                                                vuser.username = username;
+                                                                vuser.time = days;
+                                                                vuser.date = new Date();
+
+                                                                vuser.save(function (err, vu) {
+
+                                                                    if (vu) {
+
+                                                                        let tokendata = {
+                                                                            id: vu._id,
+                                                                            username: vu.username,
+                                                                            deviceid: deviceid
+                                                                        };
+
+                                                                        let token = Util.genToken(tokendata);
+                                                                        console.log('支付成功：');
+
+                                                                        let re = {
+                                                                            code: 0,
+                                                                            msg: '支付成功',
+                                                                            data: {
+                                                                                id: vu._id,
+                                                                                token: token,
+                                                                                deadline: days,
+                                                                                shadow: '',
+                                                                                money: money
                                                                             }
+                                                                        };
 
-                                                                            res.end(JSON.stringify(reponse));
-                                                                        }
-                                                                    } else {
-                                                                        console.log('appuserinfo:not found');
-                                                                        let vipuser = new AppUserInfo();
-                                                                        vipuser.vipcode = v.vipcode;
-                                                                        vipuser.qrcode = v.qrcode;
-                                                                        vipuser.username = req.body['username'];
-                                                                        vipuser.time = v.time;
-
-                                                                        vipuser.save(function(err, vu) {
-
-                                                                            if (vu) {
-
-                                                                                let tokendata = {
-                                                                                    id: vu._id,
-                                                                                    username: vu.username,
-                                                                                    deviceid: deviceid
-                                                                                };
-
-                                                                                let token = Util.genToken(tokendata);
-                                                                                console.log('支付成功：');
-
-                                                                                let re = {
-                                                                                    code: 0,
-                                                                                    msg: '支付成功',
-                                                                                    data: {
-                                                                                        id: vu._id,
-                                                                                        token: token,
-                                                                                        deadline: v.time,
-                                                                                        shadow: v.qrcode,
-                                                                                        money: money
-                                                                                    }
-                                                                                };
-
-
-                                                                                console.log(re);
-
-                                                                                res.end(JSON.stringify(re));
-
-                                                                            } else {
-                                                                                console.log('支付失败：');
-                                                                            }
-
-                                                                            if (err) {
-
-                                                                                let response = {
-                                                                                    msg: '内部错误',
-                                                                                    code: -1
-                                                                                };
-                                                                                res.end(JSON.stringify(response));
+                                                                        AppUserInfo.findOne({username: username}, function (err, a){
+                                                                            if (a) {
+                                                                                console.log("AppUserInfo:save:" + a + " " + a.username);
                                                                             }
                                                                         });
 
-                                                                        v.payed = true;
-                                                                        v.save();
 
+                                                                        console.log(vu);
+
+                                                                        res.end(JSON.stringify(re));
+
+                                                                    } else {
+                                                                        console.log('支付失败：');
                                                                     }
 
+                                                                    if (err) {
 
+                                                                        let response = {
+                                                                            msg: '内部错误',
+                                                                            code: -1
+                                                                        };
+                                                                        res.end(JSON.stringify(response));
+                                                                    }
                                                                 });
-
-
                                                             } else {
-                                                                console.log("Vip.findOne: not found");
-
-                                                                let reponse={
-                                                                    code:-1,
-                                                                    msg:'not found vip',
-                                                                    data:{
-                                                                        money:money
-                                                                    }
+                                                                let response = {
+                                                                    msg: '内部错误',
+                                                                    code: -1
                                                                 };
-                                                                res.end(JSON.stringify(reponse));
+                                                                res.end(JSON.stringify(response));
                                                             }
 
-                                                            //
+
                                                         });
 
 
                                                     }
                                                 }
-
-
 
 
                                             }
@@ -545,17 +550,17 @@ app.post('/a/api/upload', function(req, res, next){
 
                                     console.log('ocr parse words:' + money + ' ' + shoukuanname + ' ' + datetime + ' ' + orderid);
                                 } else {
-                                    reponse={
-                                        code:-1,
-                                        msg:'图片格式错误'
+                                    reponse = {
+                                        code: -1,
+                                        msg: '图片格式错误'
                                     };
 
                                     //删除临时文件
-                                    fs.unlink(des_file,function(err){
-                                        if(err){
+                                    fs.unlink(des_file, function (err) {
+                                        if (err) {
                                             console.error(err.message);
-                                        }else{
-                                            console.log('delete '+req.file.path+' successfully!');
+                                        } else {
+                                            console.log('delete ' + req.file.path + ' successfully!');
                                         }
                                     });
 
@@ -587,7 +592,7 @@ app.post('/reg', function (req, res) {
     var newUser = new User({
         username: req.body['username'],
         password: password,
-        pwd:req.body['password']
+        pwd: req.body['password']
     });
 
     User.findOne({username: newUser.username}, function (err, user) {
@@ -667,7 +672,6 @@ app.post('/modify_pwd', function (req, res) {
 });
 
 
-
 app.post('/login', function (req, res) {
     var md5 = crypto.createHash('md5');
 
@@ -741,7 +745,7 @@ app.get('/friendfinder/find', function (req, res) {
 
             if (req.session.isLogined == true) {
 
-                FriendFinder.find({username:req.session.username}, function(err, fds) {
+                FriendFinder.find({username: req.session.username}, function (err, fds) {
 
                     if (fds) {
 
@@ -808,7 +812,7 @@ app.get('/matchfriend', function (req, res) {
     console.log('matchfriend ' + req.query.username);
 
     var id = '';
-    FriendFinder.findOne({_id: id}, function(err, finder){
+    FriendFinder.findOne({_id: id}, function (err, finder) {
 
         if (finder) {
             FriendFinder.find({is_done: true}, function (err, friends) {
@@ -834,7 +838,7 @@ app.get('/matchfriend', function (req, res) {
                     });
 
                     console.log('matching -> ');
-                    array.forEach((item)=> {
+                    array.forEach((item) => {
                         console.log('score:' + item.score + ' friend:' + item.friend);
                     });
 
@@ -851,38 +855,35 @@ app.get('/matchfriend', function (req, res) {
     });
 
 
-
 });
 
-app.get('/hoursefriend/match', function(req, res){
-    if (req.session.isLogined !==true) {
+app.get('/hoursefriend/match', function (req, res) {
+    if (req.session.isLogined !== true) {
         return res.json({
-            msg:"没有登录",
+            msg: "没有登录",
             code: -100
         });
     }
-
 
 
 });
 
 app.post('/hoursefriend/delete', function (req, res) {
 
-    if (req.session.isLogined !==true) {
+    if (req.session.isLogined !== true) {
         return res.json({
-            msg:"没有登录",
+            msg: "没有登录",
             code: -100
         });
     }
 
 
+    FriendFinder.remove({}, function (err, obeject) {
 
-    FriendFinder.remove({}, function(err, obeject){
-
-        if(!err){
+        if (!err) {
             console.log('UserAcount remove success');
-        }else {
-            flag =true;
+        } else {
+            flag = true;
         }
 
     });
@@ -894,9 +895,9 @@ app.post('/hoursefriend/create', function (req, res) {
     console.log('/hoursefriend/create');
     var finder = new FriendFinder;
 
-    if (req.session.isLogined !==true) {
+    if (req.session.isLogined !== true) {
         return res.json({
-            msg:"没有登录",
+            msg: "没有登录",
             code: -100
         });
     }
@@ -914,12 +915,12 @@ app.post('/hoursefriend/create', function (req, res) {
     var others = req.body['others'];
 
     if (persion_num <= 0
-    || workplace == ''
-    || homeplace == ''
-    || checkin_date == ''
-    || call_number == '') {
+        || workplace == ''
+        || homeplace == ''
+        || checkin_date == ''
+        || call_number == '') {
         return res.json({
-            msg:"输入数据不完整",
+            msg: "输入数据不完整",
             code: -101
         });
     }
@@ -965,7 +966,7 @@ app.post('/hoursefriend/create', function (req, res) {
                     });
 
 
-                    FriendFinder.find({username:req.session.username}, function(err, fds) {
+                    FriendFinder.find({username: req.session.username}, function (err, fds) {
 
                         if (fds) {
                             return res.json({
@@ -977,7 +978,7 @@ app.post('/hoursefriend/create', function (req, res) {
                         } else {
                             return res.json({
                                 code: -1,
-                                msg:'error'
+                                msg: 'error'
                             });
                         }
                     })
@@ -1034,7 +1035,6 @@ app.post('/findAndUpdatePwd', function (req, res) {
 
 
 });
-
 
 
 app.post('/findpwd', function (req, res) {
@@ -1095,7 +1095,6 @@ app.post('/findpwd', function (req, res) {
 app.get('/1micfznU', function (req, res) {
     res.redirect('https://pan.baidu.com/s/1micfznU');
 });
-
 
 
 //用户进入注册页面
@@ -1534,7 +1533,7 @@ app.use(function (req, res, next) {
 });
 
 
-app.listen(3000,'192.168.0.18', function () {
+app.listen(3000, '127.0.0.1', function () {
     console.log('Example app listening on port 3000!')
 });
 
