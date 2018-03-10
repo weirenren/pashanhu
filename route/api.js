@@ -477,7 +477,7 @@ router.post('/updatevip', function (req, res) {
     let time = req.body['time'];
     let payed = req.body['payed'];
 
-    Vip.findOneAndUpdate({_id : id}, {$set: {vipcode: vipcode, qrcode: qrcode, time: time, payed: payed === 'true'}},{new: true}, (err, v) => {
+    Vip.findOneAndUpdate({_id : id}, {$set: {vipcode: vipcode, qrcode: qrcode, time: time, payed: payed == 'true'}},{new: true}, (err, v) => {
         if (v) {
             return res.json({
                 msg: '修改成功',
@@ -513,13 +513,74 @@ router.get('/services', function (req, res) {
 
 });
 
+router.post('/update_service', function(req, res) {
+    console.log('/update_service');
+
+    let admincode = req.body['admincode'];
+    if (Settings.admincode !== admincode) {
+        return res.json({
+            msg: '没有权限',
+            code: -1
+        });
+    }
+
+    let optype = req.body['optype'];
+    // 0:添加; 1:删除
+
+    console.log("optype:" + optype);
+    if (optype == 1) {
+        let id = req.body['id'];
+        Service.remove({_id:id}, function(err, se) {
+
+            if (se) {
+                console.log("删除成功:" + se);
+            }
+            return res.json({
+                msg: '删除成功',
+                code: 0
+            });
+        })
+    }
+
+    if (optype == 0) {
+        console.log("optype: add");
+        let group = req.body['group'];
+        let title = req.body['title'];
+        let url = req.body['url'];
+        let vip = req.body['vip'];
+        let json = req.body['json'];
+
+        let service = new Service();
+
+        service.json = json;
+        service.group = group;
+        service.title = title;
+        service.url = url;
+        service.vip = vip;
+
+        service.save(function(err, ser){
+            if (ser) {
+                console.log("添加成功:"+ ser);
+                return res.json({
+                    msg: '添加成功',
+                    id:ser._id,
+                    code: 0
+                });
+            } else {
+                console.log(err);
+            }
+        });
+    }
+
+});
+
 
 
 
 router.post('/payshadow', function (req, res) {
     console.log('payshadow');
     let username = req.body['username'];
-    let password = req.body['password'];
+    //let password = req.body['password'];
     let deviceid = req.body['deviceid'];
     //let viplevel = req.body['viplevel'];
     let vipcode = req.body['vipcode']; // vip激活码
@@ -540,12 +601,12 @@ router.post('/payshadow', function (req, res) {
             });
         }
 
-        if (user.pwd !== password) {
-            return res.json({
-                msg: '账号密码错误',
-                code: -2
-            });
-        }
+        //if (user.pwd !== password) {
+        //    return res.json({
+        //        msg: '账号密码错误',
+        //        code: -2
+        //    });
+        //}
 
         Vip.findOne({vipcode: vipcode}, function(err, v){
 
@@ -650,7 +711,7 @@ router.get('/getviprices', function(req, res) {
                     price:65,
                     des:"65元/半年"
                 },
-                {name:'钻石新耀',
+                {name:'钻石星耀',
                     price:100,
                     des:"100元/年"
                 }

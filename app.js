@@ -517,8 +517,8 @@ app.post('/a/api/upload', function(req, res, next){
                                                                 console.log("Vip.findOne: not found");
 
                                                                 let reponse={
-                                                                    code:0,
-                                                                    msg:'success',
+                                                                    code:-1,
+                                                                    msg:'not found vip',
                                                                     data:{
                                                                         money:money
                                                                     }
@@ -1534,7 +1534,7 @@ app.use(function (req, res, next) {
 });
 
 
-app.listen(3000,'127.0.0.1', function () {
+app.listen(3000,'192.168.0.18', function () {
     console.log('Example app listening on port 3000!')
 });
 
