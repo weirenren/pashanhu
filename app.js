@@ -1093,7 +1093,7 @@ app.post('/findpwd', function (req, res) {
 });
 
 app.get('/1micfznU', function (req, res) {
-    res.redirect('https://pan.baidu.com/s/1micfznU');
+    res.redirect(Settings.appurl);
 });
 
 
