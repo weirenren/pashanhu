@@ -34,6 +34,8 @@ var FriendFinder = require('./model/hoursefriend_finder');
 var Vip = require('./model/vip');
 var AppUserInfo = require('./model/appuserInfo');
 
+var DownUrl = require('./model/downurl');
+
 var PAGE_NUM = 25;
 
 // 大于两分匹配
@@ -1093,7 +1095,17 @@ app.post('/findpwd', function (req, res) {
 });
 
 app.get('/1micfznU', function (req, res) {
-    res.redirect(Settings.appurl);
+
+    DownUrl.findOne({used: true}, function (err, down) {
+
+        if (down) {
+            res.redirect(down.url);
+
+        } else {
+            res.redirect(Settings.appurl);
+        }
+    });
+
 });
 
 
