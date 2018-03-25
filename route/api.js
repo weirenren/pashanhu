@@ -15,6 +15,8 @@ var User = require('../model/user');
 var Payinfo = require('../model/payinfo');
 var AppUserInfo = require('../model/appuserInfo');
 
+var DownUrl = require('../model/downurl');
+
 router.post('/res__r_r', function (req, res) {
 
     console.log('initServices');
@@ -732,12 +734,88 @@ router.get('/getviprices', function (req, res) {
 });
 
 router.post('/downloadapkurl', function (req, res) {
-    return res.json({
-        code: 0,
-        data: {
-            downurl: ''
+
+    DownUrl.findOne({used: true}, function (err, down) {
+
+        if (down) {
+            return res.json({
+                code: 0,
+                data: {
+                    downurl: down.url
+                }
+            });
+        } else {
+            return res.json({
+                code: 0,
+                msg:'defalut',
+                data: {
+                    downurl: Settings.downurl
+                }
+            });
         }
     });
+
+});
+
+router.post('/updatedownurl', function (req, res) {
+
+    let admincode = req.body['admincode'];
+    if (Settings.admincode !== admincode) {
+        return res.json({
+            msg: '没有权限',
+            code: -1
+        });
+    }
+
+    let optype = req.body['optype'];
+    let url = req.body['url'];
+
+    if (optype == 0) { // 添加
+
+        DownUrl.update({used: true}, {$set: {used: false}}, function (err, durl) {
+
+            if (!err) {
+                console.log('user udpate success ' + durl.used ? "true" : "false");
+
+            } else {
+                console.log('user udpate err ' + err);
+
+                return res.json({
+                    code: -1,
+                    msg:'添加失败'
+                });
+            }
+
+            let dwurl = new DownUrl();
+            dwurl.url = url;
+            dwurl.used = true;
+            dwurl.save();
+            return res.json({
+                code: 0,
+                msg:'添加成功'
+            });
+        });
+
+    }
+
+    if (optype == 1) { // 删除
+
+        DownUrl.remove({url: url}, function (err, down) {
+
+            if (down) {
+                return res.json({
+                    code: 0,
+                    msg:'删除成功'
+                });
+            } else {
+                return res.json({
+                    code: -1,
+                    msg:'no this url:' + url
+                });
+            }
+        });
+    }
+
 });
 
 
