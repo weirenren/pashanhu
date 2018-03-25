@@ -359,6 +359,7 @@ router.post('/addshadow', function (req, res) {
         });
     }
 
+    let index = req.body['index'];
     let shadowcode = req.body['shadowcode'];
     let name = req.body['name'];
     Qrcode.findOne({qrcode: shadowcode}, function (err, vip) {
@@ -374,6 +375,7 @@ router.post('/addshadow', function (req, res) {
         let qrcode = new Qrcode();
         qrcode.name = name;
         qrcode.qrcode = shadowcode;
+        qrcode.index = index;
 
         qrcode.save(function (err, v) {
             if (v) {
