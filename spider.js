@@ -9,8 +9,8 @@ var client = new elasticsearch.Client({
     log: 'error'
 });
 
-var indexname = 'hourse_datasource';
-//var indexname = 'hourse_test';
+//var indexname = 'hourse_datasource';
+var indexname = 'hourse_test';
 var typename = 'hourse_type';
 var filename = 'hourse.json';
 
@@ -466,6 +466,7 @@ function searchFrom(indexname, from, size) {
         }
     };
 
+    client.del
     client.search(indexname, body)
         .then(results => {
             console.log(`found ${results.hits.total} items in ${results.took}ms`);
@@ -603,7 +604,7 @@ function randomNum(minNum, maxNum) {
 
 Promise.resolve()
     //.then(test)
-//    .then(dropIndex)
-    .then(initIndex)
-    .then(init)
-    .then(doCratch)
+    .then(dropIndex)
+//    .then(initIndex)
+//    .then(init)
+//    .then(doCratch)
