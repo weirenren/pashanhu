@@ -1,0 +1,38 @@
+{
+  "name": "hoursespider",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.5.0",
+    "baidu-ai": "^1.2.0",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "cheerio": "^1.0.0-rc.2",
+    "connect-multiparty": "^2.1.0",
+    "consolidate": "^0.14.5",
+    "dateformat": "^3.0.2",
+    "ejs": "^2.5.7",
+    "elasticsearch": "github:elasticsearch/elasticsearch-js#master",
+    "express": "^4.16.1",
+    "express-session": "^1.15.5",
+    "forever-monitor": "^1.7.1",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^7.4.2",
+    "mkdirp": "^0.5.1",
+    "moment": "^2.18.1",
+    "mongo": "^0.1.0",
+    "mongoose": "^4.13.17",
+    "mongoose-recursive-upsert": "^0.8.1",
+    "multer": "^1.3.0",
+    "nodemailer": "^4.0.1",
+    "request": "^2.81.0",
+    "sleep": "^5.1.1",
+    "superagent": "^3.5.2"
+  }
+}

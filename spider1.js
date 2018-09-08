@@ -56,10 +56,9 @@ var last_page_start = 0;
 var goingDeleteHouseData = [];
 
 
+
 var crypto = require('crypto');
 var iconv = require('iconv-lite');
-
-let ELASTIC_SEARCH_NORMAL = 0;
 
 var spider_source_settings = require('./spider_source_domain_setting');
 
@@ -71,12 +70,13 @@ var header = {
 }
 
 var headertest = {
-    'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'
+    'User-Agent' :'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'
 }
 
 var header2 = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 12_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.2985.134 Safari/537.36'
 }
+
 
 
 var baseDir = './public/images';
@@ -85,6 +85,7 @@ var baseDir = './public/images';
 var base = 'images';
 
 var DETECT = 0; // ++达到10,说明之后是老数据 则停止抓取
+
 
 
 var resultArray = []; //解析完后的数据
@@ -103,6 +104,7 @@ var newTagSet = []; //未解析列表页链接tag
 var currentDatetime;
 
 
+
 var DATETIME_DEADLINE = 1; // 爬虫已经到了deadline
 
 var HREF_DUPLICATE = 2; // href已经爬过，超过十个
@@ -116,18 +118,16 @@ var capture_state = CAPTURE_INIT;
 let root_timer;
 var parent_timer;
 
-let from = '豆瓣租房';
-
 
 var d = domain.create();
 d.on('error', function (err) {
-    console.log('uncaughtException domain catch error:' + err + '  time:' + util.formatDate(new Date()));
+    console.log('uncaughtException domain catch error:' + err +'  time:' + util.formatDate(new Date()));
 
     // doCapture();
 });
 
-process.on('uncaughtException', function (e) {
-    console.error('uncaughtException ' + e.stack + '  time:' + util.formatDate(new Date()));
+process.on('uncaughtException', function(e) {
+    console.error('uncaughtException ' + e.stack +'  time:' + util.formatDate(new Date()));
 
     /// Makesure error outputed before process exit.
     process.stderr.write('', function () {
@@ -137,12 +137,12 @@ process.on('uncaughtException', function (e) {
 });
 
 
-var download = function (uri, filename, callback) {
-    request.head(uri, function (err, res, body) {
+var download = function(uri, filename, callback){
+    request.head(uri, function(err, res, body){
         // console.log('content-type:', res.headers['content-type']);
         // console.log('content-length:', res.headers['content-length']);
 
-        d.run(() => {
+        d.run(()=>{
 
             request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
         });
@@ -179,8 +179,6 @@ function bulkIndex(index, type, data) {
 
     });
 
-    console.log("bulkIndex house:" + JSON.stringify(data));
-
     client.bulk({body: bulkBody})
         .then(response => {
             let errorCount = 0;
@@ -190,10 +188,7 @@ function bulkIndex(index, type, data) {
                 }
             });
             console.log(`Successfully indexed ${data.length - errorCount} out of ${data.length} items`);
-        }).catch((err) => {
-            console.log(err.toString());
-            ELASTIC_SEARCH_NORMAL = -1;
-    });
+        }).catch('error: ' + console.err);
 }
 
 function addtoMyIndex() {
@@ -223,18 +218,18 @@ let ONE_DAY_CAPTURE = 0;
 let FULL_DAY_CAPTURE = 1;
 let capture_type = ONE_DAY_CAPTURE;
 
-function doCapture() {
+function doCapture(next) {
 
     if (capture_type === ONE_DAY_CAPTURE) {
-        doLoopWorkForDay((err)=>{
-            console.log('doCapture:' + err);
-        });
+        doLoopWorkForDay(next);
     }
 
     if (capture_type === FULL_DAY_CAPTURE) {
         doLoopWorkForTotal(next);
     }
 }
+
+
 
 
 // 100天全量数据
@@ -271,36 +266,64 @@ function doLoopWorkForDay(next) {
 
     CAPTURE_TASK_TYPE = CAPTURE_TASK_TYPE_DAY;
     console.log("doLoopWork start time:" + util.formatDate(new Date()));
-    ELASTIC_SEARCH_NORMAL = 0;
+
+    PAGE_MAX = 20;
+    if (parent_timer) {
+        clearInterval(parent_timer);
+    }
+
     doWork(next);
     parent_timer = setInterval(function () {
 
+        last_page_start = 0;
+
+        if (root_timer === null) {
+
+        } else {
+            console.log('root timer is not null');
+            clearInterval(root_timer);
+        }
+
         console.log("doLoopWork start time:" + util.formatDate(new Date()));
         doWork(next);
-    }, 60 * 60 * 1000); // 一小时间隔 抓一次；
+    }, 80 * 60 * 1000); // 一小时间隔 抓一次；
 }
 
 function doWork(next) {
 
+    init();
+
     let city_arr = spider_source_settings.domain_setting;
 
     doWorkTask(city_arr, next);
+
+    root_timer = setInterval(function () {
+
+        if (last_page_start / 25 >= PAGE_MAX) {
+
+            clearInterval(root_timer);
+            root_timer = null;
+            console.log("DATETIME_DEADLINE datetime:" + currentDatetime + ' time:' + util.formatDate(new Date()));
+
+        } else {
+            doWorkTask(city_arr, next);
+        }
+
+    }, 20 * 60 * 1000);
+
 }
 
 function doWorkTask(city_arr, next) {
 
-    let total_index = 0;
     for (let i = 0; i < city_arr.length; i++) {
         let url_arr = city_arr[i].url_array;
 
-
+        console.log('doWorkTask:' + url_arr + ' time:' + util.formatDate(new Date()));
         let ll = url_arr.length;
         for (let j = 0; j < ll; j++) {
+            var wait = j * 20 * 1000;
 
-            let wait = (total_index++) * 100 * 1000;
-
-            console.log('doWorkTask:' + url_arr[j] + ' waiting :' + wait + ', time:' + util.formatDate(new Date()));
-            let timer = setInterval(() => {
+            let timer = setInterval(()=> {
 
                 doCratch(city_arr[i].dir_name, city_arr[i].city_name, url_arr[j], last_page_start, next);
 
@@ -318,7 +341,7 @@ function doCratch(dir, city, url, page_start, next) {
     let surl_arr = url.split('?');
     var baseurl;
 
-    if (surl_arr.length === 2) {
+    if (surl_arr.length ===2) {
         baseurl = surl_arr[0] + action;
     } else {
         console.log('doCratch split url error from:' + url + ' time:' + util.formatDate(new Date()));
@@ -326,19 +349,77 @@ function doCratch(dir, city, url, page_start, next) {
     }
 
     var start = page_start;
+    var targetUrl;
+    var loop = true;
 
-    if (randomNum(1, 2) % 2 === 0) {
-        header = header2;
-    } else {
-        header = headertest
-    }
+    var parent = setInterval(function () {
 
-    let targetUrl = baseurl + (start);
+        if (loop === true) {
+            loop = false;
 
-    if (ELASTIC_SEARCH_NORMAL === 0) {
-        cratchList(dir, city, targetUrl, next);
-    }
+            var stop = 1;
 
+            var timer = null;
+            if ((start - page_start) / 25 <= CAPTURE_PAGE_MAX) {
+                stop = 1;
+
+                var wait = randomNum(20, 60) * 1000;
+
+                targetUrl = baseurl + (start);
+
+                if(wait % 2 === 0){
+                    header = header2;
+                }else {
+                    header = headertest
+                }
+
+                console.log('scratching ' + targetUrl + ' wait time:' + wait / 1000 + 's' + ' time:' + util.formatDate(new Date()));
+                timer = setInterval(function () {
+
+                    if (CAPTURE_TASK_TYPE === CAPTURE_TASK_TYPE_DAY) {
+
+                        if (stop === 1) {
+
+                            cratchList(dir, city, targetUrl, next);
+
+                            start += 25;
+                            loop = true;
+                            clearInterval(timer);
+                        } else {
+                            console.log('scratching over stop:CAPTURE_TASK_TYPE_DAY' + ' time:' + util.formatDate(new Date()));
+                            clearInterval(timer);
+                            clearInterval(parent);
+                        }
+                    }
+
+                    else if (CAPTURE_TASK_TYPE === CAPTURE_TASK_TYPE_TOTAL) {
+                        if (stop === 1) {
+
+                            cratchList(dir, city, targetUrl, next);
+
+                            start += 25;
+                            loop = true;
+                            clearInterval(timer);
+                        } else {
+                            console.log('scratching over stop:CAPTURE_TASK_TYPE_TOTAL' + ' time:' + util.formatDate(new Date()));
+                            clearInterval(timer);
+                            clearInterval(parent);
+                        }
+                    }
+                }, wait);
+
+            } else {
+                console.log('scratching hold on 20 minute.' + ' time:' + util.formatDate(new Date()));
+                if (timer) {
+                    clearInterval(timer);
+                }
+                clearInterval(parent);
+                last_page_start = start;
+                stop = 0; // 停止
+
+            }
+        }
+    }, 80000);
 
 }
 
@@ -348,12 +429,8 @@ function cratchList(dir, city, url, next) {
         .set('header', header)
         .end(function (error, data) {
             if (error) {
-                console.log("execption scratching over cratch href " + url + " error exception occured :" + error.toString() + ' ' + util.formatDate(new Date()));
+                console.log("execption scratching over cratch href "+url+" error exception occured :"+ error.toString() + ' ' + util.formatDate(new Date()));
                 next(-1, error.toString());
-                return;
-            }
-            if (ELASTIC_SEARCH_NORMAL !== 0) {
-                console.log("elastch fail state ------------------------");
                 return;
             }
             var $ = cheerio.load(data.text);    //注意传递的是data.text而不是data本身
@@ -370,7 +447,7 @@ function cratchList(dir, city, url, next) {
                     var href = $$('a').attr('href');
                     var title = $$('a').attr('title');
 
-                    let tag = getMD5(name + '_' + title);
+                    let tag = getMD5(name +'_' + title);
                     if (tagHrefMap.get(tag) === undefined) {
 
                         console.log('push tag:' + tag + ' href:' + href + ' time:' + util.formatDate(new Date()));
@@ -381,7 +458,7 @@ function cratchList(dir, city, url, next) {
                         DETECT = 0;
                     } else {
                         DETECT++;
-                        console.log(href + ' exist before DETECT is : ' + DETECT);
+                        console.log(href + ' exist before DETECT is : '+ DETECT);
                     }
                 } else {
 
@@ -404,14 +481,14 @@ function logJson(log, json) {
     console.log(log + ":" + JSON.stringify(json));
 }
 
-var mkdirs = function (dirpath, callback) {
-    fs.exists(dirpath, function (exists) {
-        if (exists) {
+var mkdirs = function(dirpath, callback) {
+    fs.exists(dirpath, function(exists) {
+        if(exists) {
             callback();
         } else {
             //尝试创建父目录，然后再创建当前目录
-            mkdirs(path.dirname(dirpath), function () {
-                fs.mkdir(dirpath, callback);
+            mkdirs(path.dirname(dirpath), function(){
+                fs.mkdir(dirpath,callback);
             });
         }
     })
@@ -438,7 +515,7 @@ function parseListHref(dir, city) {
     if (tag) {
         var href = tagHrefMap.get(tag);
 
-        if (href === undefined || href === '' || href.length === 0) {
+        if (href === undefined || href==='' || href.length === 0) {
             console.log("href is empty : " + href);
             return;
         }
@@ -470,11 +547,6 @@ function parseListHref(dir, city) {
                 });
 
                 console.log('content:' + content);
-
-                if (content === '' || title === '' || content.length < 20 || title.length < 8) {
-                    return;
-                }
-
 
                 var datetime = $('.topic-doc .color-green').text();
 
@@ -545,24 +617,23 @@ function parseListHref(dir, city) {
 
 }
 
-
 function combine(tag, dir, city, href, datatime, title, content, imgHrefArray) {
     console.log('combine start href ' + href + " imgs :" + imgHrefArray);
     var titlemd5 = getMD5(title.toString());
 
     let array = href.split('/');
     let page_id = '';
-    if (array.length > 2) {
-        page_id = array[array.length - 2];
+    if (array.length >2) {
+        page_id = array[array.length-2];
     }
     var imgPathsArray = [];
 
     let date = datatime.split(' ')[0];
-    var img_dir = titlemd5 + '_' + date + '_' + page_id;
+    var img_dir = titlemd5 + '_' + date + '_'+ page_id;
 
-    var serverpath = base + '/' + dir + '/' + date + '/' + img_dir;
+    var serverpath = base +'/'+ dir + '/' + date + '/' + img_dir;
 
-    var localpath = baseDir + '/' + dir + '/' + date + '/' + img_dir;
+    var localpath = baseDir  +'/'+ dir + '/' + date + '/' + img_dir;
     //创建文件夹存储图片
     fs.exists(localpath, function (exists) {
         if (!exists) {
@@ -585,7 +656,7 @@ function combine(tag, dir, city, href, datatime, title, content, imgHrefArray) {
 
                             var local_imgpath = localpath + '/' + item.id + '.jpg';
 
-                            download(item.href, local_imgpath, () => {
+                            download(item.href, local_imgpath, ()=>{
 
                                 download_success_size++;
 
@@ -596,15 +667,13 @@ function combine(tag, dir, city, href, datatime, title, content, imgHrefArray) {
                                 if (download_success_size === imgHrefArray.length) {
                                     var jsonarray = [];
                                     jsonarray.push({
-                                        from: from,
                                         city: city,
                                         title: title,
                                         content: content,
                                         hrefArray: imgPathsArray,
                                         imgpath: img_dir,
                                         datatime: datatime,
-                                        href: href,
-                                        times: new Date(datatime)
+                                        href: href
                                     });
                                     console.log('图片下载完毕： ' + imgPathsArray + ' time:' + util.formatDate(new Date()));
                                     console.log('current inputHrefs size:' + newTagSet.length);
@@ -615,6 +684,8 @@ function combine(tag, dir, city, href, datatime, title, content, imgHrefArray) {
                             });
                             // var stream = fs.createWriteStream(local_imgpath);
                             // var req = request(item.href).pipe(stream).on('close', callback);
+
+
 
 
                         }, delay);
@@ -636,7 +707,6 @@ function combine(tag, dir, city, href, datatime, title, content, imgHrefArray) {
 
     console.log('combine end' + ' time:' + util.formatDate(new Date()));
 }
-
 function searchTest() {
     searchFrom(indexname, 0, 20);
 }
@@ -689,131 +759,6 @@ function apppendHref(tag, basedir, city, datetime, href) {
     });
 }
 
-var href_city_map = new Map();
-
-function getCityChineseName(city_en) {
-    let city_ch = '';
-    if (city_en === 'beijing') {
-        city_ch = '北京';
-    }
-    if (city_en === 'shanghai') {
-        city_ch = '上海';
-    }
-    if (city_en === 'wuhan') {
-        city_ch = '武汉';
-    }
-    if (city_en === 'chengdu') {
-        city_ch = '成都';
-    }
-    if (city_en === 'shenzhen') {
-        city_ch = '深圳';
-    }
-    if (city_en === 'nanjing') {
-        city_ch = '南京';
-    }
-    if (city_en === 'hangzhou') {
-        city_ch = '杭州';
-    }
-    return city_ch;
-}
-
-
-
-function updateCityToEs() {
-
-    var root = baseCacheDir;
-    var res = [], files = fs.readdirSync(root);
-    files.forEach(function (file) {
-
-        let city = file;
-
-        let child_files = fs.readdirSync(root + space + file);
-
-        child_files.forEach((fi) => {
-
-            let target = root + space + file + space + fi;
-
-            fs.readFile(target, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
-
-                if (!err) {
-                    data.split('|').forEach(item => {
-
-                        if (item && item.trim() !== '') {
-                            let arr = item.split('_');
-                            // oldTagSet.add(arr[0]);
-                            // tagHrefMap.set(arr[0], arr[1]);
-                            //
-                            href_city_map.set(arr[1], city);
-
-                            // console.log(arr[1] + '------- ' + city);
-                        }
-                    })
-                }
-            });
-
-        });
-
-    });
-
-    client.count({
-        index: indexname
-    }).then((result) => {
-
-        console.log('count:' + result.count);
-        let body = {
-            size: result.count,
-            query: {
-                match_all: {}
-            }
-        };
-
-        let houseData = [];
-        console.log('readHouseDataFromESToFile ' + ' time:' + util.formatDate(new Date()));
-        client.search({index: indexname, type: typename, body: body})
-            .then(results => {
-
-                let ind = 0;
-
-                results.hits.hits.forEach((hit, index) => {
-
-                        // houseData.push({
-                        //     title: hit._source.title,
-                        //     content: hit._source.content,
-                        //     hrefArray: hit._source.hrefArray,
-                        //     imgpath: hit._source.imgpath,
-                        //     datetime: hit._source.datatime,
-                        //     href: hit._source.href,
-                        //     _id: hit._id
-                        // });
-
-
-                        let href = hit._source.href;
-                        let city_en = href_city_map.get(href);
-
-                        let city_ch = getCityChineseName(city_en);
-                        let datetime = hit._source.datatime;
-
-                        let body = {
-                            doc: {
-                                // city: city_ch,
-                                // from: from,
-                                // forbid: 0
-                                times: new Date(datetime)
-                            }
-                        };
-
-                        console.log(href + '........' + city_ch + ' ,index: '+ (ind++));
-
-                        client.update({index: indexname, type: typename, id: hit._id, body: body}, (err, rsp) => {
-
-                        });
-
-                    }
-                );
-            });
-    })
-}
-
 
 function init() {
 
@@ -835,10 +780,9 @@ function init() {
         try {
             let list = fs.readdirSync(path);
 
-            list.forEach(function (file) {
+            list.forEach(function(file) {
 
-                readHrefSet(dir_name, file, (exist) => {
-                });
+                readHrefSet(dir_name, file, (exist)=>{});
             });
         } catch (e) {
             console.log(e.toString());
@@ -850,25 +794,17 @@ function init() {
 }
 
 function sortDatetime(a, b) {
-    return Date.parse(a.datatime) - Date.parse(b.datatime);
+    return Date.parse(a) - Date.parse(b);
 }
 
 let backup_dir = '.' + space + 'backup';
 
 
+
 function updateHouseDataFromESToFile() {
 
 
-    // let indexname = 'house_back_'+ util.getDateNow();
-    //
-    // let exist = client.indices.exists({index: indexname});
-    //
-    // if (exist === true) {
-    //     client.indices.delete({index: indexname});
-    // }
-    //
-    // client.indices.create({index: indexname});
-
+    let indexname = 'house_back_2018-08-25';
     client.count({
         index: indexname
     }).then((result) => {
@@ -876,14 +812,13 @@ function updateHouseDataFromESToFile() {
         console.log('count:' + result.count);
         let body = {
             size: result.count,
-            sort: [{"times": {"order": "desc"}}],
             query: {
                 match_all: {}
             }
         };
 
         let houseData = [];
-        // console.log('readHouseDataFromESToFile ' + ' time:' + util.formatDate(new Date()));
+        console.log('readHouseDataFromESToFile ' + ' time:' + util.formatDate(new Date()));
         client.search({index: indexname, type: typename, body: body})
             .then(results => {
 
@@ -901,21 +836,55 @@ function updateHouseDataFromESToFile() {
                         });
 
 
-                        console.log(hit._source.datatime);
-                        let body = {
-                            doc: {
-                                // from: '豆瓣租房',
-                                // city: '北京',
-                                // times: new Date(hit._source.datatime)
-                            }
-                        };
+                    let body = {
+                        doc: {
+                            city: '北京'
+                        }
+                    };
 
-                        client.update({index: indexname, type: typename, id: hit._id, body: body}, (err, rsp) => {
+                    client.update({index: indexname, type: typename, id:  hit._id, body: body}, (err, rsp) => {
 
-                        });
+                    });
 
                     }
                 );
+
+                console.log('before ' + results.hits.hits.length + ' time:' + util.formatDate(new Date()));
+
+
+
+                //
+                // houseData.sort(sortDatetime);
+                //
+                // let file = backup_dir + space + util.getNowFormatDate() + '.txt';
+                // console.log('write');
+                //
+                // let size = 0;
+                // fs.exists(backup_dir, function (exist) {
+                //
+                //     if (exist) {
+                //         houseData.forEach((item, index) => {
+                //             let cont = genHouseItemString(item.title, item.content, item.hrefArray, item.imgpath, item.datetime, item.href);
+                //             fs.appendFile(file, cont, function () {
+                //                 console.log(cont + ' 添加成功:' + size++);
+                //             });
+                //         });
+                //     } else {
+                //
+                //         mkdirp(backup_dir, function (err) {
+                //             if (err) console.error(err);
+                //             else {
+                //                 houseData.forEach((item, index) => {
+                //                     let cont = genHouseItemString(item.title, item.content, item.hrefArray, item.imgpath, item.datatime, item.href);
+                //                     fs.appendFile(file, cont, function () {
+                //
+                //                         console.log(cont + ' 添加成功 :' + size++);
+                //                     });
+                //                 });
+                //             }
+                //         });
+                //     }
+                // });
             });
     })
 }
@@ -945,7 +914,6 @@ function readHouseDataFromESToFile() {
                 results.hits.hits.forEach((hit, index) => {
 
                         houseData.push({
-                            from: hit._source.from,
                             city: hit._source.city,
                             title: hit._source.title,
                             content: hit._source.content,
@@ -969,7 +937,7 @@ function readHouseDataFromESToFile() {
 
                     if (exist) {
                         houseData.forEach((item, index) => {
-                            let cont = genHouseItemString(item.from, item.city, item.title, item.content, item.hrefArray, item.imgpath, item.datetime, item.href);
+                            let cont = genHouseItemString(item.city, item.title, item.content, item.hrefArray, item.imgpath, item.datetime, item.href);
                             fs.appendFile(file, cont, function () {
                                 console.log(cont + ' 添加成功:' + size++);
                             });
@@ -980,7 +948,7 @@ function readHouseDataFromESToFile() {
                             if (err) console.error(err);
                             else {
                                 houseData.forEach((item, index) => {
-                                    let cont = genHouseItemString(item.from, item.city, item.title, item.content, item.hrefArray, item.imgpath, item.datatime, item.href);
+                                    let cont = genHouseItemString(item.city, item.title, item.content, item.hrefArray, item.imgpath, item.datatime, item.href);
                                     fs.appendFile(file, cont, function () {
 
                                         console.log(cont + ' 添加成功 :' + size++);
@@ -1009,11 +977,11 @@ function filter(content, parent_delt, child_delt) {
     return result;
 }
 
-function genHouseItemString(from, city, title, content, hrefArray, imgpath, datatime, href) {
+function genHouseItemString(city, title, content, hrefArray, imgpath, datatime, href) {
     let parent_delt = '&$';
     let child_delt = '@#';
 
-    return filter(from, parent_delt, child_delt) + child_delt + filter(city, parent_delt, child_delt) + child_delt + filter(title, parent_delt, child_delt) + child_delt + filter(content, parent_delt, child_delt) + child_delt
+    return filter(city, parent_delt, child_delt) + child_delt  + filter(title, parent_delt, child_delt) + child_delt + filter(content, parent_delt, child_delt) + child_delt
         + hrefArray + child_delt + imgpath + child_delt + datatime + child_delt + href + parent_delt;
 }
 
@@ -1023,123 +991,53 @@ function writeHouseDataFromFileToES() {
     let child_delt = '@#';
 
     let today = util.getNowFormatDate();
-    let file = backup_dir + space + today + '.txt';
+    let file = backup_dir + space + today  + '.txt';
 
     let indexname = 'house_back_' + today;
 
-    let exist = client.indices.exists({index: indexname});
+    client.indices.delete({index: indexname});
+    client.indices.create({index: indexname});
 
-    if (exist === true) {
+    fs.exists(file, function (exist) {
 
-        // client.indices.create({index: indexname});
-        // client.indices.delete({index: indexname});
+        if (exist) {
 
-        client.indices.delete({
-            index: indexname
-        }, function(err, res) {
+            fs.readFile(file, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
 
-            if (err) {
-                console.error(err.message);
-            } else {
-                console.log('Indexes have been deleted!');
-                client.indices.create({index: indexname}, (err, res) => {
+                if (!err) {
+                    let totalNum = 0;
+                    data.split(parent_delt).forEach(item=>{
 
+                        if (item && item.trim() !== '') {
+                            let array = item.split(child_delt);
 
-                    fs.exists(file, function (exist) {
-
-                        if (exist) {
-
-                            fs.readFile(file, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
-
-                                if (!err) {
-                                    let totalNum = 0;
-                                    data.split(parent_delt).forEach(item => {
-
-                                        if (item && item.trim() !== '') {
-                                            let array = item.split(child_delt);
-
-                                            var houseData = [];
-                                            houseData.push({
-                                                from: array[0],
-                                                city: array[1],
-                                                title: array[2],
-                                                content: array[3],
-                                                hrefArray: array[4],
-                                                imgpath: array[5],
-                                                datatime: array[6],
-                                                href: array[7]
-                                            });
-
-                                            totalNum++;
-                                            bulkIndex(indexname, typename, houseData);
-                                        }
-                                    });
-
-                                    console.log('writeHouseDataFromFileToES success. total num:' + totalNum);
-                                } else {
-                                    console.log("read error from file " + file + ' : ' + err.toString())
-                                }
-
+                            var houseData = [];
+                            houseData.push({
+                                city: array[0],
+                                title: array[1],
+                                content: array[2],
+                                hrefArray: array[3],
+                                imgpath: array[4],
+                                datatime: array[5],
+                                href: array[6]
                             });
 
-                        } else {
-                            console.log(file + " not exist.")
+                            totalNum++;
+                            bulkIndex(indexname, typename, houseData);
                         }
                     });
 
-                });
-            }
-        });
-    } else {
-        client.indices.create({index: indexname}, (err, res) => {
-
-
-            fs.exists(file, function (exist) {
-
-                if (exist) {
-
-                    fs.readFile(file, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
-
-                        if (!err) {
-                            let totalNum = 0;
-                            data.split(parent_delt).forEach(item => {
-
-                                if (item && item.trim() !== '') {
-                                    let array = item.split(child_delt);
-
-                                    var houseData = [];
-                                    houseData.push({
-                                        from: array[0],
-                                        city: array[1],
-                                        title: array[2],
-                                        content: array[3],
-                                        hrefArray: array[4],
-                                        imgpath: array[5],
-                                        datatime: array[6],
-                                        href: array[7]
-                                    });
-
-                                    totalNum++;
-                                    bulkIndex(indexname, typename, houseData);
-                                }
-                            });
-
-                            console.log('writeHouseDataFromFileToES success. total num:' + totalNum);
-                        } else {
-                            console.log("read error from file " + file + ' : ' + err.toString())
-                        }
-
-                    });
-
+                    console.log('writeHouseDataFromFileToES success. total num:' + totalNum);
                 } else {
-                    console.log(file + " not exist.")
+                    console.log("read error from file " + file +' : '+ err.toString())
                 }
+
             });
 
-        });
-    }
-
-
+        } else {
+            console.log(file + " not exist.")
+        }
+    });
 
 }
 
@@ -1156,7 +1054,7 @@ function readHrefSet(dir, filename, callback) {
             fs.readFile(file, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
 
                 if (!err) {
-                    data.split('|').forEach(item => {
+                    data.split('|').forEach(item=> {
 
                         if (item && item.trim() !== '') {
                             let arr = item.split('_');
@@ -1177,54 +1075,13 @@ function readHrefSet(dir, filename, callback) {
 
 }
 
-
-function queryBatch() {
-
-    let body = {
-        docs: [
-            {_index: indexname, _type: typename, _id:'d6eZfmUBGbOJNG1ZaRnS'},
-            {_index: indexname, _type: typename, _id:'YqcIamUBGbOJNG1ZyAb1'}
-        ]
-    };
-
-    client.mget({index: indexname, type: typename, body: {ids :['d6eZfmUBGbOJNG1ZaRnS', 'YqcIamUBGbOJNG1ZyAb1']}})
-        .then(results => {
-
-            console.log(results);
-            // console.log('before ' + results.hits.hits.length + ' time:' + util.formatDate(new Date()));
-            // console.log('');
-            results.docs.forEach((hit, index) => {
-                    var datetime = hit._source.datatime;
-
-                    console.log(datetime);
-
-                }
-            );
-
-
-        })
-
-
-    // let friend_ids = ['5b83546515462ea16465009f','5b8a47942466ecd10d56069f'];
-    //
-    // User_Friend.find({
-    //     '_id': { $in: [
-    //             mongoose.Types.ObjectId('5b83546515462ea16465009f'),
-    //             mongoose.Types.ObjectId('5b8a47942466ecd10d56069f')
-    //         ]}
-    // }, function(err, docs){
-    //     console.log(docs);
-    // });
-
-
-}
-
 let DELETE_DAY_SIZE = 60;
 
 function deleteOldHouseData() {
     let body = {
         query: {
-            match: {}
+            match: {
+            }
         }
     };
     console.log('deleteing house deleteOldHouseData ' + ' time:' + util.formatDate(new Date()));
@@ -1233,7 +1090,7 @@ function deleteOldHouseData() {
 
             console.log('before ' + results.hits.hits.length + ' time:' + util.formatDate(new Date()));
 
-            results.hits.hits.forEach((hit, index) => {
+            results.hits.hits.forEach((hit, index) =>{
                     var datetime = hit._source.datatime;
 
                     var nowDay = util.getNowFormatDate();
@@ -1247,7 +1104,7 @@ function deleteOldHouseData() {
                         });
 
                     }
-                }
+            }
             );
 
             if (goingDeleteHouseData.length > 0) {
@@ -1262,7 +1119,7 @@ function deleteOldHouseData() {
                         _index: indexname,
                         _type: typename,
                         _id: house._id,
-                    }, (err, resp) => {
+                    }, (err, resp)=>{
 
                         if (err) {
                             console.log('delete fail house: id' + house._id + ' href:' + house.href + ' err:' + err + ' time:' + util.formatDate(new Date()));
@@ -1289,8 +1146,12 @@ function deleteOldHouseData() {
                             }
                         });
 
-                        console.log('delete response:' + resp + ' time:' + util.formatDate(new Date()));
-
+                        console.log('delete response:' +resp + ' time:' + util.formatDate(new Date()));
+                        // if (resp.hits.successful < 1) {
+                        //    console.log('no ' + house.toString() + ' exist')
+                        // } else {
+                        //     return next({status: true, message: 'POST DELETED', data: error, code: 500});
+                        // }
                     })
                 });
 
@@ -1304,7 +1165,6 @@ function deleteOldHouseData() {
         })
 
 }
-
 // 16天
 function verifyDate(datetime) {
     return (moment(new Date()).diff(moment(datetime), "days") < 16);
@@ -1316,7 +1176,7 @@ function catch_list() {
         .end(function (error, data) {
             if (error) {
 
-                console.log("scratching over cratch href " + " error exception occured :" + error.toString());
+                console.log("scratching over cratch href "+" error exception occured :"+ error.toString());
                 return;
             }
             var $ = cheerio.load(data.text);    //注意传递的是data.text而不是data本身
@@ -1326,6 +1186,7 @@ function catch_list() {
 
                 var href = $element.attr("href");
                 var title = $element.attr('title');
+
 
 
             });
@@ -1350,8 +1211,6 @@ function catch_list() {
 
                     console.log(title);
                     console.log(href);
-
-
                 } else {
 
                 }
@@ -1393,6 +1252,8 @@ function test() {
             });
 
 
+
+
         });
     console.log("cratchList end");
 
@@ -1431,6 +1292,7 @@ function indexOf(content) {
 }
 
 
+
 var Spider = {};
 
 Spider.doCapture = doCapture;
@@ -1439,13 +1301,10 @@ module.exports = Spider;
 
 
 Promise.resolve()
-// .then(indexOf('1000转租东坝金隅汇景苑单间（近将台）'));
-// .then(catch_list);
-//  .then(dropIndex)
-// .then(initIndex)
-// .then(doCapture)
-    // .then(queryBatch)
-    // .then(updateCityToEs)
-    .then(readHouseDataFromESToFile)
- // .then(updateHouseDataFromESToFile)
- // .then(writeHouseDataFromFileToES);
+    // .then(indexOf('1000转租东坝金隅汇景苑单间（近将台）'));
+    // .then(catch_list);
+   //  .then(dropIndex)
+   // .then(initIndex)
+   .then(doCapture)
+    // .then(updateHouseDataFromESToFile)
+   //  .then(writeHouseDataFromFileToES);
