@@ -14,6 +14,7 @@ var OCR = require('./ocr');
 
 var users = require('./route/users');
 var api = require('./route/api');
+var finder = require('./h_route/house_finder');
 var crypto = require('crypto');
 
 var MailUtil = require('./mail');
@@ -49,6 +50,7 @@ app.use(session({
 }));
 
 app.use('/a/api', api);
+app.use('/51finder', finder);
 app.use('users', users);
 app.use(express.static('routes'));
 
@@ -745,7 +747,7 @@ app.get('/friendfinder/find', function (req, res) {
                 return Util.getDays(s.checkin_date, t.checkin_date);
             });
 
-            if (req.session.isLogined == true) {
+            if (req.session.isLogined === true) {
 
                 FriendFinder.find({username: req.session.username}, function (err, fds) {
 
@@ -1545,7 +1547,7 @@ app.use(function (req, res, next) {
 });
 
 
-app.listen(3000, '127.0.0.1', function () {
+app.listen(3000, '172.25.30.30', function () {
     console.log('Example app listening on port 3000!')
 });
 

@@ -11,6 +11,8 @@ const fs = require('fs');
 var User = require('./model/user');
 var PayInfo = require('./model/payinfo');
 
+var mkdirp = require('mkdirp');
+
 const cert = fs.readFileSync('./private.key');	// 加密私钥
 const TOKEN_EXPIRATION = 60;	// token 过期时间，默认单位为s，Eg: 60, "2 days", "10h", "7d"
 
@@ -56,6 +58,58 @@ util.sign = function(name,time,randkey){
 
 util.MD5 = function md5(data){
 	return crypto.createHash('md5').update(data).digest("hex");
+};
+
+util.getDateNow = function() {
+
+	let i = 8;
+
+    //参数i为时区值数字，比如北京为东八区则输进8,西5输入-5
+
+    if (typeof i !== 'number') return;
+
+    var d = new Date();
+
+    //得到1970年一月一日到现在的秒数
+
+    var len = d.getTime();
+
+    //本地时间与GMT时间的时间偏移差
+
+    var offset = d.getTimezoneOffset() * 60000;
+
+    //得到现在的格林尼治时间
+
+    var utcTime = len + offset;
+
+    return new Date(utcTime + 3600000 * i);
+
+}
+
+util.getCityEngName = function(city_en) {
+    let city_ch = '';
+    if (city_en === '北京') {
+        city_ch = 'beijing';
+    }
+    if (city_en === '上海') {
+        city_ch = 'shanghai';
+    }
+    if (city_en === '武汉') {
+        city_ch = 'wuhan';
+    }
+    if (city_en === '成都') {
+        city_ch = 'chengdu';
+    }
+    if (city_en === '深圳') {
+        city_ch = 'shenzhen';
+    }
+    if (city_en === '南京') {
+        city_ch = 'nanjing';
+    }
+    if (city_en === '杭州') {
+        city_ch = 'hangzhou';
+    }
+    return city_ch;
 }
 
 
@@ -135,6 +189,7 @@ util.formatDateISO = function (date) {
     return dateFormat(date, 'isoDate');
 };
 
+// 年月日 时分秒 2018-08-24 10:56:25
 util.formatDate = function (date) {
     return dateFormat(date,'isoDate') + ' ' + dateFormat(date, 'isoTime');;
 };
@@ -151,15 +206,23 @@ util.getDays = function(sDate1,  sDate2){
 	//把相差的毫秒数转换为天数
 	iDays  =  parseInt((oDate1  -  oDate2)  /  1000  /  60  /  60  /24);
 
-	console.log('getDays:' + iDays + ' -> ' + oDate1 + ' ' +oDate2);
 	return  iDays;
 }
 
 util.minusDays = function(sDate1, sDate2) {
-	var days = parseInt((oDate1  -  oDate2)  /  1000  /  60  /  60  /24);
+	console.log(sDate1  -  sDate2);
+	var days = parseInt((sDate1  -  sDate2)  /  1000  /  60  /  60  /24);
 
 	return days > 0 ? days : -days;
 }
+
+// let time = "2018-07-24 15:14:33";
+// let time2 = "2018-07-24 15:14:34";
+util.minusDateTime = function(sDate1, sDate2) {
+
+    return sDate1  -  sDate2;
+}
+
 //使用
 function  btnCount_Click(){
 	//s1  =  "2002-1-10";
@@ -184,10 +247,8 @@ function testDateFormat() {
 function testDateCompare() {
 	let date = new Date();
 
-	let deviceid = 'b35425db93c760b4ff4e96d7a4fe50b2';
-
-	let j= 'b35425db93c760b4ff4e96d7a4fe50b2'
-	let time = "2017-11-24T12:27:52.979Z";
+	let time = "2018-07-24 15:14:33";
+    let time2 = "2018-07-24 15:14:34";
 
 	// time = time.replace("-", "/");
 	// let d1 = new Date(Date.parse(time));
@@ -201,12 +262,16 @@ function testDateCompare() {
     //
 	// console.log((today - d1) / (1000*60*60));
 
-	let d = new Date(Date.parse(time));
+	let d = Date.parse(time);
+    let d2 = Date.parse(time2);
 
     // let days = util.getDays(util.formatDate(d), util.formatDate(new Date()));
 
-	let st = dateFormat(new Date(time),'isoDate') + ' ' + dateFormat(new Date(time), 'isoTime');
+	let st = dateFormat(d,'isoDate') + ' ' + dateFormat(d, 'isoTime');
     console.log('days:' + st);
+
+
+    console.log('days:' + util.minusDays(d, d2));
 }
 
 
@@ -268,6 +333,7 @@ function testDateSort() {
 
 util.getNowFormatDate = function() {
 	var date = new Date();
+
 	var seperator1 = "-";
 	var seperator2 = ":";
 	var month = date.getMonth() + 1;
@@ -283,7 +349,6 @@ util.getNowFormatDate = function() {
 	//var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
 	//	+ " " + date.getHours() + seperator2 + date.getMinutes()
 	//	+ seperator2 + date.getSeconds();
-	console.log(currentdate);
 	return currentdate;
 };
 
@@ -294,7 +359,7 @@ util.getFilePath = function(filepath, next) {
 
 		if (!exists) {
 
-			fs.mkdir(filepath, 0o777, function (err) {
+            mkdirp(filepath, function (err) {
 
 				if (!err) {
 
@@ -310,10 +375,6 @@ util.getFilePath = function(filepath, next) {
 	});
 };
 
-
-
-Promise.resolve()
-	.then(testDateCompare);
 
 
 module.exports = util;

@@ -1,0 +1,115 @@
+Example app listening on port 3000!
+find_house:北京
+login:001joREn0QEr7s16NjEn0f1PEn0joREe
+statusCode: 200
+headers: { connection: 'close',
+  'content-type': 'text/plain',
+  date: 'Fri, 31 Aug 2018 11:37:03 GMT',
+  'content-length': '83' }
+{"session_key":"Kho+Kfne9\/imtemmG7leww==","openid":"oGvVF482-F3lEQctWw9iezO4rlxc"}
+
+user exist:{ _id: 5b80fd7670f61491a580e3fb,
+  username: 'oGvVF482-F3lEQctWw9iezO4rlxc',
+  date: 2018-08-25T06:55:50.576Z,
+  __v: 0,
+  forbid: false }
+login:021SIopR0hQUh82X51oR0LFDpR0SIopv
+statusCode: 200
+headers: { connection: 'close',
+  'content-type': 'text/plain',
+  date: 'Fri, 31 Aug 2018 11:37:44 GMT',
+  'content-length': '83' }
+{"session_key":"Kho+Kfne9\/imtemmG7leww==","openid":"oGvVF482-F3lEQctWw9iezO4rlxc"}
+
+user exist:{ _id: 5b80fd7670f61491a580e3fb,
+  username: 'oGvVF482-F3lEQctWw9iezO4rlxc',
+  date: 2018-08-25T06:55:50.576Z,
+  __v: 0,
+  forbid: false }
+find_house:北京
+find_house:北京
+login:061b1paY0ai1y22Jlp7Y01EmaY0b1paJ
+statusCode: 200
+headers: { connection: 'close',
+  'content-type': 'text/plain',
+  date: 'Fri, 31 Aug 2018 11:40:24 GMT',
+  'content-length': '83' }
+{"session_key":"Th\/ISsSvdW7s00mRB4yFeA==","openid":"oGvVF482-F3lEQctWw9iezO4rlxc"}
+
+user exist:{ _id: 5b80fd7670f61491a580e3fb,
+  username: 'oGvVF482-F3lEQctWw9iezO4rlxc',
+  date: 2018-08-25T06:55:50.576Z,
+  __v: 0,
+  forbid: false }
+find_house:北京
+login:021v9C970u8NsI1tb8870wKl970v9C9A
+statusCode: 200
+headers: { connection: 'close',
+  'content-type': 'text/plain',
+  date: 'Fri, 31 Aug 2018 11:50:56 GMT',
+  'content-length': '82' }
+{"session_key":"LSDsQ5kd7H3fPp2HYJqDJQ==","openid":"oGvVF482-F3lEQctWw9iezO4rlxc"}
+
+user exist:{ _id: 5b80fd7670f61491a580e3fb,
+  username: 'oGvVF482-F3lEQctWw9iezO4rlxc',
+  date: 2018-08-25T06:55:50.576Z,
+  __v: 0,
+  forbid: false }
+find_house:北京
+login:061VA5mY1BsvPS0OnCnY1esTlY1VA5mw
+statusCode: 200
+headers: { connection: 'close',
+  'content-type': 'text/plain',
+  date: 'Fri, 31 Aug 2018 12:08:37 GMT',
+  'content-length': '82' }
+{"session_key":"kscVr6WcxiS3UR4lklIAPg==","openid":"oGvVF482-F3lEQctWw9iezO4rlxc"}
+
+user exist:{ _id: 5b80fd7670f61491a580e3fb,
+  username: 'oGvVF482-F3lEQctWw9iezO4rlxc',
+  date: 2018-08-25T06:55:50.576Z,
+  __v: 0,
+  forbid: false }
+login:0217Sg6y0P51Vg1QFz5y0jf46y07Sg62
+find_house:北京
+statusCode: 200
+headers: { connection: 'close',
+  'content-type': 'text/plain',
+  date: 'Fri, 31 Aug 2018 12:08:47 GMT',
+  'content-length': '82' }
+{"session_key":"kscVr6WcxiS3UR4lklIAPg==","openid":"oGvVF482-F3lEQctWw9iezO4rlxc"}
+
+user exist:{ _id: 5b80fd7670f61491a580e3fb,
+  username: 'oGvVF482-F3lEQctWw9iezO4rlxc',
+  date: 2018-08-25T06:55:50.576Z,
+  __v: 0,
+  forbid: false }
+/search_more
+search_more DnF1ZXJ5VGhlbkZldGNoAgAAAAAAAAYcFjN1T3c4ekhIUUFXdmkwSnFsa3p0UncAAAAAAAAGHRYzdU93OHpISFFBV3ZpMEpxbGt6dFJ3
+search_more response:[object Object]
+search_more response:[object Object]
+search_more response:[object Object]
+search more scrollId: DnF1ZXJ5VGhlbkZldGNoAgAAAAAAAAYcFjN1T3c4ekhIUUFXdmkwSnFsa3p0UncAAAAAAAAGHRYzdU93OHpISFFBV3ZpMEpxbGt6dFJ3 more size:30
+/search_more
+search_more DnF1ZXJ5VGhlbkZldGNoAgAAAAAAAAYcFjN1T3c4ekhIUUFXdmkwSnFsa3p0UncAAAAAAAAGHRYzdU93OHpISFFBV3ZpMEpxbGt6dFJ3
+search_more response:[object Object]
+search_more response:[object Object]
+search_more response:[object Object]
+search more scrollId: DnF1ZXJ5VGhlbkZldGNoAgAAAAAAAAYcFjN1T3c4ekhIUUFXdmkwSnFsa3p0UncAAAAAAAAGHRYzdU93OHpISFFBV3ZpMEpxbGt6dFJ3 more size:30
+/search_more
+search_more DnF1ZXJ5VGhlbkZldGNoAgAAAAAAAAYcFjN1T3c4ekhIUUFXdmkwSnFsa3p0UncAAAAAAAAGHRYzdU93OHpISFFBV3ZpMEpxbGt6dFJ3
+search_more response:[object Object]
+search_more response:[object Object]
+search_more response:[object Object]
+search more scrollId: DnF1ZXJ5VGhlbkZldGNoAgAAAAAAAAYcFjN1T3c4ekhIUUFXdmkwSnFsa3p0UncAAAAAAAAGHRYzdU93OHpISFFBV3ZpMEpxbGt6dFJ3 more size:30
+/search_more
+search_more DnF1ZXJ5VGhlbkZldGNoAgAAAAAAAAYcFjN1T3c4ekhIUUFXdmkwSnFsa3p0UncAAAAAAAAGHRYzdU93OHpISFFBV3ZpMEpxbGt6dFJ3
+search_more response:[object Object]
+search_more response:[object Object]
+search_more response:[object Object]
+search more scrollId: DnF1ZXJ5VGhlbkZldGNoAgAAAAAAAAYcFjN1T3c4ekhIUUFXdmkwSnFsa3p0UncAAAAAAAAGHRYzdU93OHpISFFBV3ZpMEpxbGt6dFJ3 more size:30
+/search_more
+search_more DnF1ZXJ5VGhlbkZldGNoAgAAAAAAAAYcFjN1T3c4ekhIUUFXdmkwSnFsa3p0UncAAAAAAAAGHRYzdU93OHpISFFBV3ZpMEpxbGt6dFJ3
+search_more response:[object Object]
+search_more response:[object Object]
+search_more response:[object Object]
+search more scrollId: DnF1ZXJ5VGhlbkZldGNoAgAAAAAAAAYcFjN1T3c4ekhIUUFXdmkwSnFsa3p0UncAAAAAAAAGHRYzdU93OHpISFFBV3ZpMEpxbGt6dFJ3 more size:30
