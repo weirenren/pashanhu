@@ -13,13 +13,14 @@ var PayInfo = require('./model/payinfo');
 
 var mkdirp = require('mkdirp');
 
-const cert = fs.readFileSync('./private.key');	// 加密私钥
+// const cert = fs.readFileSync('./private.key');	// 加密私钥
 const TOKEN_EXPIRATION = 60;	// token 过期时间，默认单位为s，Eg: 60, "2 days", "10h", "7d"
 
 var util = {};
 
 util.genToken = function(tokendata) {
-	return jwt.sign(tokendata, cert, {expiresIn: TOKEN_EXPIRATION});	
+	// return jwt.sign(tokendata, cert, {expiresIn: TOKEN_EXPIRATION});
+	return tokendata;
 };
 
 function randomWord(randomFlag, min, max){

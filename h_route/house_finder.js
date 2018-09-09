@@ -169,8 +169,10 @@ router.post('/find_user', (req, rsp) => {
                         }, function(err, friends){
 
                             let body = {
-                                friend_list: friends,
-                                house_list: house_list
+                                has_finder_list: friends,
+                                has_house_list: [],
+                                has_house_ids: [],
+                                has_finder_ids: has_finder_ids
                             };
 
                             let response = {

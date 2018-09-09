@@ -5,7 +5,7 @@
 var elasticsearch = require('elasticsearch');
 
 var client = new elasticsearch.Client({
-    host: 'localhost:9200',
+    host: '0.0.0.0:9200',
     log: 'error'
 });
 
@@ -178,8 +178,6 @@ function bulkIndex(index, type, data) {
         bulkBody.push(item);
 
     });
-
-    console.log("bulkIndex house:" + JSON.stringify(data));
 
     client.bulk({body: bulkBody})
         .then(response => {
@@ -606,6 +604,10 @@ function combine(tag, dir, city, href, datatime, title, content, imgHrefArray) {
                                         href: href,
                                         times: new Date(datatime)
                                     });
+
+                                    if (city === '' || city === undefined) {
+                                        return;
+                                    }
                                     console.log('图片下载完毕： ' + imgPathsArray + ' time:' + util.formatDate(new Date()));
                                     console.log('current inputHrefs size:' + newTagSet.length);
                                     oldTagSet.add(tag); // 写会旧缓存
@@ -960,14 +962,17 @@ function readHouseDataFromESToFile() {
                 );
 
                 houseData.sort(sortDatetime);
-
-                let file = backup_dir + space + util.getNowFormatDate() + '.txt';
+                backup_dir = backup_dir + space +  util.getNowFormatDate();
+                let file = backup_dir + space + 'house_es' + '.txt';
                 console.log('write');
+
 
                 let size = 0;
                 fs.exists(backup_dir, function (exist) {
 
                     if (exist) {
+                        fs.writeFileSync(file,"");
+
                         houseData.forEach((item, index) => {
                             let cont = genHouseItemString(item.from, item.city, item.title, item.content, item.hrefArray, item.imgpath, item.datetime, item.href);
                             fs.appendFile(file, cont, function () {
@@ -1022,77 +1027,19 @@ function writeHouseDataFromFileToES() {
     let parent_delt = '&$';
     let child_delt = '@#';
 
-    let today = util.getNowFormatDate();
-    let file = backup_dir + space + today + '.txt';
+    let file = backup_dir + space +  util.getNowFormatDate() + space + 'house_es' + '.txt';
 
-    let indexname = 'house_back_' + today;
+    let indexname = 'house_back_' + util.getNowFormatDate();
 
-    let exist = client.indices.exists({index: indexname});
-
-    if (exist === true) {
-
-        // client.indices.create({index: indexname});
-        // client.indices.delete({index: indexname});
-
-        client.indices.delete({
-            index: indexname
-        }, function(err, res) {
-
-            if (err) {
-                console.error(err.message);
-            } else {
-                console.log('Indexes have been deleted!');
-                client.indices.create({index: indexname}, (err, res) => {
-
-
-                    fs.exists(file, function (exist) {
-
-                        if (exist) {
-
-                            fs.readFile(file, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
-
-                                if (!err) {
-                                    let totalNum = 0;
-                                    data.split(parent_delt).forEach(item => {
-
-                                        if (item && item.trim() !== '') {
-                                            let array = item.split(child_delt);
-
-                                            var houseData = [];
-                                            houseData.push({
-                                                from: array[0],
-                                                city: array[1],
-                                                title: array[2],
-                                                content: array[3],
-                                                hrefArray: array[4],
-                                                imgpath: array[5],
-                                                datatime: array[6],
-                                                href: array[7]
-                                            });
-
-                                            totalNum++;
-                                            bulkIndex(indexname, typename, houseData);
-                                        }
-                                    });
-
-                                    console.log('writeHouseDataFromFileToES success. total num:' + totalNum);
-                                } else {
-                                    console.log("read error from file " + file + ' : ' + err.toString())
-                                }
-
-                            });
-
-                        } else {
-                            console.log(file + " not exist.")
-                        }
-                    });
-
-                });
-            }
-        });
-    } else {
+    client.indices.exists({index: indexname}).then((exist) => {
+        if (exist) {
+            console.log('delete index:' + indexname);
+            return client.indices.delete({
+                index: indexname
+            });
+        }
+    }).then(() => {
         client.indices.create({index: indexname}, (err, res) => {
-
 
             fs.exists(file, function (exist) {
 
@@ -1102,6 +1049,7 @@ function writeHouseDataFromFileToES() {
 
                         if (!err) {
                             let totalNum = 0;
+
                             data.split(parent_delt).forEach(item => {
 
                                 if (item && item.trim() !== '') {
@@ -1118,13 +1066,20 @@ function writeHouseDataFromFileToES() {
                                         datatime: array[6],
                                         href: array[7]
                                     });
-
                                     totalNum++;
-                                    bulkIndex(indexname, typename, houseData);
+                                    const  ind = totalNum;
+                                    setTimeout(()=>{
+
+                                        bulkIndex(indexname, typename, houseData);
+                                        console.log('writeHouseDataFromFileToES success. total num:' + ind);
+                                    }, totalNum * 10);
+
+
+
                                 }
                             });
 
-                            console.log('writeHouseDataFromFileToES success. total num:' + totalNum);
+
                         } else {
                             console.log("read error from file " + file + ' : ' + err.toString())
                         }
@@ -1137,8 +1092,78 @@ function writeHouseDataFromFileToES() {
             });
 
         });
-    }
+    });
 
+    // if (exist === true) {
+    //
+    //     // client.indices.create({index: indexname});
+    //     // client.indices.delete({index: indexname});
+    //
+    //     client.indices.delete({
+    //         index: indexname
+    //     }, function(err, res) {
+    //
+    //         if (err) {
+    //             console.error(err.message);
+    //         } else {
+    //             console.log('Indexes have been deleted!');
+    //
+    //         }
+    //     });
+    // } else {
+    //     client.indices.create({index: indexname}, (err, res) => {
+    //
+    //
+    //         fs.exists(file, function (exist) {
+    //
+    //             if (exist) {
+    //
+    //                 fs.readFile(file, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
+    //
+    //                     if (!err) {
+    //                         let totalNum = 0;
+    //                         data.split(parent_delt).forEach(item => {
+    //
+    //                             if (item && item.trim() !== '') {
+    //                                 let array = item.split(child_delt);
+    //
+    //                                 var houseData = [];
+    //                                 houseData.push({
+    //                                     from: array[0],
+    //                                     city: array[1],
+    //                                     title: array[2],
+    //                                     content: array[3],
+    //                                     hrefArray: array[4],
+    //                                     imgpath: array[5],
+    //                                     datatime: array[6],
+    //                                     href: array[7]
+    //                                 });
+    //
+    //                                 setTimeout(()=>{
+    //                                     bulkIndex(indexname, typename, houseData);
+    //                                     console.log('writeHouseDataFromFileToES success. total num:' + totalNum);
+    //                                 }, totalNum * 1000);
+    //
+    //                                 totalNum++;
+    //
+    //                             }
+    //                         });
+    //
+    //                         console.log('writeHouseDataFromFileToES success. total num:' + totalNum);
+    //                     } else {
+    //                         console.log("read error from file " + file + ' : ' + err.toString())
+    //                     }
+    //
+    //                 });
+    //
+    //             } else {
+    //                 console.log(file + " not exist.")
+    //             }
+    //         });
+    //
+    //     });
+    // }
+    //
 
 
 }
@@ -1443,9 +1468,9 @@ Promise.resolve()
 // .then(catch_list);
 //  .then(dropIndex)
 // .then(initIndex)
-// .then(doCapture)
+.then(doCapture)
     // .then(queryBatch)
     // .then(updateCityToEs)
-    .then(readHouseDataFromESToFile)
+    // .then(readHouseDataFromESToFile)
  // .then(updateHouseDataFromESToFile)
  // .then(writeHouseDataFromFileToES);
