@@ -806,9 +806,9 @@ function updateCityToEs() {
 
                         console.log(href + '........' + city_ch + ' ,index: '+ (ind++));
 
-                        client.update({index: indexname, type: typename, id: hit._id, body: body}, (err, rsp) => {
-
-                        });
+                        // client.update({index: indexname, type: typename, id: hit._id, body: body}, (err, rsp) => {
+                        //
+                        // });
 
                     }
                 );
@@ -1470,7 +1470,7 @@ Promise.resolve()
 // .then(initIndex)
 // .then(doCapture)
     // .then(queryBatch)
-    // .then(updateCityToEs)
-    .then(readHouseDataFromESToFile)
+    .then(updateCityToEs)
+    // .then(readHouseDataFromESToFile)
  // .then(updateHouseDataFromESToFile)
  // .then(writeHouseDataFromFileToES);

@@ -1455,6 +1455,70 @@ function indexOf(content) {
     }
 }
 
+function find_user() {
+    let cityName = '北京';
+
+
+    let body = {
+        sort: [{"times": {"order": "desc"}}],
+        // sort: [{ "datatime": { "order": "asc" } }],
+        query: {
+            match: {
+                city: cityName
+            }
+        }
+    };
+
+    var array = [];
+
+    client.search({
+        index: indexname,
+        type: typename,
+        scroll: '1000s',
+        body: body
+    }, function getMoreUntilDone(error, response) {
+        // console.log('rr:' + error.toString());
+        if (response.hits && response.hits.hits) {
+
+            response.hits.hits.forEach((hit, index) => {
+                    array.push({
+                        'title': hit._source.title,
+                        'content': hit._source.content,
+                        'hrefArray': hit._source.hrefArray,
+                        'from': hit._source.from,
+                        '_id': hit._id,
+                        'datatime': hit._source.datatime
+                    })
+                }
+            );
+
+            if (20 > array.length && response.hits.total > 20) {
+                //        // now we can call scroll over and over
+                client.scroll({
+                    scrollId: response._scroll_id,
+                    scroll: '1000s'
+                }, getMoreUntilDone);
+            } else {
+
+                var more = -1;
+                var scrollId = -1;
+                if (response.hits.total > 20) {
+                    scrollId = response._scroll_id;
+                    more = 0;
+                }
+
+                // array.sort(sortDatetime);
+
+                array.forEach((val, ind) => {
+                    console.log(JSON.stringify(val))
+                });
+
+
+            }
+        }
+    });
+}
+
 
 var Spider = {};
 
@@ -1468,7 +1532,8 @@ Promise.resolve()
 // .then(catch_list);
 //  .then(dropIndex)
 // .then(initIndex)
-.then(doCapture)
+// .then(doCapture)
+    .then(find_user())
     // .then(queryBatch)
     // .then(updateCityToEs)
     // .then(readHouseDataFromESToFile)
