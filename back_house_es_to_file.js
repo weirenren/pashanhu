@@ -953,9 +953,10 @@ function readHouseDataFromESToFile() {
                             content: hit._source.content,
                             hrefArray: hit._source.hrefArray,
                             imgpath: hit._source.imgpath,
-                            datetime: hit._source.datatime,
+                            datatime: hit._source.datatime,
                             href: hit._source.href,
-                            _id: hit._id
+                            _id: hit._id,
+                            times: hit._source.times
                         });
 
                     }
@@ -974,7 +975,7 @@ function readHouseDataFromESToFile() {
                         fs.writeFileSync(file,"");
 
                         houseData.forEach((item, index) => {
-                            let cont = genHouseItemString(item.from, item.city, item.title, item.content, item.hrefArray, item.imgpath, item.datetime, item.href);
+                            let cont = genHouseItemString(item.from, item.city, item.title, item.content, item.hrefArray, item.imgpath, item.datetime, item.href, item.times);
                             fs.appendFile(file, cont, function () {
                                 console.log(cont + ' 添加成功:' + size++);
                             });
@@ -985,7 +986,7 @@ function readHouseDataFromESToFile() {
                             if (err) console.error(err);
                             else {
                                 houseData.forEach((item, index) => {
-                                    let cont = genHouseItemString(item.from, item.city, item.title, item.content, item.hrefArray, item.imgpath, item.datatime, item.href);
+                                    let cont = genHouseItemString(item.from, item.city, item.title, item.content, item.hrefArray, item.imgpath, item.datatime, item.href, item.times);
                                     fs.appendFile(file, cont, function () {
 
                                         console.log(cont + ' 添加成功 :' + size++);
@@ -1014,12 +1015,12 @@ function filter(content, parent_delt, child_delt) {
     return result;
 }
 
-function genHouseItemString(from, city, title, content, hrefArray, imgpath, datatime, href) {
+function genHouseItemString(from, city, title, content, hrefArray, imgpath, datatime, href, times) {
     let parent_delt = '&$';
     let child_delt = '@#';
 
     return filter(from, parent_delt, child_delt) + child_delt + filter(city, parent_delt, child_delt) + child_delt + filter(title, parent_delt, child_delt) + child_delt + filter(content, parent_delt, child_delt) + child_delt
-        + hrefArray + child_delt + imgpath + child_delt + datatime + child_delt + href + parent_delt;
+        + hrefArray + child_delt + imgpath + child_delt + datatime + child_delt + href + child_delt + times + parent_delt;
 }
 
 function writeHouseDataFromFileToES() {
@@ -1470,7 +1471,7 @@ Promise.resolve()
 // .then(initIndex)
 // .then(doCapture)
     // .then(queryBatch)
-    .then(updateCityToEs)
-    // .then(readHouseDataFromESToFile)
+    // .then(updateCityToEs)
+    .then(readHouseDataFromESToFile)
  // .then(updateHouseDataFromESToFile)
  // .then(writeHouseDataFromFileToES);

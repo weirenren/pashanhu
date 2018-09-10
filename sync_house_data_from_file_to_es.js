@@ -1064,7 +1064,8 @@ function writeHouseDataFromFileToES() {
                                         hrefArray: array[4],
                                         imgpath: array[5],
                                         datatime: array[6],
-                                        href: array[7]
+                                        href: array[7],
+                                        times: array[8]
                                     });
                                     totalNum++;
                                     const  ind = totalNum;
@@ -1072,7 +1073,7 @@ function writeHouseDataFromFileToES() {
 
                                         bulkIndex(indexname, typename, houseData);
                                         console.log('writeHouseDataFromFileToES success. total num:' + ind);
-                                    }, totalNum * 10);
+                                    }, totalNum * 20);
 
 
 
