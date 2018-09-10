@@ -1065,7 +1065,6 @@ function writeHouseDataFromFileToES() {
                                         imgpath: array[5],
                                         datatime: array[6],
                                         href: array[7],
-                                        _id: array[8],
                                         times: new Date(array[6])
                                     });
                                     totalNum++;
