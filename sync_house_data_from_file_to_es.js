@@ -953,7 +953,7 @@ function readHouseDataFromESToFile() {
                             content: hit._source.content,
                             hrefArray: hit._source.hrefArray,
                             imgpath: hit._source.imgpath,
-                            datetime: hit._source.datatime,
+                            datatime: hit._source.datatime,
                             href: hit._source.href,
                             _id: hit._id
                         });
@@ -974,7 +974,7 @@ function readHouseDataFromESToFile() {
                         fs.writeFileSync(file,"");
 
                         houseData.forEach((item, index) => {
-                            let cont = genHouseItemString(item.from, item.city, item.title, item.content, item.hrefArray, item.imgpath, item.datetime, item.href);
+                            let cont = genHouseItemString(item.from, item.city, item.title, item.content, item.hrefArray, item.imgpath, item.datatime, item.href);
                             fs.appendFile(file, cont, function () {
                                 console.log(cont + ' 添加成功:' + size++);
                             });
@@ -1065,6 +1065,7 @@ function writeHouseDataFromFileToES() {
                                         imgpath: array[5],
                                         datatime: array[6],
                                         href: array[7],
+                                        _id: array[8],
                                         times: new Date(array[6])
                                     });
                                     totalNum++;
