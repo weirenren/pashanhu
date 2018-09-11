@@ -1056,12 +1056,17 @@ function writeHouseDataFromFileToES() {
                                     let array = item.split(child_delt);
 
                                     var houseData = [];
+
+                                    let images = [];
+                                    if (array[4] && array[4] !== undefined) {
+                                        images = array[4].split(',');
+                                    }
                                     houseData.push({
                                         from: array[0],
                                         city: array[1],
                                         title: array[2],
                                         content: array[3],
-                                        hrefArray: array[4],
+                                        hrefArray: images,
                                         imgpath: array[5],
                                         datatime: array[6],
                                         href: array[7],
