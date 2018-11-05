@@ -11,11 +11,14 @@ var bodyParser = require('body-parser');
 
 var fs = require('fs');
 var OCR = require('./ocr');
+var url = require('url');
 
 var users = require('./route/users');
 var api = require('./route/api');
 var finder = require('./h_route/house_finder');
 var crypto = require('crypto');
+
+var request = require('request');
 
 var MailUtil = require('./mail');
 var Util = require('./util');
@@ -63,6 +66,11 @@ var esClient = new elasticsearch.Client({
     host: 'localhost:9200',
     log: 'error'
 });
+
+var tokens = require('./tokens');
+var headertest = {
+    'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'
+}
 
 //noinspection BadExpressionStatementJS
 
@@ -1214,7 +1222,12 @@ app.get('/', function (req, res) {
 //    "term" : { "user" : "kimchy" }
 //}
 app.get('/home', function (req, res) {
+
+
     console.log('/home');
+
+    return;
+
     let body = {
         query: {
             match_all: {}
@@ -1546,8 +1559,93 @@ app.use(function (req, res, next) {
     res.send('404');
 });
 
+var superagent = require("superagent");
+var cheerio = require("cheerio");
+
+Array.prototype.contains = function(obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+};
+Array.prototype.remove = function(val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+        this.splice(index, 1);
+    }
+};
+
+function refresh_tokens() {
+    superagent.get("http://wx.deepba.com/paper/news/bxsh/")
+        .set('header', headertest)
+        .end(function (error, data) {
+            if (error) {
+                console.log("error exception occured !" + error.toString());
+                return next(error);
+            }
+            var $ = cheerio.load(data.text, {decodeEntities: false});    //注意传递的是data.text而不是data本身
+            //console.log('catch ' +$('.topic-doc .topic-content p').html());
+
+            var html = '';
+
+            $('.img-thumbnail').each(function (idx, element) {
+
+                var $element = $(element);
+                html += $element.attr("src")
+            });
+
+            if (html === '') {
+                return;
+            }
+
+            var query =  url.parse(html, true);
+            if (query) {
+
+                var token = query.query.token;
+                if (token && !tokens.contains(token)) {
+                    tokens.push(token);
+                    console.log('token:' + token);
+                } else  {
+                    console.log('exist token:' + token);
+                }
+            }
+
+        });
+
+}
 
 app.listen(3000, '127.0.0.1', function () {
+
+    refresh_tokens();
+
+    setInterval(()=>{
+        // http://wx.deepba.com/api/?token=916683115ec037256e841a7237231b64&id=39&txt1=hhtxt2=1
+
+        tokens.forEach((tk) => {
+            var request_url = 'http://wx.deepba.com/api/?token='+ tk +'&id=39&txt1=hhtxt2=1';
+            request(request_url, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body) // 打印google首页
+                    console.log(tk + ' is good');
+                } else {
+                    console.log(tk + ' is error');
+                    tokens.remove(tk);
+                }
+            });
+        });
+
+
+        setTimeout(()=>{
+
+            refresh_tokens();
+
+        }, 60 * 1000);
+
+    }, 30 * 60 *1000);
+
     console.log('Example app listening on port 3000!')
 });
 

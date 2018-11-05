@@ -30,6 +30,8 @@ var Promise = require('bluebird');
 var moment = require('moment');
 var request = require('request');
 
+var url = require('url');
+
 //var proxy = '121.232.144.27:9000';
 
 //async提供简单,强大的功能来处理异步JavaScript
@@ -1389,7 +1391,7 @@ function catch_list() {
 
 function test() {
 
-    superagent.get("https://www.douban.com/group/topic/120469608/")
+    superagent.get("http://wx.deepba.com/paper/news/bxsh/")
         .set('header', headertest)
         .end(function (error, data) {
             if (error) {
@@ -1400,22 +1402,30 @@ function test() {
             //console.log('catch ' +$('.topic-doc .topic-content p').html());
 
             var html = '';
-            $('.topic-doc .topic-content p').each(function (idx, element) {
+            // $('.topic-doc .topic-content p').each(function (idx, element) {
+            //
+            //     html += $(element).html()
+            //
+            // });
+            $('.img-thumbnail').each(function (idx, element) {
 
-                html += $(element).html()
-
-            });
-            console.log(html);
-
-            $('.topic-content .image-container .image-wrapper img').each(function (idx, element) {
                 var $element = $(element);
+                html += $element.attr("src")
 
-                console.log($element.attr("src"));
-                // imgHrefArray.push({
-                //     "id": idx,
-                //     "href": $element.attr("src")
-                // });
+
+
             });
+            console.log(url.parse(html, true).query.token);
+
+            // $('.topic-content .image-container .image-wrapper img').each(function (idx, element) {
+            //     var $element = $(element);
+            //
+            //     console.log($element.attr("src"));
+            //     // imgHrefArray.push({
+            //     //     "id": idx,
+            //     //     "href": $element.attr("src")
+            //     // });
+            // });
 
 
         });
@@ -1532,7 +1542,7 @@ Promise.resolve()
 // .then(catch_list);
 //  .then(dropIndex)
 // .then(initIndex)
-.then(doCapture)
+.then(test)
 //     .then(find_user())
     // .then(queryBatch)
     // .then(updateCityToEs)

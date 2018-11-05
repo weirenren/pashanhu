@@ -6,7 +6,6 @@ var router = express.Router();
 var Promise = require('bluebird');
 var elasticsearch = require('elasticsearch');
 
-const querystring = require('querystring');
 const https = require('https');
 var mongoose = require('mongoose');
 
@@ -34,6 +33,22 @@ var typename = 'hourse_type';
 var esClient = new elasticsearch.Client({
     host: 'localhost:9200',
     log: 'error'
+});
+
+
+
+var tokens = require('../tokens');
+
+router.get('/ads_tk', (req, rsp) => {
+
+    let response = {
+        msg: 'success',
+        code: 0,
+        data: tokens
+
+    };
+
+    rsp.end(JSON.stringify(response));
 });
 
 
