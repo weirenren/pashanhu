@@ -1606,6 +1606,7 @@ function refresh_tokens() {
 
                 var token = query.query.token;
                 if (token && !tokens.contains(token)) {
+                    tokens = [];
                     tokens.push(token);
                     console.log('token:' + token);
                 } else  {
@@ -1624,18 +1625,18 @@ app.listen(3000, '127.0.0.1', function () {
     setInterval(()=>{
         // http://wx.deepba.com/api/?token=916683115ec037256e841a7237231b64&id=39&txt1=hhtxt2=1
 
-        tokens.forEach((tk) => {
-            var request_url = 'http://wx.deepba.com/api/?token='+ tk +'&id=39&txt1=hhtxt2=1';
-            request(request_url, function (error, response, body) {
-                if (response.statusCode === 200) {
-                    console.log(body); // 打印google首页
-                    console.log(tk + ' is good');
-                } else {
-                    console.log(tk + ' is error');
-                    tokens.remove(tk);
-                }
-            });
-        });
+        // tokens.forEach((tk) => {
+        //     var request_url = 'http://wx.deepba.com/api/?token='+ tk +'&id=39&txt1=hhtxt2=1';
+        //     request(request_url, function (error, response, body) {
+        //         if (response.statusCode === 200) {
+        //             console.log(body); // 打印google首页
+        //             console.log(tk + ' is good');
+        //         } else {
+        //             console.log(tk + ' is error');
+        //             tokens.remove(tk);
+        //         }
+        //     });
+        // });
 
 
         setTimeout(()=>{
@@ -1644,7 +1645,7 @@ app.listen(3000, '127.0.0.1', function () {
 
         }, 60 * 1000);
 
-    }, 30 * 60 *1000);
+    }, 20 * 60 *1000);
 
     console.log('Example app listening on port 3000!')
 });
