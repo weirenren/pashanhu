@@ -1606,7 +1606,10 @@ function refresh_tokens() {
 
                 var token = query.query.token;
                 if (token && !tokens.contains(token)) {
-                    tokens = [];
+                    tokens.forEach((tk) => {
+                        tokens.remove(tk);
+                    });
+
                     tokens.push(token);
                     console.log('token:' + token);
                 } else  {
