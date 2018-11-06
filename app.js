@@ -1627,8 +1627,8 @@ app.listen(3000, '127.0.0.1', function () {
         tokens.forEach((tk) => {
             var request_url = 'http://wx.deepba.com/api/?token='+ tk +'&id=39&txt1=hhtxt2=1';
             request(request_url, function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    console.log(body) // 打印google首页
+                if (response.statusCode === 200) {
+                    console.log(body); // 打印google首页
                     console.log(tk + ' is good');
                 } else {
                     console.log(tk + ' is error');
