@@ -10,15 +10,19 @@ var cons = require('consolidate');
 var bodyParser = require('body-parser');
 
 var fs = require('fs');
-var OCR = require('./ocr');
+var OCR;
+// var OCR = require('./ocr');
 var url = require('url');
 
 var users = require('./route/users');
 var api = require('./route/api');
 var finder = require('./h_route/house_finder');
-var crypto = require('crypto');
+var vfinder = require('./h_route/vfinder');
 
-var request = require('request');
+var crypto = require('crypto');
+var moment = require('moment');
+
+// var request = require('request');
 
 var MailUtil = require('./mail');
 var Util = require('./util');
@@ -28,8 +32,8 @@ app.engine('html', cons.swig);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 var User = require('./model/user');
@@ -52,20 +56,32 @@ app.use(session({
     }
 }));
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Expose-Headers", "X-My-Custom-Header, X-Another-Custom-Header");
+    next(); // make sure we go to the next routes and don't stop here
+});
+
 app.use('/a/api', api);
 app.use('/51finder', finder);
+app.use('/51vfinder', vfinder);
 app.use('users', users);
 app.use(express.static('routes'));
 
-var elasticsearch = require('elasticsearch');
+// var elasticsearch = require('elasticsearch');
 
 var indexname = 'hourse_datasource';
 var typename = 'hourse_type';
 
-var esClient = new elasticsearch.Client({
-    host: 'localhost:9200',
-    log: 'error'
-});
+
+var esClient;
+// var esClient = new elasticsearch.Client({
+//     host: 'localhost:9200',
+//     log: 'error'
+// });
+
+
 
 var tokens = require('./tokens');
 var headertest = {
@@ -1559,6 +1575,15 @@ app.use(function (req, res, next) {
     res.send('404');
 });
 
+app.use(function (error, req, res, next) {
+    if (!error) {
+        next();
+    } else {
+        console.error(error.stack);
+        res.send(500);
+    }
+});
+
 var superagent = require("superagent");
 var cheerio = require("cheerio");
 
@@ -1584,7 +1609,7 @@ function refresh_tokens() {
         .end(function (error, data) {
             if (error) {
                 console.log("error exception occured !" + error.toString());
-                return next(error);
+                return;
             }
             var $ = cheerio.load(data.text, {decodeEntities: false});    //注意传递的是data.text而不是data本身
             //console.log('catch ' +$('.topic-doc .topic-content p').html());
@@ -1682,5 +1707,39 @@ function onError(error) {
             throw error;
     }
 }
+
+var House = require('./h_model/house');
+
+House.find({}, (err, results) => {
+
+    if (err) {
+        console.log('[read house from db] error:' + err);
+    }
+    if (results) {
+        houseUrlMap.clear();
+        let size = 0;
+        let now_date = new Date();
+        results.forEach((obj, ind) => {
+
+            if (houseUrlMap.has(obj.href) || ((moment(now_date).diff(moment(obj.date), "days")) > 16 && obj.from_type === 0) ) {
+                House.remove({title: obj.title},(err, res)=>{
+                    // if (!err) {
+                    console.log(obj.title + ':' + JSON.stringify(res))
+                    // }
+                })
+            } else {
+                houseUrlMap.set(obj.href, ind);
+            }
+
+            size = ind;
+        });
+
+        console.log('[read house from db][houselist size : ' + (size + 1) + ']' + ' houseUrlMap size :' + houseUrlMap.size)
+    } else {
+        console.log('[read house from db] no results');
+    }
+
+});
+
 
 module.exports = app;

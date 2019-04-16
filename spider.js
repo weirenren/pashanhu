@@ -22,7 +22,7 @@ var superagent = require("superagent");
 
 var domain = require('domain');
 
-//require('superagent-proxy')(superagent);
+require('superagent-proxy')(superagent);
 
 var cheerio = require("cheerio");
 var Promise = require('bluebird');
@@ -1391,31 +1391,33 @@ function catch_list() {
 
 function test() {
 
-    superagent.get("http://wx.deepba.com/paper/news/bxsh/")
+    superagent.get("https://www.easy-mock.com/mock/5bf93ce55cac7622ae783d61/example/goods")
+        .proxy('http://172.25.117.28:9999')
         .set('header', headertest)
         .end(function (error, data) {
             if (error) {
                 console.log("error exception occured !" + error.toString());
-                return next(error);
-            }
-            var $ = cheerio.load(data.text, {decodeEntities: false});    //注意传递的是data.text而不是data本身
-            //console.log('catch ' +$('.topic-doc .topic-content p').html());
 
-            var html = '';
-            // $('.topic-doc .topic-content p').each(function (idx, element) {
+                return;
+            }
+            // var $ = cheerio.load(data.text, {decodeEntities: false});    //注意传递的是data.text而不是data本身
+            // //console.log('catch ' +$('.topic-doc .topic-content p').html());
             //
-            //     html += $(element).html()
+            // var html = '';
+            // // $('.topic-doc .topic-content p').each(function (idx, element) {
+            // //
+            // //     html += $(element).html()
+            // //
+            // // });
+            // $('.img-thumbnail').each(function (idx, element) {
+            //
+            //     var $element = $(element);
+            //     html += $element.attr("src")
+            //
+            //
             //
             // });
-            $('.img-thumbnail').each(function (idx, element) {
-
-                var $element = $(element);
-                html += $element.attr("src")
-
-
-
-            });
-            console.log(url.parse(html, true).query.token);
+            console.log(data);
 
             // $('.topic-content .image-container .image-wrapper img').each(function (idx, element) {
             //     var $element = $(element);
@@ -1542,7 +1544,7 @@ Promise.resolve()
 // .then(catch_list);
 //  .then(dropIndex)
 // .then(initIndex)
-.then(test)
+.then(doCapture())
 //     .then(find_user())
     // .then(queryBatch)
     // .then(updateCityToEs)

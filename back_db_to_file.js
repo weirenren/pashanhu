@@ -89,17 +89,19 @@ function write_to_db() {
 
                         if (item && item.trim() !== '') {
                             let array = item.split(child_delt);
-                            // from: String, // 来源:豆瓣租房/个人
-                            //     city: String,
-                            //     title: String, // 标题
-                            //     content: String, // 内容
-                            //     imgurl_list: String, // 图片路径数组{"a,b"}
-                            //     date: Date, // 创建日期
+                            // from: {type: String, default: ""}, // 来源:豆瓣租房/个人
+                            // city: {type: String, default: ""},
+                            // title: {type: String, default: ""}, // 标题
+                            // content: {type: String, default: ""}, // 内容
+                            // imgurl_list: {type: String, default: ""}, // 图片href 数组 逗号 隔开
+                            // href: {type: String, default: ""}, // 豆瓣详情页
+                            // date: Date, // 创建日期
                             //     visit_time: {type: Number, default: 1}, // 查看次数
                             // forbid: {type: Boolean, default: false}, // 是否禁止显示该条信息
+                            // from_type: {type:Number, default: 0}, // 0：豆瓣 1:个人
                             //
-                            // es_id: String,
-                            //     extra: String // 额外信息
+                            // es_id: {type: String, default: ""},
+                            // extra: {type: String, default: ""} // 额外信息
                             var house = new House({
                                 _id: array[0],
                                 from: array[1],
@@ -107,10 +109,12 @@ function write_to_db() {
                                 title: array[3],
                                 content: array[4],
                                 imgurl_list: array[5],
-                                date: array[6],
-                                visit_time: array[7],
-                                forbid: array[8],
-                                es_id: array[9]
+                                href: array[6],
+                                date: array[7],
+                                visit_time: array[8],
+                                forbid: array[9],
+                                from_type: array[10],
+                                es_id: array[11]
                             });
 
                             house.save((err, fri) => {
@@ -377,8 +381,8 @@ function back_to_file() {
                 fs.writeFileSync(house_file,"");
 
                 houses.forEach((item, index) => {
-                    let cont = genHouseItemString(item._id, item.from, item.city, item.title, item.content,item.imgurl_list, item.date, item.visit_time, item.forbid, item.es_id);
-                    fs.appendFile(user_friend_file, cont, function () {
+                    let cont = genHouseItemString(item._id, item.from, item.city, item.title, item.content,item.imgurl_list, item.href, item.date, item.visit_time, item.forbid, item.from_type, item.es_id);
+                    fs.appendFile(house_file, cont, function () {
                         console.log(cont + ' 添加成功:' + size++);
                     });
                 });
@@ -388,7 +392,7 @@ function back_to_file() {
                     if (err) console.error(err);
                     else {
                         houses.forEach((item, index) => {
-                            let cont = genHouseItemString(item._id, item.from, item.city, item.title, item.content,item.imgurl_list, item.date, item.visit_time, item.forbid, item.es_id);
+                            let cont = genHouseItemString(item._id, item.from, item.city, item.title, item.content,item.imgurl_list, item.href, item.date, item.visit_time, item.forbid, item.from_type, item.es_id);
                             fs.appendFile(house_file, cont, function () {
 
                                 console.log(cont + ' 添加成功 :' + size++);
@@ -479,6 +483,20 @@ function genUserFriendItemString(_id, username, friend_id, type) {
     return _id + child_delt + username + child_delt + friend_id + child_delt + type + parent_delt;
 }
 
+// from: {type: String, default: ""}, // 来源:豆瓣租房/个人
+// city: {type: String, default: ""},
+// title: {type: String, default: ""}, // 标题
+// content: {type: String, default: ""}, // 内容
+// imgurl_list: {type: String, default: ""}, // 图片href 数组 逗号 隔开
+// href: {type: String, default: ""}, // 豆瓣详情页
+// date: Date, // 创建日期
+//     visit_time: {type: Number, default: 1}, // 查看次数
+// forbid: {type: Boolean, default: false}, // 是否禁止显示该条信息
+// from_type: {type:Number, default: 0}, // 0：豆瓣 1:个人
+//
+// es_id: {type: String, default: ""},
+// extra: {type: String, default: ""} // 额外信息
+
 // from: String, // 来源:豆瓣租房/个人
 //     city: String,
 //     title: String, // 标题
@@ -490,9 +508,9 @@ function genUserFriendItemString(_id, username, friend_id, type) {
 //
 // es_id: String,
 //     extra: String // 额外信息
-function genHouseItemString(_id, from, city,title,content,imgurl_list,  date, visit_time, forbid,es_id) {
+function genHouseItemString(_id, from, city,title,content,imgurl_list, href, date, visit_time, forbid, from_type, es_id) {
 
-    return _id + child_delt + from + child_delt + city + child_delt + filter(title, parent_delt, child_delt) + child_delt + filter(content, parent_delt, child_delt) + child_delt + imgurl_list + child_delt + date + child_delt + visit_time + child_delt + forbid + child_delt + es_id + parent_delt;
+    return _id + child_delt + from + child_delt + city + child_delt + filter(title, parent_delt, child_delt) + child_delt + filter(content, parent_delt, child_delt) + child_delt + imgurl_list + child_delt + href + child_delt + date + child_delt + visit_time + child_delt + forbid + child_delt + from_type + child_delt + es_id + parent_delt;
 }
 
 // username: String, // 用户名

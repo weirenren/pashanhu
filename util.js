@@ -1,12 +1,12 @@
 /*
 * 工具函数
-* 
+*
 * */
 
 'use strict';
 var dateFormat = require('dateformat');
 const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 const fs = require('fs');
 var User = require('./model/user');
 var PayInfo = require('./model/payinfo');
@@ -110,6 +110,9 @@ util.getCityEngName = function(city_en) {
     if (city_en === '杭州') {
         city_ch = 'hangzhou';
     }
+    if (city_en === '大连') {
+    	city_ch = 'dalian';
+	}
     return city_ch;
 }
 
@@ -329,7 +332,7 @@ function testDateSort() {
 	//		console.log(user);
 	//	});
 	//});
-	
+
 }
 
 util.getNowFormatDate = function() {

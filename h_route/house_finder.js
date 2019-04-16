@@ -4,7 +4,8 @@
 var express = require('express');
 var router = express.Router();
 var Promise = require('bluebird');
-var elasticsearch = require('elasticsearch');
+var elasticsearch;
+// var elasticsearch = require('elasticsearch');
 
 const https = require('https');
 var mongoose = require('mongoose');
@@ -20,8 +21,9 @@ var User_House = require('../h_model/user_house');
 var multer = require('multer');
 var fs = require('fs');
 
-var uploadDir = './public/apppay/upload/';
+var uploadDir = './public/images/';
 var upload = multer({dest: uploadDir}).single('file');
+const requestIp = require('request-ip');
 
 var img_person_tag = 'person';
 
@@ -30,12 +32,11 @@ var PAGE_NUM = 25;
 var indexname = 'hourse_test';
 var typename = 'hourse_type';
 
-var esClient = new elasticsearch.Client({
-    host: 'localhost:9200',
-    log: 'error'
-});
-
-
+var esClient;
+// var esClient = new elasticsearch.Client({
+//     host: 'localhost:9200',
+//     log: 'error'
+// });
 
 var tokens = require('../tokens');
 
@@ -50,7 +51,6 @@ router.get('/ads_tk', (req, rsp) => {
 
     rsp.end(JSON.stringify(response));
 });
-
 
 router.post('/find_user', (req, rsp) => {
     console.log('find_user:' + JSON.stringify(req.body));
@@ -391,17 +391,14 @@ router.post('/unfocus_house', (req, res) => {
 // visit_time: {type: Number, default: 1},
 // extra:String // 额外信息
 router.post('/create_finder', (req, res) => {
-
     console.log('create_finder:' + JSON.stringify(req.body));
 
     let username = req.body['username'];
-
     let checkInDate = req.body['checkInDate'];
     let checkInPlace = req.body['checkInPlace'];
     let callNumber = req.body['callNumber'];
     let other = req.body['other'];
     let city = req.body['city'];
-
 
     var friend = new Friend({
         checkInDate: checkInDate,
@@ -411,7 +408,6 @@ router.post('/create_finder', (req, res) => {
         city: city,
         datetime: Util.getDateNow()
     });
-
 
     friend.save((err, obj) => {
 
@@ -877,6 +873,73 @@ router.post('/update_finder', (req, res) => {
 
 });
 
+router.post('/delete_usr', (req, res) => {
+
+    let uid = req.body['uid'];
+
+    console.log('delete_usr');
+
+    User.findOne({_id: uid}, (err, us) => {
+
+        if (us) {
+            User_House.find({username: us.username}, (err, uh) => {
+                if (uh) {
+                    uh.forEach((value, ind) => {
+                        console.log('userhouse:' + value);
+
+                        House.findOne({_id: value.house_id}, function (err, house) {
+
+                            if (house) {
+                                console.log("house: " + house);
+                                let imglist = house.imgurl_list !== null ? house.imgurl_list.split(',') : [];
+                                deleteImgFile(imglist);
+
+                                House.remove({_id: value.house_id}, function (err, obj) {
+
+                                });
+
+                                User_House.remove({house_id: value.house_id}, (err, uh) => {
+                                });
+
+                                console.log('delete house success')
+
+                            } else {
+
+                                console.log('delete_house error:' + value.house_id + ' not eixst');
+
+                            }
+                        });
+                    })
+                }
+            });
+
+            User.remove({_id: uid}, (err, obj) => {
+                let response;
+                if (err) {
+                    response = {
+                        msg: '删除失败',
+                        code: -1
+                    };
+                } else {
+                    response = {
+                        msg: '删除成功',
+                        code: 0
+                    };
+                }
+
+                res.end(JSON.stringify(response));
+            })
+
+        } else {
+            let response = {
+                msg: '没有此用户',
+                code: 0
+            };
+            res.end(JSON.stringify(response));
+        }
+    });
+});
+
 router.post('/delete_finder', (req, res) => {
 
     console.log('delete_finder:' + JSON.stringify(req.body));
@@ -962,11 +1025,11 @@ let img_prefix = 'images/';
 
 function buildImageHrefArray (city, imgurl_list) {
     let city_en = Util.getCityEngName(city);
-    let imgPathsArray = imgurl_list.split(',');
+    let imgPathsArray = imgurl_list;
 
     let imgs = [];
     imgPathsArray.forEach((value, ind) => {
-        imgs.push(img_prefix + city_en + '/' + value);
+        imgs.push(img_prefix + value);
     });
 
     return imgs;
@@ -982,7 +1045,10 @@ function buildImageHrefArray (city, imgurl_list) {
 // extra: String // 额外信息
 router.post('/create_house', (req, res) => {
 
-    console.log('create_house:' + JSON.stringify(req.body));
+    console.log('create_house1:' + JSON.stringify(req.body));
+
+    const clientIp = requestIp.getClientIp(req);
+    console.log("[create_house]:" + clientIp + " time:" + Util.formatDate(new Date()));
 
     let username = req.body['username'];
 
@@ -993,86 +1059,80 @@ router.post('/create_house', (req, res) => {
     let imgurl_list = req.body['imgurl_list'];
     // let date = req.body['date']; // todo 日期格式转换
 
-    let city_en = Util.getCityEngName(city);
-
+    // let city_en = Util.getCityEngName(city);
     User.findOne({username: username}, (err, us) => {
 
         if (us) {
+            let imgPathsArray = imgurl_list;
+            // var jsonarray = [];
+            // let body = {
+            //     from: '51找室友',
+            //     title: title,
+            //     content: content,
+            //     hrefArray: imgPathsArray,
+            //     imgpath: '',
+            //     datatime: Util.formatDate(new Date()),
+            //     href: '',
+            //     city: city
+            // };
 
-            let imgPathsArray = buildImageHrefArray(city, imgurl_list);
-            var jsonarray = [];
-            let body = {
-                from: '51找室友',
+            console.log('find user:' + JSON.stringify(imgurl_list));
+
+            var house = new House({
+                from_type: 1,
+                from: '个人',
                 title: title,
+                imgurl_list: imgurl_list,
                 content: content,
-                hrefArray: imgPathsArray,
-                imgpath: '',
-                datatime: Util.formatDate(new Date()),
-                href: '',
+                date: Util.getDateNow(),
                 city: city
-            };
+            });
 
-            esClient.index({
-                index: indexname,
-                type: typename,
-                body: body
-            }, (err, rsp) => {
+                    let response = {
+                        msg: 'fail:',
+                        code: 0
+                    };
+                    res.end(JSON.stringify(response));
 
-                let es_id = rsp._id;
-                console.log("add house es_id:" + es_id);
+            house.save((err, obj) => {
 
-                var house = new House({
-                    from: from,
-                    title: title,
-                    imgurl_list: imgurl_list,
-                    content: content,
-                    date: Util.getDateNow(),
-                    es_id: es_id,
-                    city: city
-                });
+                if (!err) {
+                    // username: String, // 用户名
+                    //     friend_id: String, // friend表id
+                    //     extra: String // 额外信息
+                    let user_house = new User_House({
+                        username: username,
+                        house_id: obj._id
+                    });
 
-                house.save((err, obj) => {
+                    user_house.save((err, o) => {
 
-                    if (!err) {
-                        // username: String, // 用户名
-                        //     friend_id: String, // friend表id
-                        //     extra: String // 额外信息
-                        let user_house = new User_House({
-                            username: username,
-                            house_id: obj._id,
-                            es_id: es_id
-                        });
+                        if (err) {
+                            console.log(err);
+                            let response = {
+                                msg: 'fail:' + err,
+                                code: -1
+                            };
+                            res.end(JSON.stringify(response));
+                        } else {
 
-                        user_house.save((err, o) => {
+                            let response = {
+                                msg: 'house添加成功',
+                                code: 0,
+                                data: obj
+                            };
+                            res.end(JSON.stringify(response));
+                        }
+                    })
 
-                            if (err) {
-                                console.log(err);
-                                let response = {
-                                    msg: 'fail:' + err,
-                                    code: -1
-                                };
-                                res.end(JSON.stringify(response));
-                            } else {
-
-                                let response = {
-                                    msg: 'house添加成功',
-                                    code: 0,
-                                    data: obj
-                                };
-                                res.end(JSON.stringify(response));
-                            }
-                        })
-
-                    } else {
-                        console.log(err);
-                        let response = {
-                            msg: 'fail:' + err,
-                            code: -1
-                        };
-                        res.end(JSON.stringify(response));
-                    }
-                });
-                console.log('create: ' + JSON.stringify(rsp));
+                } else {
+                    console.log(err);
+                    let response = {
+                        msg: 'fail:' + err,
+                        code: -1
+                    };
+                    res.end(JSON.stringify(response));
+                }
             });
 
         } else {
@@ -1102,9 +1162,62 @@ router.post('/create_house', (req, res) => {
 
 });
 
+
+var HOUSE_SAVE_COUNT = 0;
+
+
+router.post('/ch_list', (req, res) => {
+
+    console.log('ch_list:' + JSON.stringify(req.body));
+
+    let username = req.body['adu'];
+    if (username !== 'weichao_admin') {
+        console.log("username no permission user:" + username);
+        return;
+    }
+
+    let houseList = req.body['houselist'];
+
+    houseList.forEach((obj, ind) => {
+
+        let city = obj['city'];
+        // let from = req.body['from'];
+        let title = obj['title'];
+        let content = obj['content'];
+        let imgurl_list = obj['imgurl_list'];
+        let date = obj['date']; // todo 日期格式转换
+        let href = obj['href'];
+
+        var from = '豆瓣租房';
+
+        var house = new House({
+            from: from,
+            title: title,
+            href: href,
+            imgurl_list: imgurl_list,
+            content: content,
+            date: Date.parse(new Date(date)),
+            city: city
+        });
+
+        house.save((err, obj) => {
+
+            if (!err) {
+            } else {
+                console.log(err);
+
+            }
+        });
+
+
+    });
+
+});
+
+
 function deleteImgFile(imglist) {
 
-    let img_arr = imglist.split(',');
+    let img_arr = imglist;
     console.log(imglist);
 
     img_arr.forEach((item, index) => {
@@ -1232,6 +1345,39 @@ router.post('/update_house', (req, res) => {
 
 });
 
+router.post('/clean_house', (req, res) => {
+
+    House.find({from_type: 1}, (err, hslist) => {
+        if (hslist && hslist.length > 0) {
+            console.log('house list need clean:' + hslist.length + ' ' );
+            hslist.forEach((house, ind) => {
+
+                let imglist = house.imgurl_list !== null ? house.imgurl_list.split(',') : [];
+                deleteImgFile(imglist);
+
+                House.remove({_id: house._id}, function (err, obj) {
+
+                });
+
+                User_House.remove({house_id: house._id}, (err, uh) => {
+                });
+            });
+
+            let response = {
+                msg: 'clean house success',
+                code: 0
+            };
+            res.end(JSON.stringify(response));
+            console.log('delete house success')
+        } else {
+            let response = {
+                msg: 'no house need to be cleaned',
+                code: 0
+            };
+            res.end(JSON.stringify(response));
+        }
+    })
+});
 
 router.post('/delete_house', (req, res) => {
 
@@ -1241,10 +1387,11 @@ router.post('/delete_house', (req, res) => {
     // todo username finder_id match?
 
     // let house_id = req.body['house_id'];
-
     let house_ids = req.body['house_ids'];
-
-    let houseIdArray = house_ids.split(',');
+    let houseIdArray = [];
+    if (house_ids) {
+        houseIdArray = house_ids.split(',');
+    }
 
     User.findOne({username: username}, (err, us) => {
 
@@ -1259,7 +1406,8 @@ router.post('/delete_house', (req, res) => {
 
                     if (house) {
 
-                        deleteImgFile(house.imgurl_list);
+                        let imglist = house.imgurl_list !== null ? house.imgurl_list.split(',') : [];
+                        deleteImgFile(imglist);
 
                         House.remove({_id: house_id}, function (err, obj) {
 
@@ -1274,34 +1422,15 @@ router.post('/delete_house', (req, res) => {
                         //
                         // });
 
+                        console.log('delete house success')
+
                     } else {
 
                         console.log('delete_house error:' + house_id + ' not eixst');
-                        // let response = {
-                        //     msg: '不存在该house',
-                        //     code: -1
-                        // };
-                        // res.end(JSON.stringify(response));
                     }
-
-                    // esClient.delete({
-                    //     index: indexname, type: typename, id: house_id
-                    // }, (err, rsp) => {
-                    //
-                    // });
                 });
-
-                esClient.delete({
-                    index: indexname, type: typename, id: house_id
-                }, (err, rsp) => {
-
-                });
-
             });
-
-
         }
-
     });
 
 
@@ -1386,16 +1515,26 @@ router.post('/delete_house', (req, res) => {
 
 router.post('/upload', (req, res) => {
 
+    console.log('upload')
     //文件上传
     upload(req, res, function (err) {
         console.log('upload:' + JSON.stringify(req.body));
 
         if (err) {
-            console.error('err:' + err.message);
+            console.log('err:' + err.message);
         } else {
 
             // let deviceid = req.body['deviceid'];
             let username = req.body['username'];
+            if (!username) {
+                let response = {
+                    msg: 'not login, username is null',
+                    code: -1
+                };
+                console.log('user name is null:');
+                res.end(JSON.stringify(response));
+                return;
+            }
 
             User.findOne({username: username}, (err, us) => {
 
