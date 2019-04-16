@@ -35,7 +35,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.static(path.resolve(__dirname, '../../Vue/finder')))
+app.get('*', function(req, res) {
+    const html = fs.readFileSync(path.resolve(__dirname, '../../Vue/finder/index.html'), 'utf-8')
+    res.send(html)
+});
 var User = require('./model/user');
 var PayInfo = require('./model/payinfo');
 var FriendFinder = require('./model/hoursefriend_finder');
