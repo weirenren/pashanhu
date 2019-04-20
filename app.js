@@ -35,14 +35,21 @@ var serveStatic = require('serve-static');
 
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, 'public')));
-// app.use(express.static(path.resolve(__dirname, './dist')));
+// app.use(express.static(path.join(__dirname, 'public')));
+// // app.use(express.static(path.resolve(__dirname, './dist')));
 // app.use(serveStatic("/Users/didi/dev/GitHome/other/pashanhu/dist"));
-app.use(serveStatic("/home/ubuntu/dev/GitHome/Vue/dist"));
-// app.get('*', function(req, res) {
-//     const html = fs.readFileSync(path.resolve(__dirname, './dist/index.html'), 'utf-8')
-//     res.send(html)
-// });
+// // app.use(serveStatic("/home/ubuntu/dev/GitHome/Vue/dist"));
+// // app.get('*', function(req, res) {
+// //     const html = fs.readFileSync(path.resolve(__dirname, './dist/index.html'), 'utf-8')
+// //     res.send(html)
+// // });
+
+
+app.use('/static', serveStatic('/home/ubuntu/dev/GitHome/Vue/dist/static/'));
+app.get('/', function(req,res) {
+    res.sendFile('index.html', { root: '/home/ubuntu/dev/GitHome/Vue/dist' });
+});
+
 var User = require('./model/user');
 var PayInfo = require('./model/payinfo');
 var FriendFinder = require('./model/hoursefriend_finder');
