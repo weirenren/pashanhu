@@ -31,15 +31,18 @@ var Settings = require('./settings');
 app.engine('html', cons.swig);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+var serveStatic = require('serve-static');
 
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.resolve(__dirname, '../../Vue/finder')))
-app.get('*', function(req, res) {
-    const html = fs.readFileSync(path.resolve(__dirname, '../../Vue/finder/index.html'), 'utf-8')
-    res.send(html)
-});
+// app.use(express.static(path.resolve(__dirname, './dist')));
+// app.use(serveStatic("/Users/didi/dev/GitHome/other/pashanhu/dist"));
+app.use(serveStatic("/home/ubuntu/dev/GitHome/Vue/dist"));
+// app.get('*', function(req, res) {
+//     const html = fs.readFileSync(path.resolve(__dirname, './dist/index.html'), 'utf-8')
+//     res.send(html)
+// });
 var User = require('./model/user');
 var PayInfo = require('./model/payinfo');
 var FriendFinder = require('./model/hoursefriend_finder');
@@ -1713,35 +1716,35 @@ function onError(error) {
 }
 
 var House = require('./h_model/house');
-
+let houseUrlMap = new Map();
 House.find({}, (err, results) => {
 
     if (err) {
         console.log('[read house from db] error:' + err);
     }
-    if (results) {
-        houseUrlMap.clear();
-        let size = 0;
-        let now_date = new Date();
-        results.forEach((obj, ind) => {
-
-            if (houseUrlMap.has(obj.href) || ((moment(now_date).diff(moment(obj.date), "days")) > 16 && obj.from_type === 0) ) {
-                House.remove({title: obj.title},(err, res)=>{
-                    // if (!err) {
-                    console.log(obj.title + ':' + JSON.stringify(res))
-                    // }
-                })
-            } else {
-                houseUrlMap.set(obj.href, ind);
-            }
-
-            size = ind;
-        });
-
-        console.log('[read house from db][houselist size : ' + (size + 1) + ']' + ' houseUrlMap size :' + houseUrlMap.size)
-    } else {
-        console.log('[read house from db] no results');
-    }
+    // if (results) {
+    //     houseUrlMap.clear();
+    //     let size = 0;
+    //     let now_date = new Date();
+    //     results.forEach((obj, ind) => {
+    //
+    //         if (houseUrlMap.has(obj.href) || ((moment(now_date).diff(moment(obj.date), "days")) > 16 && obj.from_type === 0) ) {
+    //             House.remove({title: obj.title},(err, res)=>{
+    //                 // if (!err) {
+    //                 console.log(obj.title + ':' + JSON.stringify(res))
+    //                 // }
+    //             })
+    //         } else {
+    //             houseUrlMap.set(obj.href, ind);
+    //         }
+    //
+    //         size = ind;
+    //     });
+    //
+    //     console.log('[read house from db][houselist size : ' + (size + 1) + ']' + ' houseUrlMap size :' + houseUrlMap.size)
+    // } else {
+    //     console.log('[read house from db] no results');
+    // }
 
 });
 
