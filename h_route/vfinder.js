@@ -6,6 +6,7 @@ var House = require('../h_model/house');
 var User = require('../h_model/user');
 var UserHouse = require('../h_model/user_house');
 var moment = require('moment');
+var MailUtil = require('../mail');
 
 var RSP_OK = 0;
 var RSP_NOT_EXIST = 1001;
@@ -17,6 +18,37 @@ let last_query_time = new Date().getTime();
 const requestIp = require('request-ip');
 
 var houseListMap = new Map(); // key:city value:houselist
+
+//用户点击注册按钮
+router.post('/findPwd', function (req, res) {
+
+    const clientIp = requestIp.getClientIp(req);
+    console.log("[findPwd]:" + clientIp + " time:" + Util.formatDate(new Date()));
+    let username = req.body['username'];
+
+    User.findOne({username: username}, function (err, user) {
+        if (user) {
+            var to = username;
+            var from = '13717535178@163.com';
+
+            var subject = 'from 房友网：[用户找回密码] \n ';
+
+            var text = '亲爱的[' + username+ ']用户 您的登录密码为：[' + user.pwd + ']，请妥善保管好您的密码，不要告诉陌生人 \n\n特别提醒：如果该邮件在垃圾箱中，务必从垃圾箱移回收件箱，不然之后会收不到该邮件信息\n\n' + '欢迎您再次来到房友网：https://sharevideo.cn/#/';
+
+            MailUtil.send(from, subject, to, text);
+
+            // todo 发邮件
+            return res.json({
+                msg: '成功,请前往邮箱: '+ username+ '找回密码,邮件可能存在垃圾箱中',
+                code: RSP_OK
+            });
+        }
+        return res.json({
+            msg: '不存在该用户',
+            code: -1
+        });
+    });
+});
 
 //用户点击注册按钮
 router.post('/register', function (req, res) {

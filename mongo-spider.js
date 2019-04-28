@@ -572,7 +572,7 @@ function parseListHref(dir, _city) {
 
 
 let request_queue = [];
-let baseUploadHouseApi = 'http://localhost:3000/51finder/ch_list';
+let baseUploadHouseApi = 'https://sharevideo.cn/51finder/ch_list';
 
 function combine(tag, dir, city, href, datetime, title, content, imgHrefArray) {
     console.log('combine start href ' + href + " imgs :" + imgHrefArray);
@@ -593,15 +593,15 @@ function combine(tag, dir, city, href, datetime, title, content, imgHrefArray) {
 
     uploadhouselist(0);
 
-    // house.save((err, obj) => {
-    //
-    //     if (!err) {
-    //        console.log('house save:' + JSON.stringify(obj) + (HOUSE_SAVE_COUNT++));
-    //     } else {
-    //         console.log(err);
-    //
-    //     }
-    // });
+    house.save((err, obj) => {
+
+        if (!err) {
+           console.log('house save:' + JSON.stringify(obj));
+        } else {
+            console.log(err);
+
+        }
+    });
 
     console.log('combine end' + ' time:' + util.formatDate(new Date()));
 }
