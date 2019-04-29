@@ -300,7 +300,7 @@ function doLoopWorkForDay(next) {
         last_page_start = 0;
         console.log("doLoopWork start time:" + util.formatDate(new Date()));
         doWork(next);
-    }, 90 * 60 * 1000); // 一小时间隔 抓一次；
+    }, 120 * 60 * 1000); // 一小时间隔 抓一次；
 
     setInterval(function () {
         uploadhouselist(1);
@@ -573,6 +573,7 @@ function parseListHref(dir, _city) {
 
 let request_queue = [];
 let baseUploadHouseApi = 'https://sharevideo.cn/51finder/ch_list';
+// let baseUploadHouseApi = 'http://127.0.0.1:3000/51finder/ch_list';
 
 function combine(tag, dir, city, href, datetime, title, content, imgHrefArray) {
     console.log('combine start href ' + href + " imgs :" + imgHrefArray);

@@ -1178,6 +1178,8 @@ router.post('/ch_list', (req, res) => {
 
     let houseList = req.body['houselist'];
 
+
+
     houseList.forEach((obj, ind) => {
 
         let city = obj['city'];

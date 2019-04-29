@@ -59,9 +59,9 @@ MongoClient.connect("mongodb://"+settings.ip+"/"+settings.db, function(err, db) 
 
 function initServices() {
     console.log('initServices');
-    User.remove({},()=>{});
-    User_House.remove({},()=>{});
-    House.remove({},()=>{});
+    // User.remove({},()=>{});
+    // User_House.remove({},()=>{});
+    // House.remove({},()=>{});
 
 }
 
