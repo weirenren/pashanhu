@@ -35,6 +35,7 @@ var serveStatic = require('serve-static');
 
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs');
+app.set('view engine', 'html');
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(path.resolve(__dirname, './dist')));
 app.use(serveStatic("/Users/didi/dev/GitHome/vue-pro/V-Finder/dist"));
