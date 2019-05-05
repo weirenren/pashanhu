@@ -1,56 +1,56 @@
 module.exports= {
     "domain_setting": [
-        {
-            dir_name: 'beijing',
-            city_name : '北京',
-            url_array:['https://www.douban.com/group/beijingzufang/discussion?start=0',
-            'https://www.douban.com/group/26926/discussion?start=0',
-            'https://www.douban.com/group/fangzi/discussion?start=0',
-            'https://www.douban.com/group/252218/discussion?start=0',
-            'https://www.douban.com/group/zhufang/discussion?start=0',
-            'https://www.douban.com/group/279962/discussion?start=0',
-                'https://www.douban.com/group/opking/discussion?start=0',
-                'https://www.douban.com/group/sweethome/discussion?start=0',
-                'https://www.douban.com/group/257523/discussion?start=0',
-                'https://www.douban.com/group/625354/discussion?start=0',
-                'https://www.douban.com/group/550436/discussion?start=0',
-                'https://www.douban.com/group/cbdrent/discussion?start=0',
-            ]
-        },
-        {
-            dir_name:'shanghai',
-            city_name:'上海',
-            url_array:[
-                'https://www.douban.com/group/shanghaizufang/discussion?start=0',
-                'https://www.douban.com/group/shzf/discussion?start=0',
-                'https://www.douban.com/group/homeatshanghai/discussion?start=0',
-                'https://www.douban.com/group/pudongzufang/discussion?start=0',
-                'https://www.douban.com/group/467799/discussion?start=0',
-                'https://www.douban.com/group/383972/discussion?start=0',
-                'https://www.douban.com/group/zufan/discussion?start=0',
-                'https://www.douban.com/group/557646/discussion?start=0'
-            ]
-        },
-        {
-            dir_name: 'shenzhen',
-            city_name: '深圳',
-            url_array:[
-                'https://www.douban.com/group/106955/discussion?start=0',
-                'https://www.douban.com/group/szsh/discussion?start=0',
-                'https://www.douban.com/group/nanshanzufang/discussion?start=0',
-                'https://www.douban.com/group/baoanzufang/discussion?start=0',
-                'https://www.douban.com/group/551176/discussion?start=0',
-                'https://www.douban.com/group/498004/discussion?start=0'
-            ]
-        },
-        {
-            dir_name: 'chengdu',
-            city_name: '成都',
-            url_array: [
-                'https://www.douban.com/group/CDzufang/discussion?start=0',
-                'https://www.douban.com/group/hezu/discussion?start=0'
-            ]
-        },
+        // {
+        //     dir_name: 'beijing',
+        //     city_name : '北京',
+        //     url_array:['https://www.douban.com/group/beijingzufang/discussion?start=0',
+        //     'https://www.douban.com/group/26926/discussion?start=0',
+        //     'https://www.douban.com/group/fangzi/discussion?start=0',
+        //     'https://www.douban.com/group/252218/discussion?start=0',
+        //     'https://www.douban.com/group/zhufang/discussion?start=0',
+        //     'https://www.douban.com/group/279962/discussion?start=0',
+        //         'https://www.douban.com/group/opking/discussion?start=0',
+        //         'https://www.douban.com/group/sweethome/discussion?start=0',
+        //         'https://www.douban.com/group/257523/discussion?start=0',
+        //         'https://www.douban.com/group/625354/discussion?start=0',
+        //         'https://www.douban.com/group/550436/discussion?start=0',
+        //         'https://www.douban.com/group/cbdrent/discussion?start=0',
+        //     ]
+        // },
+        // {
+        //     dir_name:'shanghai',
+        //     city_name:'上海',
+        //     url_array:[
+        //         'https://www.douban.com/group/shanghaizufang/discussion?start=0',
+        //         'https://www.douban.com/group/shzf/discussion?start=0',
+        //         'https://www.douban.com/group/homeatshanghai/discussion?start=0',
+        //         'https://www.douban.com/group/pudongzufang/discussion?start=0',
+        //         'https://www.douban.com/group/467799/discussion?start=0',
+        //         'https://www.douban.com/group/383972/discussion?start=0',
+        //         'https://www.douban.com/group/zufan/discussion?start=0',
+        //         'https://www.douban.com/group/557646/discussion?start=0'
+        //     ]
+        // },
+        // {
+        //     dir_name: 'shenzhen',
+        //     city_name: '深圳',
+        //     url_array:[
+        //         'https://www.douban.com/group/106955/discussion?start=0',
+        //         'https://www.douban.com/group/szsh/discussion?start=0',
+        //         'https://www.douban.com/group/nanshanzufang/discussion?start=0',
+        //         'https://www.douban.com/group/baoanzufang/discussion?start=0',
+        //         'https://www.douban.com/group/551176/discussion?start=0',
+        //         'https://www.douban.com/group/498004/discussion?start=0'
+        //     ]
+        // },
+        // {
+        //     dir_name: 'chengdu',
+        //     city_name: '成都',
+        //     url_array: [
+        //         'https://www.douban.com/group/CDzufang/discussion?start=0',
+        //         'https://www.douban.com/group/hezu/discussion?start=0'
+        //     ]
+        // },
         {
             dir_name: 'hangzhou',
             city_name: '杭州',

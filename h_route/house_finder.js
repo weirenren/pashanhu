@@ -15,7 +15,7 @@ const Util = require('../util');
 var User = require('../h_model/user');
 var Friend = require('../h_model/friend');
 var House = require('../h_model/house');
-var User_Friend = require('../h_model/user_friend');
+var User_Friend;
 var User_House = require('../h_model/user_house');
 
 var multer = require('multer');
@@ -46,7 +46,6 @@ router.get('/ads_tk', (req, rsp) => {
         msg: 'success',
         code: 0,
         data: tokens
-
     };
 
     rsp.end(JSON.stringify(response));
@@ -54,9 +53,7 @@ router.get('/ads_tk', (req, rsp) => {
 
 router.post('/find_user', (req, rsp) => {
     console.log('find_user:' + JSON.stringify(req.body));
-
     let username = req.body['username'];
-
     // username finder_id match?
     User.findOne({username: username}, function (err, user) {
 
@@ -84,7 +81,6 @@ router.post('/find_user', (req, rsp) => {
                     return;
                 }
 
-
                 let friend_ids = [];
                 console.log('User_Friend find:' + ufs);
 
@@ -94,7 +90,6 @@ router.post('/find_user', (req, rsp) => {
                     }
                     friend_ids.push( mongoose.Types.ObjectId(value.friend_id));
                 });
-
 
                 User_House.find({username: username}, (err2, uhs) => {
 
@@ -1051,48 +1046,34 @@ router.post('/create_house', (req, res) => {
     console.log("[create_house]:" + clientIp + " time:" + Util.formatDate(new Date()));
 
     let username = req.body['username'];
+    let from_type = req.body['from_type']; //
 
     let city = req.body['city'];
     let from = req.body['from'];
     let title = req.body['title'];
     let content = req.body['content'];
     let imgurl_list = req.body['imgurl_list'];
+    let address = req.body['address'];
+    let address_geo = req.body['address_geo'];
     // let date = req.body['date']; // todo 日期格式转换
 
     // let city_en = Util.getCityEngName(city);
     User.findOne({username: username}, (err, us) => {
 
         if (us) {
-            let imgPathsArray = imgurl_list;
-            // var jsonarray = [];
-            // let body = {
-            //     from: '51找室友',
-            //     title: title,
-            //     content: content,
-            //     hrefArray: imgPathsArray,
-            //     imgpath: '',
-            //     datatime: Util.formatDate(new Date()),
-            //     href: '',
-            //     city: city
-            // };
-
             console.log('find user:' + JSON.stringify(imgurl_list));
-
             var house = new House({
-                from_type: 1,
+                username: username,
+                from_type: from_type,
                 from: '个人',
                 title: title,
                 imgurl_list: imgurl_list,
                 content: content,
                 date: Util.getDateNow(),
+                address: address,
+                address_geo: address_geo,
                 city: city
             });
-
-                    let response = {
-                        msg: 'fail:',
-                        code: 0
-                    };
-                    res.end(JSON.stringify(response));
 
             house.save((err, obj) => {
 
@@ -1106,7 +1087,6 @@ router.post('/create_house', (req, res) => {
                     });
 
                     user_house.save((err, o) => {
-
                         if (err) {
                             console.log(err);
                             let response = {
@@ -1134,9 +1114,7 @@ router.post('/create_house', (req, res) => {
                     res.end(JSON.stringify(response));
                 }
             });
-
         } else {
-
             if (err) {
                 console.log(err);
                 let response = {
@@ -1144,22 +1122,16 @@ router.post('/create_house', (req, res) => {
                     code: -1
                 };
                 res.end(JSON.stringify(response));
-
                 return;
             } else {
-
                 let response = {
                     msg: 'no this user',
                     code: -1
                 };
                 res.end(JSON.stringify(response));
-
             }
         }
-
-
     });
-
 });
 
 
@@ -1216,26 +1188,22 @@ router.post('/ch_list', (req, res) => {
 
 });
 
-
 function deleteImgFile(imglist) {
-
     let img_arr = imglist;
-    console.log(imglist);
+    if (img_arr && img_arr.length > 0) {
+        img_arr.forEach((item, index) => {
 
-    img_arr.forEach((item, index) => {
-
-        var des_file = uploadDir + item;
-        //删除临时文件
-        fs.unlink(des_file, function (err) {
-            if (err) {
-                console.error(err.message);
-            } else {
-                console.log('delete ' + des_file + ' successfully!');
-            }
+            var des_file = uploadDir + item;
+            //删除临时文件
+            fs.unlink(des_file, function (err) {
+                if (err) {
+                    console.error(err.message);
+                } else {
+                    console.log('delete ' + des_file + ' successfully!');
+                }
+            });
         });
-    });
-
-
+    }
 }
 
 // from: String, // 来源:豆瓣租房/个人

@@ -5,8 +5,10 @@ var Util = require('../util');
 var House = require('../h_model/house');
 var User = require('../h_model/user');
 var UserHouse = require('../h_model/user_house');
+var HouseFriend = require('../h_model/house_friend');
 var moment = require('moment');
 var MailUtil = require('../mail');
+var Set = require('sorted-set');
 
 var RSP_OK = 0;
 var RSP_NOT_EXIST = 1001;
@@ -16,6 +18,15 @@ var RSP_EXIST = 99;
 let img_base_url = 'http://localhost:3000/images/';
 let last_query_time = new Date().getTime();
 const requestIp = require('request-ip');
+
+var set = new Set({
+    // how to order the set (defaults to string-friendly comparator)
+    compare: function(a, b) {
+        console.log('dis:' + a.distance)
+        // descending numeric sort
+        return b.distance - a.distance;
+    }
+});
 
 var houseListMap = new Map(); // key:city value:houselist
 
@@ -98,6 +109,215 @@ router.post('/register', function (req, res) {
     });
 });
 
+router.post('/curious_house', function (req, rsp) {
+
+    let house_uname = req.body['house_uname'];
+    let house_id = req.body['house_id'];
+    let friend_id = req.body['friend_id'];
+    let type = req.body['type'];
+
+    UserHouse.find({house_id: house_id}, (err, result) => {
+
+        if (result) {
+            let friend_uname = result.username;
+            HouseFriend.find({house_uname: house_uname, house_id: house_id}, (err, hfs) => {
+                if (!hfs) {
+                    let usf = new HouseFriend({
+                        house_uname: house_uname,
+                        friend_uname: friend_uname,
+                        house_id: house_id,
+                        friend_id: friend_id,
+                        type: 1
+                    });
+
+                    usf.save();
+                    let response = {
+                        msg: 'success',
+                        code: RSP_OK,
+                        data: {
+                            house_list_sug: set
+                        }
+                    };
+                    rsp.end(JSON.stringify(response));
+                } else {
+
+                    HouseFriend.update({house_uname: house_uname, house_id: house_id}, {
+                        $set: {
+                            type: 2
+                        }
+                    }, function (err, u) {
+                        let response = {
+                            msg: 'success',
+                            code: RSP_OK,
+                            data: {
+                                house_list_sug: set
+                            }
+                        };
+                        rsp.end(JSON.stringify(response));
+                    });
+                }
+            });
+        }
+    });
+});
+
+// house_uname: {type: String, default: ""}, // 用户名
+// friend_uname: {type: String, default: ""}, // 用户名
+// house_id: {type: String, default: ""}, // friend表id
+// friend_id: {type: String, default: ""}, // friend表id
+router.post('/curious_friend', function (req, rsp) {
+
+    let house_uname = req.body['house_uname'];
+    let house_id = req.body['house_id'];
+    let friend_id = req.body['friend_id'];
+    let type = req.body['type'];
+
+    UserHouse.find({house_id: house_id}, (err, result) => {
+
+        if (result) {
+            let friend_uname = result.username;
+            HouseFriend.find({house_uname: house_uname, house_id: house_id}, (err, hfs) => {
+                if (!hfs) {
+                    let usf = new HouseFriend({
+                        house_uname: house_uname,
+                        friend_uname: friend_uname,
+                        house_id: house_id,
+                        friend_id: friend_id,
+                        type: 1
+                    });
+
+                    usf.save();
+                    let response = {
+                        msg: 'success',
+                        code: RSP_OK,
+                        data: {
+                            house_list_sug: set
+                        }
+                    };
+                    rsp.end(JSON.stringify(response));
+                } else {
+
+                    HouseFriend.update({house_uname: house_uname, house_id: house_id}, {
+                        $set: {
+                            type: 2
+                        }
+                    }, function (err, u) {
+                        let response = {
+                            msg: 'success',
+                            code: RSP_OK,
+                            data: {
+                                house_list_sug: set
+                            }
+                        };
+                        rsp.end(JSON.stringify(response));
+                    });
+                }
+            });
+        }
+    });
+});
+
+var FINDER_TYPE = 2;
+var HOME_TYPE = 1;
+var MAX_DISTANCE_KM = 10;
+
+// match type 1
+router.post('/match', function (req, rsp) {
+    var houseId = req.body['houseId'];
+    var from_type = req.body['from_type'];
+    var city = req.body['city'];
+    let username = req.body['username'];
+    console.log('[get] [match] username:' + username + ' from_type:' + from_type);
+    const clientIp = requestIp.getClientIp(req);
+    console.log("[match]:" + clientIp + " time:" + Util.formatDate(new Date()));
+
+    House.find({_id: houseId}, (err, result) => {
+        if (result && result.length > 0) {
+            var houseList = houseListMap.get(city);
+            var local_homegeo = Util.parseGeoString(result[0].address_geo);
+            let matchHouseList = [];
+            let matchFinderList = [];
+
+            houseList.forEach((obj, ind) => {
+
+                if (from_type === HOME_TYPE) { // 房源发起匹配
+                    console.log('from_type === HOME_TYPE')
+                    if (obj.from_type === FINDER_TYPE && obj.username !== username && obj.username !== undefined) {
+                        console.log("FINDER_TYPE username1:" + username + " " + obj.username);
+                        var remote_homegeo = Util.parseGeoString(obj.address_geo);
+                        var home_distance = Util.getDistance(local_homegeo[0], local_homegeo[1], remote_homegeo[0], remote_homegeo[1]);
+                        if (home_distance < MAX_DISTANCE_KM) { // 10公里
+                            obj.distance = home_distance;
+                            matchFinderList.push(obj)
+                        }
+                        // if (home_distance > 10000 && home_distance < 20000) { // 10公里
+                        //
+                        // }
+                    }
+                }
+
+                if (from_type === FINDER_TYPE) {
+                    if (obj.from_type === HOME_TYPE && obj.username !== username && obj.username !== undefined) {
+                        console.log("HOME_TYPE username:" + username + " " + obj.username);
+                        var remote_homegeo = Util.parseGeoString(obj.address_geo);
+                        var home_distance = Util.getDistance(local_homegeo[0], local_homegeo[1], remote_homegeo[0], remote_homegeo[1]);
+                        if (home_distance < MAX_DISTANCE_KM) { // 10公里
+                            obj.distance = home_distance;
+                            matchHouseList.push(obj)
+                        }
+                        // if (home_distance > 10000 && home_distance < 20000) { // 10公里
+                        //
+                        // }
+                    }
+
+                    if (obj.from_type === FINDER_TYPE && obj.username !== username && obj.username !== undefined) {
+                        console.log("FINDER_TYPE username:" + username + " " + obj.address_geo);
+                        var remote_homegeo = Util.parseGeoString(obj.address_geo);
+                        var home_distance = Util.getDistance(local_homegeo[0], local_homegeo[1], remote_homegeo[0], remote_homegeo[1]);
+                        if (home_distance < MAX_DISTANCE_KM) { // 10公里
+                            obj.distance = home_distance;
+                            matchFinderList.push(obj)
+                        }
+                        // if (home_distance > 10000 && home_distance < 20000) { // 10公里
+                        //
+                        // }
+                    }
+
+                }
+
+            });
+
+            if (matchHouseList.length > 1) {
+                matchHouseList.sort((a, b) => {
+                    return a.distance > b.distance ? 1 : -1;
+                });
+            }
+            if (matchFinderList.length > 1) {
+                matchFinderList.sort((a, b) => {
+                    return a.distance > b.distance ? 1 : -1;
+                });
+            }
+
+            let response = {
+                msg: 'success',
+                code: RSP_OK,
+                data: {
+                    sug_house_list: matchHouseList,
+                    sug_finder_list: matchFinderList
+                }
+            };
+            rsp.end(JSON.stringify(response));
+        } else {
+            let response = {
+                msg: '不存在该house：' + houseId,
+                code: RSP_NOT_EXIST
+            };
+            rsp.end(JSON.stringify(response));
+        }
+    });
+
+});
+
 router.post('/login', function (req, res) {
     var md5 = crypto.createHash('md5');
     var password = md5.update(req.body['password']).digest('base64');
@@ -164,7 +384,6 @@ function tranImgUrl(house_img_array) {
     let temp_array = [];
     house_img_array.forEach((item, ind)=>{
         let targetImgUrl = img_base_url + item
-        console.log(targetImgUrl);
         temp_array.push(targetImgUrl)
     });
 }
@@ -174,14 +393,12 @@ router.post('/gUseInfo', (req, rsp) => {
     var username = req.body['username'];
     UserHouse.find({username: username}, (err, uhlist) => {
         if (uhlist) {
-
             var ids = [];
             uhlist.forEach((uh, ind) => {
                 ids.push(uh.house_id);
             });
 
             House.find({_id: {$in: ids}}, (err, houselist) => {
-
                 if (houselist) {
                     let response = {
                         msg: 'success',
@@ -190,7 +407,6 @@ router.post('/gUseInfo', (req, rsp) => {
                             houselist: houselist
                         }
                     };
-                    console.log('house:' + JSON.stringify(response));
                     rsp.end(JSON.stringify(response));
                 } else {
                     console.log('error', err);
@@ -216,7 +432,6 @@ router.get('/ghouse', (req, rsp) => {
     console.log("[ghouse]:" + clientIp + " time:" + Util.formatDate(new Date()));
     House.find({_id: houseId}, (err, result) => {
         if (result) {
-
             if (result.from_type === 1) {
                 result.imgurl_list = tranImgUrl(result.imgurl_list)
             }
@@ -278,19 +493,19 @@ router.get('/ghouselist', (req, rsp) => {
             var houseList = [];
             if (result) {
                 result.forEach((obj, ind) => {
-
                     if ((moment(now_date).diff(moment(obj.date), "days")) < 16) {
                         houseList.push({
                             _id: obj._id,
                             title: obj.title,
                             datetime: obj.date,
                             city: obj.city,
-                            from_type: obj.from_type
+                            from_type: obj.from_type,
+                            address: obj.address,
+                            username: obj.username,
+                            address_geo: obj.address_geo
                         })
                     }
-
                 });
-
                 houseListMap.set(city, houseList);
             }
 

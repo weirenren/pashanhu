@@ -30,8 +30,8 @@ var House = require('./h_model/house');
 
 var superagent = require("superagent");
 require('superagent-proxy')(superagent);
-// var proxy_uri = process.env.http_proxy || 'http://127.0.0.1:1087';
-var proxy_uri = process.env.http_proxy
+var proxy_uri = process.env.http_proxy || 'http://127.0.0.1:1087';
+// var proxy_uri = process.env.http_proxy
 var domain = require('domain');
 
 //require('superagent-proxy')(superagent);
@@ -300,7 +300,7 @@ function doLoopWorkForDay(next) {
         last_page_start = 0;
         console.log("doLoopWork start time:" + util.formatDate(new Date()));
         doWork(next);
-    }, 120 * 60 * 1000); // 一小时间隔 抓一次；
+    }, 100 * 60 * 1000); // 一小时间隔 抓一次；
 
     setInterval(function () {
         uploadhouselist(1);
@@ -1642,6 +1642,9 @@ Promise.resolve()
 //     .then(test_date_compare())
 //     .then(initDoCatch())
     .then(doCapture())
+    // .then(() => {
+    //     console.log('constl:' + util.getDistance(116.323294, 39.893874, 116.319429, 40.070882))
+    // })
     // .then(test_string_simmiar())
     // .then(queryBatch)
     // .then(updateCityToEs)

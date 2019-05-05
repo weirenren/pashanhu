@@ -189,6 +189,28 @@ function getDistance(lat1, lng1, lat2, lng2) {
 	function toRadians(d) {  return d * Math.PI / 180;}
 }
 
+function rad(d)
+{
+    return d * Math.PI / 180.0;
+}
+
+
+function calDistance(lon1, lat1, lon2, lat2)
+{
+    var a = rad(lon1) - rad(lon2);
+    var radLat1 = rad(lat1);
+    var radLat2 = rad(lat2);
+    var b = radLat1 - radLat2;
+
+    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(b / 2), 2) +
+        Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(a / 2), 2)));
+    s = s * 6378.137 ; // 地球半径，单位千米
+    s = Math.round(s * 10000) / 10000;
+
+    return s;
+}
+util.getDistance = calDistance;
+
 util.formatDateISO = function (date) {
     return dateFormat(date, 'isoDate');
 };
@@ -239,7 +261,7 @@ util.geoToString = function(lat,lng) {
 };
 
 util.parseGeoString = function(geoString) {
-	return geoString.split('_');
+	return geoString.split(',');
 };
 
 function testDateFormat() {

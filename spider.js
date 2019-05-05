@@ -2,12 +2,14 @@
  * Created by chaowei on 2017/5/1.
  */
 
-var elasticsearch = require('elasticsearch');
+// var elasticsearch = require('elasticsearch');
 
-var client = new elasticsearch.Client({
-    host: '0.0.0.0:9200',
-    log: 'error'
-});
+// var client = new elasticsearch.Client({
+//     host: '0.0.0.0:9200',
+//     log: 'error'
+// });
+
+    var client;
 
 //var indexname = 'hourse_datasource';
 var indexname = 'hourse_test';
@@ -1531,6 +1533,38 @@ function find_user() {
     });
 }
 
+function testMatch() {
+    let arrays = ['one西二旗大街three', 'three 回龙观 村'];
+
+    var list = arrays;
+    var arr = [];
+    var reg = new RegExp('西二旗 回龙观')
+    var str ='/\\b(?:' + 'one' + '|' + 'three' + ')\\b/gi'
+    var res = /\b(?:one|two|three)\b/gi;
+
+    let words = ["西二旗","one","回龙观"];
+    var regex = new RegExp("\\b(?:" + words.join("|") + ")\\b", "gi");
+    for (var i = 0; i < list.length; i++) {
+        // 如果字符串中不包含目标字符会返回-1
+        if (list[i].match(regex)) {
+            console.log(list[i])
+        }
+    }
+
+}
+
+function matchWords(subject, words) {
+    var regexMetachars = /[(){[*+?.\\^$|]/g;
+
+    for (var i = 0; i < words.length; i++) {
+        words[i] = words[i].replace(regexMetachars, "\\$&");
+    }
+
+    var regex = new RegExp("\\b(?:" + words.join("|") + ")\\b", "gi");
+
+    return subject.match(regex) || [];
+}
+
 
 var Spider = {};
 
@@ -1544,7 +1578,7 @@ Promise.resolve()
 // .then(catch_list);
 //  .then(dropIndex)
 // .then(initIndex)
-.then(doCapture())
+.then(testMatch())
 //     .then(find_user())
     // .then(queryBatch)
     // .then(updateCityToEs)
