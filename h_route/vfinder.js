@@ -10,6 +10,8 @@ var moment = require('moment');
 var MailUtil = require('../mail');
 var Set = require('sorted-set');
 
+let Omega = require('./Omega');
+
 var RSP_OK = 0;
 var RSP_NOT_EXIST = 1001;
 var RSP_ERROR = -1;
@@ -36,7 +38,9 @@ router.post('/findPwd', function (req, res) {
     const clientIp = requestIp.getClientIp(req);
     console.log("[findPwd]:" + clientIp + " time:" + Util.formatDate(new Date()));
     let username = req.body['username'];
-
+    if (clientIp) {
+        Omega.markFindPwd(clientIp, null);
+    }
     User.findOne({username: username}, function (err, user) {
         if (user) {
             var to = username;
@@ -61,11 +65,15 @@ router.post('/findPwd', function (req, res) {
     });
 });
 
+
 //用户点击注册按钮
 router.post('/register', function (req, res) {
 
     const clientIp = requestIp.getClientIp(req);
     console.log("[register]:" + clientIp + " time:" + Util.formatDate(new Date()));
+    if (clientIp) {
+        Omega.markRegister(clientIp, null);
+    }
     var md5 = crypto.createHash('md5');
     var password = md5.update(req.body['password']).digest('base64');
     var newUser = new User({
@@ -231,6 +239,10 @@ router.post('/match', function (req, rsp) {
     const clientIp = requestIp.getClientIp(req);
     console.log("[match]:" + clientIp + " time:" + Util.formatDate(new Date()));
 
+    if (clientIp) {
+        Omega.markMatch(clientIp, null);
+    }
+
     House.find({_id: houseId}, (err, result) => {
         if (result && result.length > 0) {
             var houseList = houseListMap.get(city);
@@ -319,6 +331,12 @@ router.post('/match', function (req, rsp) {
 });
 
 router.post('/login', function (req, res) {
+    const clientIp = requestIp.getClientIp(req);
+    console.log("[login]:" + clientIp + " time:" + Util.formatDate(new Date()));
+    if (clientIp) {
+        Omega.markLogin(clientIp, null);
+    }
+
     var md5 = crypto.createHash('md5');
     var password = md5.update(req.body['password']).digest('base64');
     User.findOne({username: req.body['username']}, function (err, user) {
@@ -364,6 +382,12 @@ router.post('/login', function (req, res) {
 });
 router.get('/logout', function (req, res) {
 
+    const clientIp = requestIp.getClientIp(req);
+    console.log("[login]:" + clientIp + " time:" + Util.formatDate(new Date()));
+    if (clientIp) {
+        Omega.markLogout(clientIp, null);
+    }
+
     User.update({name: req.session.user.name}, {$set: {is_used: false}}, function (err, user) {
 
         if (!err) {
@@ -390,6 +414,11 @@ function tranImgUrl(house_img_array) {
 
 router.post('/gUseInfo', (req, rsp) => {
 
+    const clientIp = requestIp.getClientIp(req);
+    console.log("[login]:" + clientIp + " time:" + Util.formatDate(new Date()));
+    if (clientIp) {
+        Omega.markGetUserInfo(clientIp, null);
+    }
     var username = req.body['username'];
     UserHouse.find({username: username}, (err, uhlist) => {
         if (uhlist) {
@@ -430,6 +459,9 @@ router.get('/ghouse', (req, rsp) => {
     console.log('[get] [ghouse] houseId:' + houseId);
     const clientIp = requestIp.getClientIp(req);
     console.log("[ghouse]:" + clientIp + " time:" + Util.formatDate(new Date()));
+    if (clientIp) {
+        Omega.markDetail(clientIp, null);
+    }
     House.find({_id: houseId}, (err, result) => {
         if (result) {
             if (result.from_type === 1) {
@@ -466,6 +498,9 @@ router.get('/ghouselist', (req, rsp) => {
 
     const clientIp = requestIp.getClientIp(req);
     console.log("[ghouselist]:" + clientIp + " time:" + Util.formatDate(new Date()));
+    if (clientIp) {
+        Omega.markIndex(clientIp, null);
+    }
     let now_time = new Date().getTime();
     let needfullquery = Math.floor((now_time - last_query_time) / (1000)) > 5;
 

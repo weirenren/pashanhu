@@ -1534,7 +1534,7 @@ function find_user() {
 }
 
 function testMatch() {
-    let arrays = ['one西二旗大街three', 'three 回龙观 村'];
+    let arrays = ['one西二旗大街three', 'hehe回龙观村'];
 
     var list = arrays;
     var arr = [];
@@ -1542,14 +1542,19 @@ function testMatch() {
     var str ='/\\b(?:' + 'one' + '|' + 'three' + ')\\b/gi'
     var res = /\b(?:one|two|three)\b/gi;
 
-    let words = ["西二旗","one","回龙观"];
-    var regex = new RegExp("\\b(?:" + words.join("|") + ")\\b", "gi");
+    let words = ["three","回龙观"];
+    var regg = new RegExp("" + words.join("|"));
+    // var regg = /three|回龙观/;
     for (var i = 0; i < list.length; i++) {
         // 如果字符串中不包含目标字符会返回-1
-        if (list[i].match(regex)) {
+        // console.log("bre " + list[0] + ' ' + regg.test(list[0]));
+        // console.log("bre2 " + list[0] + ' ' + regg.test(list[0]));
+        if (regg.test(list[i])) {
+
             console.log(list[i])
         }
     }
+
 
 }
 

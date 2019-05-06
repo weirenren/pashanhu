@@ -30,8 +30,8 @@ var House = require('./h_model/house');
 
 var superagent = require("superagent");
 require('superagent-proxy')(superagent);
-var proxy_uri = process.env.http_proxy || 'http://127.0.0.1:1087';
-// var proxy_uri = process.env.http_proxy
+// var proxy_uri = process.env.http_proxy || 'http://127.0.0.1:1087';
+var proxy_uri = process.env.http_proxy
 var domain = require('domain');
 
 //require('superagent-proxy')(superagent);

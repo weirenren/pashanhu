@@ -32,6 +32,9 @@ var PAGE_NUM = 25;
 var indexname = 'hourse_test';
 var typename = 'hourse_type';
 
+let Omega = require('./Omega');
+var Action = require('../h_model/user_action');
+
 var esClient;
 // var esClient = new elasticsearch.Client({
 //     host: 'localhost:9200',
@@ -1045,6 +1048,9 @@ router.post('/create_house', (req, res) => {
     const clientIp = requestIp.getClientIp(req);
     console.log("[create_house]:" + clientIp + " time:" + Util.formatDate(new Date()));
 
+    if (clientIp) {
+        Omega.markCreate(clientIp, null);
+    }
     let username = req.body['username'];
     let from_type = req.body['from_type']; //
 
@@ -1135,8 +1141,37 @@ router.post('/create_house', (req, res) => {
 });
 
 
-var HOUSE_SAVE_COUNT = 0;
+router.post('/getaction', function (req, res) {
 
+    let username = req.body['adu'];
+    let date = req.body['date'];
+
+    console.log('getaction ' + JSON.stringify(req.body));
+    if (username !== 'weichao_admin') {
+        console.log("username no permission user:" + username);
+        return;
+    }
+
+    let body = {};
+    if (date) {
+        body = {
+            date: date
+        }
+    }
+
+    Action.find(body, function (err, obj) {
+        if (obj) {
+            return res.json({
+                msg: 'success',
+                code: obj
+            });
+        }
+        return res.json({
+            msg: '不存在该用户',
+            code: -1
+        });
+    });
+});
 
 router.post('/ch_list', (req, res) => {
 
@@ -1144,13 +1179,17 @@ router.post('/ch_list', (req, res) => {
 
     let username = req.body['adu'];
     if (username !== 'weichao_admin') {
+        const clientIp = requestIp.getClientIp(req);
+        console.log("[create_house]:" + clientIp + " time:" + Util.formatDate(new Date()));
+
+        if (clientIp) {
+            Omega.markManager(clientIp, null);
+        }
         console.log("username no permission user:" + username);
         return;
     }
 
     let houseList = req.body['houselist'];
-
-
 
     houseList.forEach((obj, ind) => {
 
@@ -1352,6 +1391,12 @@ router.post('/clean_house', (req, res) => {
 router.post('/delete_house', (req, res) => {
 
     console.log('delete_house:' + JSON.stringify(req.body));
+    const clientIp = requestIp.getClientIp(req);
+    console.log("[delete_house]:" + clientIp + " time:" + Util.formatDate(new Date()));
+
+    if (clientIp) {
+        Omega.markDelete(clientIp, null);
+    }
 
     let username = req.body['username'];
     // todo username finder_id match?
@@ -1485,7 +1530,12 @@ router.post('/delete_house', (req, res) => {
 
 router.post('/upload', (req, res) => {
 
-    console.log('upload')
+    const clientIp = requestIp.getClientIp(req);
+    console.log("[upload]:" + clientIp + " time:" + Util.formatDate(new Date()));
+
+    if (clientIp) {
+        Omega.markUpload(clientIp, null);
+    }
     //文件上传
     upload(req, res, function (err) {
         console.log('upload:' + JSON.stringify(req.body));
