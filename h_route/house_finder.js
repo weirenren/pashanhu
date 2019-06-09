@@ -17,6 +17,7 @@ var Friend = require('../h_model/friend');
 var House = require('../h_model/house');
 var User_Friend;
 var User_House = require('../h_model/user_house');
+var moment = require('moment');
 
 var multer = require('multer');
 var fs = require('fs');
@@ -42,6 +43,7 @@ var esClient;
 // });
 
 var tokens = require('../tokens');
+var EXPIRED_DAYS = 30;
 
 router.get('/ads_tk', (req, rsp) => {
 
@@ -1170,6 +1172,44 @@ router.post('/getaction', function (req, res) {
             msg: '不存在该用户',
             code: -1
         });
+    });
+});
+
+router.post('/deold', function (req, rsp) {
+
+    let username = req.body['adu'];
+
+    console.log('getaction ' + JSON.stringify(req.body));
+    if (username !== 'weichao_admin') {
+        console.log("username no permission user:" + username);
+        return;
+    }
+
+    let queryBody = {forbid: false};
+
+    let now_date = new Date();
+
+    var del_size = 0;
+
+    House.find(queryBody).sort({date: 'desc'}).exec(function(err, result) {
+        if (result) {
+            result.forEach((obj, ind) => {
+                if (((moment(now_date).diff(moment(obj.date), "days")) > EXPIRED_DAYS) && obj.from_type === 0) {
+                    del_size ++;
+                    House.remove({_id: obj._id},(err, res)=>{
+                    })
+                }
+            });
+        }
+
+        let response = {
+            msg: 'success',
+            code: 0,
+            data: {
+                del_size : del_size
+            }
+        };
+        rsp.end(JSON.stringify(response));
     });
 });
 

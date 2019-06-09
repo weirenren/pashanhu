@@ -37,8 +37,8 @@ var serveStatic = require('serve-static');
 // app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(path.resolve(__dirname, './dist')));
-// app.use(serveStatic("/Users/didi/dev/GitHome/vue-pro/V-Finder/dist"));
-app.use(serveStatic("/home/ubuntu/dev/GitHome/Vue/dist"));
+app.use(serveStatic("/Users/didi/dev/GitHome/vue-pro/V-Finder/dist"));
+// app.use(serveStatic("/home/ubuntu/dev/GitHome/Vue/dist"));
 // app.get('*', function(req, res) {
 //     const html = fs.readFileSync(path.resolve(__dirname, './dist/index.html'), 'utf-8')
 //     res.send(html)
@@ -674,7 +674,7 @@ app.post('/modify_pwd', function (req, res) {
 
     console.log('modify_pwd');
 
-    if (req.body['password'] != req.body['repassword']) {
+    if (req.body['password'] !== req.body['repassword']) {
         console.log('modify_pwd oo');
         req.session.error = "两次新密码不一致";
         return res.redirect('/modify_pwd');
@@ -879,12 +879,6 @@ app.get('/matchfriend', function (req, res) {
                         return 0;
                     });
 
-                    console.log('matching -> ');
-                    array.forEach((item) => {
-                        console.log('score:' + item.score + ' friend:' + item.friend);
-                    });
-
-
                     return res.json({
                         friendlist: array,
                         code: 0
@@ -906,7 +900,6 @@ app.get('/hoursefriend/match', function (req, res) {
             code: -100
         });
     }
-
 
 });
 

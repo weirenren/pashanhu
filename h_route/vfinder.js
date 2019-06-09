@@ -15,6 +15,7 @@ let Omega = require('./Omega');
 var RSP_OK = 0;
 var RSP_NOT_EXIST = 1001;
 var RSP_ERROR = -1;
+var EXPIRED_DAYS = 60;
 
 var RSP_EXIST = 99;
 let img_base_url = 'http://localhost:3000/images/';
@@ -24,13 +25,13 @@ const requestIp = require('request-ip');
 var set = new Set({
     // how to order the set (defaults to string-friendly comparator)
     compare: function(a, b) {
-        console.log('dis:' + a.distance)
         // descending numeric sort
         return b.distance - a.distance;
     }
 });
 
 var houseListMap = new Map(); // key:city value:houselist
+
 
 //用户点击注册按钮
 router.post('/findPwd', function (req, res) {
@@ -64,7 +65,6 @@ router.post('/findPwd', function (req, res) {
         });
     });
 });
-
 
 //用户点击注册按钮
 router.post('/register', function (req, res) {
@@ -102,7 +102,6 @@ router.post('/register', function (req, res) {
                 });
             }
             if (u) {
-                console.log('注册成功' + u);
                 return res.json({
                     msg: '注册成功',
                     code: 0,
@@ -112,7 +111,6 @@ router.post('/register', function (req, res) {
                     }
                 });
             }
-
         });
     });
 });
@@ -228,6 +226,7 @@ router.post('/curious_friend', function (req, rsp) {
 var FINDER_TYPE = 2;
 var HOME_TYPE = 1;
 var MAX_DISTANCE_KM = 10;
+var SECOND_MAX_DISTANCE_KM = 20;
 
 // match type 1
 router.post('/match', function (req, rsp) {
@@ -251,13 +250,13 @@ router.post('/match', function (req, rsp) {
             let matchFinderList = [];
 
             houseList.forEach((obj, ind) => {
-
                 if (from_type === HOME_TYPE) { // 房源发起匹配
                     console.log('from_type === HOME_TYPE')
                     if (obj.from_type === FINDER_TYPE && obj.username !== username && obj.username !== undefined) {
-                        console.log("FINDER_TYPE username1:" + username + " " + obj.username);
+
                         var remote_homegeo = Util.parseGeoString(obj.address_geo);
                         var home_distance = Util.getDistance(local_homegeo[0], local_homegeo[1], remote_homegeo[0], remote_homegeo[1]);
+                        console.log("FINDER_TYPE username1:" + username + " " + obj.username + ' dis:' + home_distance);
                         if (home_distance < MAX_DISTANCE_KM) { // 10公里
                             obj.distance = home_distance;
                             matchFinderList.push(obj)
@@ -270,9 +269,9 @@ router.post('/match', function (req, rsp) {
 
                 if (from_type === FINDER_TYPE) {
                     if (obj.from_type === HOME_TYPE && obj.username !== username && obj.username !== undefined) {
-                        console.log("HOME_TYPE username:" + username + " " + obj.username);
                         var remote_homegeo = Util.parseGeoString(obj.address_geo);
                         var home_distance = Util.getDistance(local_homegeo[0], local_homegeo[1], remote_homegeo[0], remote_homegeo[1]);
+                        console.log("HOME_TYPE username:" + username + " " + obj.username + ' dis:' + home_distance);
                         if (home_distance < MAX_DISTANCE_KM) { // 10公里
                             obj.distance = home_distance;
                             matchHouseList.push(obj)
@@ -415,7 +414,7 @@ function tranImgUrl(house_img_array) {
 router.post('/gUseInfo', (req, rsp) => {
 
     const clientIp = requestIp.getClientIp(req);
-    console.log("[login]:" + clientIp + " time:" + Util.formatDate(new Date()));
+    console.log("[login]:" + clientIp + " time:" + Util.formatDate(new Date()) + ' user:' + req.body['username']);
     if (clientIp) {
         Omega.markGetUserInfo(clientIp, null);
     }
@@ -486,6 +485,7 @@ router.get('/ghouse', (req, rsp) => {
     });
 });
 
+
 // 暂时不分页
 router.get('/ghouselist', (req, rsp) => {
  // todo 参数合法性检测
@@ -528,7 +528,7 @@ router.get('/ghouselist', (req, rsp) => {
             var houseList = [];
             if (result) {
                 result.forEach((obj, ind) => {
-                    if ((moment(now_date).diff(moment(obj.date), "days")) < 16) {
+                    if ((moment(now_date).diff(moment(obj.date), "days")) < EXPIRED_DAYS) {
                         houseList.push({
                             _id: obj._id,
                             title: obj.title,

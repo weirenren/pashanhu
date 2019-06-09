@@ -1379,8 +1379,7 @@ function initDoCatch() {
             houseUrlMap.clear();
             let size = 0;
             results.forEach((obj, ind) => {
-
-                if (houseUrlMap.has(obj.href)) {
+                if (obj.from_type === 0 && houseUrlMap.has(obj.href)) {
                     House.remove({title: obj.title},(err, res)=>{
                         // if (!err) {
                             console.log(obj.title + ':' + JSON.stringify(res))
