@@ -43,7 +43,7 @@ var esClient;
 // });
 
 var tokens = require('../tokens');
-var EXPIRED_DAYS = 30;
+var EXPIRED_DAYS = 16;
 
 router.get('/ads_tk', (req, rsp) => {
 
