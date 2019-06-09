@@ -1258,7 +1258,6 @@ router.post('/ch_list', (req, res) => {
             if (!err) {
             } else {
                 console.log(err);
-
             }
         });
 

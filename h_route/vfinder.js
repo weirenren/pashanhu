@@ -15,7 +15,7 @@ let Omega = require('./Omega');
 var RSP_OK = 0;
 var RSP_NOT_EXIST = 1001;
 var RSP_ERROR = -1;
-var EXPIRED_DAYS = 60;
+var EXPIRED_DAYS = 16;
 
 var RSP_EXIST = 99;
 let img_base_url = 'http://localhost:3000/images/';
