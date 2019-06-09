@@ -38,7 +38,7 @@ var serveStatic = require('serve-static');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.resolve(__dirname, './dist')));
 // app.use(serveStatic("/Users/didi/dev/GitHome/vue-pro/V-Finder/dist"));
-// app.use(serveStatic("/home/ubuntu/dev/GitHome/Vue/dist"));
+app.use(serveStatic("/home/ubuntu/dev/GitHome/Vue/dist"));
 // app.get('*', function(req, res) {
 //     const html = fs.readFileSync(path.resolve(__dirname, './dist/index.html'), 'utf-8')
 //     res.send(html)
