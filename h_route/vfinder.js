@@ -539,6 +539,11 @@ router.get('/ghouselist', (req, rsp) => {
                             username: obj.username,
                             address_geo: obj.address_geo
                         })
+                    } else {
+                        if (((moment(now_date).diff(moment(obj.date), "days")) > EXPIRED_DAYS) && obj.from_type === 0) {
+                            House.remove({_id: obj._id},(err, res)=>{
+                            })
+                        }
                     }
                 });
                 houseListMap.set(city, houseList);
