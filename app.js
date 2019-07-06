@@ -19,6 +19,8 @@ var api = require('./route/api');
 var finder = require('./h_route/house_finder');
 var vfinder = require('./h_route/vfinder');
 
+var loverRoute = require('./h_route/lover');
+
 var crypto = require('crypto');
 var moment = require('moment');
 
@@ -80,6 +82,8 @@ app.use(function(req, res, next) {
 app.use('/a/api', api);
 app.use('/51finder', finder);
 app.use('/51vfinder', vfinder);
+app.use('/51love', loverRoute);
+
 app.use('users', users);
 app.use(express.static('routes'));
 
