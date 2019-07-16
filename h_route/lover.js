@@ -101,12 +101,13 @@ router.post('/lover/upload', (req, res) => {
 
 router.get('/lover/list', (req, res) => {
     // var city = req.param('city', '北京');
-    var mangerid = req.param('mangerid', 0);
+    var mangerid = parseInt(req.param('mangerid', 0));
     console.log('/lover/list : ' + mangerid);
     LoverAtom.find({}, function (err, list) {
 
         if (mangerid !== 521520) {
 
+            console.log('clear wechat');
             list.forEach((item, indx) => {
                 item.local_wechat = '';
                 item.local_imgurl_list = []
