@@ -28,15 +28,11 @@ router.post('/create', function (req, res) {
             console.log(obj);
         }
 
-
     });
-
-
 
     res.json({
         code: 0
     })
-
 
 });
 

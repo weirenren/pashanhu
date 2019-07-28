@@ -146,6 +146,31 @@ router.get('/lover/delall', (req, res) => {
 
 });
 
+
+router.post('/lover/del', (req, res) => {
+    // var city = req.param('city', '北京');
+
+    var mangerid = req.body['mangerid'];
+    var id = req.body['_id'];
+    console.log('/lover/list : ' + mangerid);
+    if (mangerid === 'wei521520') {
+
+        LoverAtom.remove({_id, id}, function (err, list) {
+
+            return res.json({
+                msg: '删除成功',
+                code: RSP_OK
+            });
+        });
+    }  else {
+        return res.json({
+            msg: '没有权限',
+            code: -1
+        });
+    }
+
+});
+
 router.post('/lover/create', function (req, res) {
     console.log('/lover/create');
     const clientIp = requestIp.getClientIp(req);

@@ -24,7 +24,6 @@ router.post('/hoursefriend/create', function (req, res) {
     });
 
 
-
     res.json({
         type_id:req.body.type_id,
         code: 0
