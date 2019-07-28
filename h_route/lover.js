@@ -152,10 +152,10 @@ router.post('/lover/del', (req, res) => {
 
     var mangerid = req.body['mangerid'];
     var id = req.body['_id'];
-    console.log('/lover/list : ' + mangerid);
+    console.log('/lover/del : ' + mangerid);
     if (mangerid === 'wei521520') {
 
-        LoverAtom.remove({_id, id}, function (err, list) {
+        LoverAtom.remove({_id: id}, function (err, obj) {
 
             return res.json({
                 msg: '删除成功',
