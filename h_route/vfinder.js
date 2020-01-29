@@ -485,6 +485,7 @@ router.get('/ghouse', (req, rsp) => {
     });
 });
 
+var PAGE_LENGTH = 25;
 
 // 暂时不分页
 router.get('/ghouselist', (req, rsp) => {
@@ -505,21 +506,47 @@ router.get('/ghouselist', (req, rsp) => {
     let needfullquery = Math.floor((now_time - last_query_time) / (1000)) > 5;
 
     var city = req.param('city', '北京');
+    var homeid = req.param('homeid', '-1');
+
 
     let queryBody = {forbid: false, city: city};
-    if (houseListMap.has(city) && !needfullquery) {
+    if (houseListMap.has(city)) {
         var houseList = houseListMap.get(city);
+        console.log('houseList size:' + houseList.length);
+        var start = 0;
+        if (homeid === -1) {
+            // 第一次加载 起始位置
+        } else {
+            houseList.forEach((item, ind) => {
+                if (item._id == homeid) {
+                    start = ind;
+                }
+            });
+        }
+        console.log("homeid:" + homeid + ' start:' + start);
+        var resultList = [];
+        if (houseList.length > (start + PAGE_LENGTH)) {
+            resultList = houseList.slice(start+1, start+1 + PAGE_LENGTH);
+        } else {
+            if (start > houseList.length -1) {
+                resultList = []
+            } else {
+                resultList = houseList.slice(start+1, houseList.length - 1)
+            }
+        }
+
         let response = {
             msg: 'success',
             code: 0,
             data: {
-                totalCount: houseList.length,
-                house_list: houseList
+                totalCount: resultList.length,
+                house_list: resultList,
+                total_len: houseList.length
             }
         };
-        console.log('houseList city:' + city + ' exist -- ' + JSON.stringify(houseList.length));
+        console.log('houselist:\n' + JSON.stringify(resultList));
+        console.log('houseList city:' + city + ' exist -- ' + JSON.stringify(resultList.length));
         rsp.end(JSON.stringify(response));
-
     } else {
         last_query_time = new Date().getTime();
         let now_date = new Date();
@@ -548,23 +575,27 @@ router.get('/ghouselist', (req, rsp) => {
                 });
                 houseListMap.set(city, houseList);
             }
+            var resultList = [];
+            if (houseList.length > (PAGE_LENGTH)) {
+                resultList = houseList.slice(0, PAGE_LENGTH);
+            } else {
+                resultList = houseList.slice(0, houseList.length - 1);
+            }
 
             let response = {
                 msg: 'success',
                 code: 0,
                 data: {
-                    totalCount: houseList.length,
-                    house_list: houseList
+                    totalCount: resultList.length,
+                    house_list: resultList,
+                    total_len: houseList.length
                 }
             };
-            console.log('houseList city:' + city + ' not exist -- ' + JSON.stringify(houseList.length));
+            console.log('houselist:\n' + JSON.stringify(resultList));
+            console.log('houseList city:' + city + ' not exist -- ' + JSON.stringify(resultList.length));
             rsp.end(JSON.stringify(response));
         });
     }
-
-
-
-
 
     // House.find(queryBody, (err, result) => {
     //
@@ -621,6 +652,88 @@ router.get('/ghouselist', (req, rsp) => {
     //     }
     // });
 
+});
+
+
+
+// 暂时不分页
+router.get('/searchByTerms', (req, rsp) => {
+    // todo 参数合法性检测
+    // var limit = req.param("limit", 20);
+
+    // var currentPage = req.param("currentPage", 1);
+    // if (currentPage < 1) {
+    //     currentPage = 1;
+    // }
+
+    const clientIp = requestIp.getClientIp(req);
+    console.log("[ghouselist]:" + clientIp + " time:" + Util.formatDate(new Date()));
+    if (clientIp) {
+        Omega.markIndex(clientIp, null);
+    }
+    let now_time = new Date().getTime();
+    let needfullquery = Math.floor((now_time - last_query_time) / (1000)) > 5;
+
+    var city = req.param('city', '北京');
+    var terms = req.param('terms', '');
+    console.log('searchByTerms : terms -> ' + terms);
+    var search_words = [];
+    if (terms === '') {
+        let response = {
+            msg: 'error: terms is empty:' + city,
+            code: -2,
+            data: []
+        };
+        rsp.end(JSON.stringify(response));
+    } else {
+        search_words = terms.split("-");
+    }
+
+    if (houseListMap.has(city)) {
+        var list = houseListMap.get(city);
+        var arr = [];
+        console.log('terms join:' + search_words.join('|'));
+        var reg = new RegExp(search_words.join('|'));
+        for (var i = 0; i < list.length; i++) {
+            // 如果字符串中不包含目标字符会返回-1
+            if (reg.test(list[i].title)) {
+                arr.push(list[i])
+            } else {
+            }
+        }
+        console.log('result: ' + arr + ' ' + arr.length);
+
+        var resultList = [];
+        arr.forEach((obj, ind) => {
+            resultList.push({
+                _id: obj._id,
+                title: obj.title,
+                datetime: obj.date,
+                city: obj.city,
+                from_type: obj.from_type,
+                address: obj.address,
+                username: obj.username,
+                address_geo: obj.address_geo
+            })
+        });
+        let response = {
+            msg: 'success',
+            code: 0,
+            data: {
+                totalCount: resultList.length,
+                house_list: resultList
+            }
+        };
+        console.log('houseList city:' + city + ' exist -- ' + JSON.stringify(resultList.length));
+        rsp.end(JSON.stringify(response));
+    } else {
+        let response = {
+            msg: 'error: no this city:' + city,
+            code: -1,
+            data: []
+        };
+        rsp.end(JSON.stringify(response));
+    }
 });
 
 module.exports = router;
