@@ -510,7 +510,7 @@ router.get('/ghouselist', (req, rsp) => {
 
 
     let queryBody = {forbid: false, city: city};
-    if (houseListMap.has(city)) {
+    if (houseListMap.has(city) && !needfullquery) {
         var houseList = houseListMap.get(city);
         console.log('houseList size:' + houseList.length);
         var start = 0;
@@ -544,7 +544,7 @@ router.get('/ghouselist', (req, rsp) => {
                 total_len: houseList.length
             }
         };
-        console.log('houselist:\n' + JSON.stringify(resultList));
+        // console.log('houselist:\n' + JSON.stringify(resultList));
         console.log('houseList city:' + city + ' exist -- ' + JSON.stringify(resultList.length));
         rsp.end(JSON.stringify(response));
     } else {
@@ -591,7 +591,7 @@ router.get('/ghouselist', (req, rsp) => {
                     total_len: houseList.length
                 }
             };
-            console.log('houselist:\n' + JSON.stringify(resultList));
+            // console.log('houselist:\n' + JSON.stringify(resultList));
             console.log('houseList city:' + city + ' not exist -- ' + JSON.stringify(resultList.length));
             rsp.end(JSON.stringify(response));
         });
