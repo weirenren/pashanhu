@@ -379,6 +379,13 @@ function cratchList(dir, _city, url, next) {
         .end(function (error, data) {
             if (error) {
                 console.log("execption scratching over cratch href " + url + " error exception occured :" + error.toString() + ' ' + util.formatDate(new Date()));
+                var fs = require('fs');
+                fs.writeFile("./execption.txt", util.formatDate(new Date()), function(err) {
+                    if(err) {
+                        return console.log(err);
+                    }
+                });
+                process.exit(0)
                 next(-1, error.toString());
                 return;
             }
@@ -669,8 +676,8 @@ function uploadDate(data) {
         },
         body: body
     }, function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            console.log("upload success " + data + "  " + util.formatDate(new Date()))
+        if (response.statusCode === 200) {
+            console.log("upload success : "+ util.formatDate(new Date()))
         } else {
             console.log("uploadDate error : " + error);
         }
