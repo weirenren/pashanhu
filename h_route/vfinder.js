@@ -507,12 +507,9 @@ router.get('/ghouselist', (req, rsp) => {
 
     var city = req.param('city', '北京');
     var homeid = req.param('homeid', '-1');
-
-    // console.log('needfullquery:' + needfullquery + ' now_time:' + (now_time - last_query_time) / (1000)  + ' last_query_time:' + last_query_time);
-
-
+    
     let queryBody = {forbid: false, city: city};
-    if (houseListMap.has(city) && !needfullquery) {
+    if ((houseListMap.has(city) && !needfullquery) || houseListMap.has(city) && homeid != '-1') {
         var houseList = houseListMap.get(city);
         console.log('houseList size:' + houseList.length);
         var start = 0;
