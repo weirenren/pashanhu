@@ -1215,7 +1215,7 @@ router.post('/deold', function (req, rsp) {
 
 router.post('/ch_list', (req, res) => {
 
-    console.log('ch_list:' + JSON.stringify(req.body));
+    // console.log('ch_list:' + JSON.stringify(req.body));
 
     let username = req.body['adu'];
     if (username !== 'weichao_admin') {
@@ -1263,6 +1263,17 @@ router.post('/ch_list', (req, res) => {
 
 
     });
+
+    console.log("ch add housesize:" + houseList.length);
+
+    let response = {
+        msg: 'success',
+        code: 0,
+        data: {
+            add_size : houseList.length
+        }
+    };
+    res.end(JSON.stringify(response));
 
 });
 
