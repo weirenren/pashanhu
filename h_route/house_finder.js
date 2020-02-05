@@ -1264,6 +1264,20 @@ router.post('/ch_list', (req, res) => {
 
     });
 
+    let houseUrlMap = new Map();
+    House.find({}, (err, list) => {
+        if (list) {
+            list.forEach((obj, ind) => {
+                if (obj.from_type === 0 && houseUrlMap.has(obj.href)) {
+                    House.remove({_id: obj._id},(err, res)=>{
+                    })
+                } else {
+                    houseUrlMap.set(obj.href, ind);
+                }
+            });
+        }
+    });
+
     console.log("ch add housesize:" + houseList.length);
 
     let response = {

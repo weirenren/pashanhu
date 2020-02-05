@@ -507,7 +507,7 @@ router.get('/ghouselist', (req, rsp) => {
 
     var city = req.param('city', '北京');
     var homeid = req.param('homeid', '-1');
-    
+
     let queryBody = {forbid: false, city: city};
     if ((houseListMap.has(city) && !needfullquery) || houseListMap.has(city) && homeid != '-1') {
         var houseList = houseListMap.get(city);
@@ -549,63 +549,49 @@ router.get('/ghouselist', (req, rsp) => {
     } else {
         last_query_time = new Date().getTime();
         let now_date = new Date();
-        let houseUrlMap = new Map();
-        House.find(queryBody, (err, list) => {
-            if (list) {
-                list.forEach((obj, ind) => {
-                    if (obj.from_type === 0 && houseUrlMap.has(obj.href)) {
-                        House.remove({title: obj.title},(err, res)=>{
+        House.find(queryBody).sort({date: 'desc'}).exec(function(err, result) {
+            var houseList = [];
+            if (result) {
+                result.forEach((obj, ind) => {
+                    if ((moment(now_date).diff(moment(obj.date), "days")) < EXPIRED_DAYS) {
+                        houseList.push({
+                            _id: obj._id,
+                            title: obj.title,
+                            datetime: obj.date,
+                            city: obj.city,
+                            from_type: obj.from_type,
+                            address: obj.address,
+                            username: obj.username,
+                            address_geo: obj.address_geo
                         })
                     } else {
-                        houseUrlMap.set(obj.href, ind);
+                        if (obj.from_type === 0) {
+                            House.remove({_id: obj._id},(err, res)=>{
+                            })
+                        }
                     }
                 });
+                houseListMap.set(city, houseList);
+            }
+            var resultList = [];
+            if (houseList.length > (PAGE_LENGTH)) {
+                resultList = houseList.slice(0, PAGE_LENGTH);
+            } else {
+                resultList = houseList.slice(0, houseList.length - 1);
             }
 
-            House.find(queryBody).sort({date: 'desc'}).exec(function(err, result) {
-                var houseList = [];
-                if (result) {
-                    result.forEach((obj, ind) => {
-                        if ((moment(now_date).diff(moment(obj.date), "days")) < EXPIRED_DAYS) {
-                            houseList.push({
-                                _id: obj._id,
-                                title: obj.title,
-                                datetime: obj.date,
-                                city: obj.city,
-                                from_type: obj.from_type,
-                                address: obj.address,
-                                username: obj.username,
-                                address_geo: obj.address_geo
-                            })
-                        } else {
-                            if (obj.from_type === 0) {
-                                House.remove({_id: obj._id},(err, res)=>{
-                                })
-                            }
-                        }
-                    });
-                    houseListMap.set(city, houseList);
+            let response = {
+                msg: 'success',
+                code: 0,
+                data: {
+                    totalCount: resultList.length,
+                    house_list: resultList,
+                    total_len: houseList.length
                 }
-                var resultList = [];
-                if (houseList.length > (PAGE_LENGTH)) {
-                    resultList = houseList.slice(0, PAGE_LENGTH);
-                } else {
-                    resultList = houseList.slice(0, houseList.length - 1);
-                }
-
-                let response = {
-                    msg: 'success',
-                    code: 0,
-                    data: {
-                        totalCount: resultList.length,
-                        house_list: resultList,
-                        total_len: houseList.length
-                    }
-                };
-                // console.log('houselist:\n' + JSON.stringify(resultList));
-                console.log('houseList city:' + city + ' not exist -- ' + JSON.stringify(resultList.length));
-                rsp.end(JSON.stringify(response));
-            });
+            };
+            // console.log('houselist:\n' + JSON.stringify(resultList));
+            console.log('houseList city:' + city + ' not exist -- ' + JSON.stringify(resultList.length));
+            rsp.end(JSON.stringify(response));
         });
 
 
