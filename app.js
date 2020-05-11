@@ -79,6 +79,9 @@ app.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
+let OnlineShopRouter = require('./online-shop/online_router')
+app.use('/online-shop', OnlineShopRouter)
+
 app.use('/a/api', api);
 app.use('/51finder', finder);
 app.use('/51vfinder', vfinder);
