@@ -18,6 +18,7 @@ var Action = require('../h_model/user_action');
 
 
 let Online_Order = require('./order')
+let Goods_Setting = require('./goods_setting')
 
 // checkInDate:Date,// 入职日期
 //     checkInPlace:String, // 入职地点
@@ -77,6 +78,61 @@ router.post('/o_create_order', (req, res) => {
 
 });
 
+router.post('/o_create_goods', (req, res) => {
+    console.log('o_create_goods:' + JSON.stringify(req.body));
+
+    let goods = req.body['goods'];
+
+    let item = new Goods_Setting({
+        setting: goods,
+        datetime: Util.getDateNow()
+    })
+
+    item.save((err, obj) => {
+        if (!err) {
+            let response = {
+                msg: 'goods',
+                code: 0,
+                data: obj
+            };
+
+            console.log('添加成功：' + JSON.stringify(obj))
+            res.end(JSON.stringify(response));
+
+        } else {
+            console.log(err);
+            let response = {
+                msg: 'fail:' + err,
+                code: -1
+            };
+            res.end(JSON.stringify(response));
+        }
+    })
+
+});
+
+router.get('/o_find_goods', (req, res) => {
+    // User.findOne({username: username}, function (err, user) {
+
+    Goods_Setting.find({}, (err, result) => {
+
+        if (result.length > 0) {
+            let response = {
+                msg: 'success:',
+                code: 0,
+                data: result[result.length - 1]
+            };
+            res.end(JSON.stringify(response));
+        } else {
+            let response = {
+                msg: 'nothing:',
+                code: -1
+            };
+            res.end(JSON.stringify(response));
+        }
+
+    })
+});
 
 router.get('/o_find_order', (req, res) => {
     // User.findOne({username: username}, function (err, user) {
