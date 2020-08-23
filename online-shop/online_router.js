@@ -96,7 +96,7 @@ router.post('/o_create_goods', (req, res) => {
                 data: obj
             };
 
-            console.log('添加成功：' + JSON.stringify(obj))
+            // console.log('添加成功：' + JSON.stringify(obj))
             res.end(JSON.stringify(response));
 
         } else {

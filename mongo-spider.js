@@ -11,7 +11,7 @@ var elasticsearch;
 
 var client;
 
-var House = require("./h_model/house");
+var House = require("./h_model/house_upload");
 
 var MongoClient = require('mongodb').MongoClient;
 var settings=require("./settings");
@@ -26,7 +26,7 @@ var filename = 'hourse.json';
 var mkdirp = require('mkdirp');
 
 var User_House = require('./h_model/user_house');
-var House = require('./h_model/house');
+var House = require('./h_model/house_upload');
 
 var superagent = require("superagent");
 require('superagent-proxy')(superagent);
@@ -579,8 +579,10 @@ function parseListHref(dir, _city) {
 
 
 let request_queue = [];
-let baseUploadHouseApi = 'https://sharevideo.cn/51finder/ch_list';
+// let baseUploadHouseApi = 'https://sharevideo.cn/51finder/ch_list';
 // let baseUploadHouseApi = 'http://127.0.0.1:3000/51finder/ch_list';
+let baseUploadHouseApi = 'https://sharevideo.cn/api/topic/upload520';
+// let baseUploadHouseApi = 'https://sharevideo.cn/51finder/ch_list';
 
 function combine(tag, dir, city, href, datetime, title, content, imgHrefArray) {
     console.log('combine start href ' + href + " imgs :" + imgHrefArray);
@@ -637,7 +639,7 @@ var https = require("http");
 function uploadDate(data) {
 
     let body = {adu: 'weichao_admin', houselist: data};
-
+ 
     // var postData=JSON.stringify(body);
     //
     // var options = {
@@ -665,6 +667,8 @@ function uploadDate(data) {
     //
     // req.write(postData);
 
+    console.log('body:' + JSON.stringify(body))
+
     request({
         url: baseUploadHouseApi,
         method: "POST",
@@ -677,7 +681,7 @@ function uploadDate(data) {
         body: body
     }, function(error, response, body) {
         if (response.statusCode === 200) {
-            console.log("upload success : "+ util.formatDate(new Date()))
+            console.log("upload success : " + JSON.stringify(response) + " " + util.formatDate(new Date()))
         } else {
             console.log("uploadDate error : " + error);
         }
@@ -1646,7 +1650,7 @@ Promise.resolve()
 //     .then(test_list())
 // .then(test_date_compare())
 //     .then(test_date_compare())
-//     .then(initDoCatch())
+    // .then(uploadDate(""))
     .then(doCapture())
     // .then(() => {
     //     console.log('constl:' + util.getDistance(116.323294, 39.893874, 116.319429, 40.070882))
