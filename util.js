@@ -18,102 +18,102 @@ const TOKEN_EXPIRATION = 60;	// token 过期时间，默认单位为s，Eg: 60, 
 
 var util = {};
 
-util.genToken = function(tokendata) {
+util.genToken = function (tokendata) {
 	// return jwt.sign(tokendata, cert, {expiresIn: TOKEN_EXPIRATION});
 	return tokendata;
 };
 
-function randomWord(randomFlag, min, max){
+function randomWord(randomFlag, min, max) {
 	var str = "",
 		range = min,
 		arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 	// 随机产生
-	if(randomFlag){
-		range = Math.round(Math.random() * (max-min)) + min;
+	if (randomFlag) {
+		range = Math.round(Math.random() * (max - min)) + min;
 	}
-	for(var i=0; i<range; i++){
-		var pos = Math.round(Math.random() * (arr.length-1));
+	for (var i = 0; i < range; i++) {
+		var pos = Math.round(Math.random() * (arr.length - 1));
 		str += arr[pos];
 	}
 	return str;
 }
 
-function Md5(data){
+function Md5(data) {
 	return crypto.createHash('md5').update(data).digest("hex");
 }
 
-util.randPwd = function rand(){
+util.randPwd = function rand() {
 
-	var str = randomWord(true, 6,7);
+	var str = randomWord(true, 6, 7);
 	return str;
 }
 
-util.sign = function(name,time,randkey){
+util.sign = function (name, time, randkey) {
 	var salt = '$';
 
-	var si = Md5(name + salt + time + salt +randkey);
+	var si = Md5(name + salt + time + salt + randkey);
 	return si;
 }
 
 
-util.MD5 = function md5(data){
+util.MD5 = function md5(data) {
 	return crypto.createHash('md5').update(data).digest("hex");
 };
 
-util.getDateNow = function() {
+util.getDateNow = function () {
 
 	let i = 8;
 
-    //参数i为时区值数字，比如北京为东八区则输进8,西5输入-5
+	//参数i为时区值数字，比如北京为东八区则输进8,西5输入-5
 
-    if (typeof i !== 'number') return;
+	if (typeof i !== 'number') return;
 
-    var d = new Date();
+	var d = new Date();
 
-    //得到1970年一月一日到现在的秒数
+	//得到1970年一月一日到现在的秒数
 
-    var len = d.getTime();
+	var len = d.getTime();
 
-    //本地时间与GMT时间的时间偏移差
+	//本地时间与GMT时间的时间偏移差
 
-    var offset = d.getTimezoneOffset() * 60000;
+	var offset = d.getTimezoneOffset() * 60000;
 
-    //得到现在的格林尼治时间
+	//得到现在的格林尼治时间
 
-    var utcTime = len + offset;
+	var utcTime = len + offset;
 
-    return new Date(utcTime + 3600000 * i);
+	return new Date(utcTime + 3600000 * i);
 
 }
 
-util.getCityEngName = function(city_en) {
-    let city_ch = '';
-    if (city_en === '北京') {
-        city_ch = 'beijing';
-    }
-    if (city_en === '上海') {
-        city_ch = 'shanghai';
-    }
-    if (city_en === '武汉') {
-        city_ch = 'wuhan';
-    }
-    if (city_en === '成都') {
-        city_ch = 'chengdu';
-    }
-    if (city_en === '深圳') {
-        city_ch = 'shenzhen';
-    }
-    if (city_en === '南京') {
-        city_ch = 'nanjing';
-    }
-    if (city_en === '杭州') {
-        city_ch = 'hangzhou';
-    }
-    if (city_en === '大连') {
-    	city_ch = 'dalian';
+util.getCityEngName = function (city_en) {
+	let city_ch = '';
+	if (city_en === '北京') {
+		city_ch = 'beijing';
 	}
-    return city_ch;
+	if (city_en === '上海') {
+		city_ch = 'shanghai';
+	}
+	if (city_en === '武汉') {
+		city_ch = 'wuhan';
+	}
+	if (city_en === '成都') {
+		city_ch = 'chengdu';
+	}
+	if (city_en === '深圳') {
+		city_ch = 'shenzhen';
+	}
+	if (city_en === '南京') {
+		city_ch = 'nanjing';
+	}
+	if (city_en === '杭州') {
+		city_ch = 'hangzhou';
+	}
+	if (city_en === '大连') {
+		city_ch = 'dalian';
+	}
+	return city_ch;
 }
 
 
@@ -141,7 +141,7 @@ util.getCityEngName = function(city_en) {
  * @param local 用户输入源租房信息实体
  * @param remote 数据库租房信息实体
  */
-util.compare = function(local, remote){
+util.compare = function (local, remote) {
 
 	var checkin_date_score = 0;
 	//
@@ -186,81 +186,79 @@ function getDistance(lat1, lng1, lat2, lng2) {
 	var dis = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(deltaLat / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(deltaLng / 2), 2)));
 	return dis * 6378137;
 
-	function toRadians(d) {  return d * Math.PI / 180;}
+	function toRadians(d) { return d * Math.PI / 180; }
 }
 
-function rad(d)
-{
-    return d * Math.PI / 180.0;
+function rad(d) {
+	return d * Math.PI / 180.0;
 }
 
 
-function calDistance(lon1, lat1, lon2, lat2)
-{
-    var a = rad(lon1) - rad(lon2);
-    var radLat1 = rad(lat1);
-    var radLat2 = rad(lat2);
-    var b = radLat1 - radLat2;
+function calDistance(lon1, lat1, lon2, lat2) {
+	var a = rad(lon1) - rad(lon2);
+	var radLat1 = rad(lat1);
+	var radLat2 = rad(lat2);
+	var b = radLat1 - radLat2;
 
-    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(b / 2), 2) +
-        Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(a / 2), 2)));
-    s = s * 6378.137 ; // 地球半径，单位千米
-    s = Math.round(s * 10000) / 10000;
+	var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(b / 2), 2) +
+		Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(a / 2), 2)));
+	s = s * 6378.137; // 地球半径，单位千米
+	s = Math.round(s * 10000) / 10000;
 
-    return s;
+	return s;
 }
 util.getDistance = calDistance;
 
 util.formatDateISO = function (date) {
-    return dateFormat(date, 'isoDate');
+	return dateFormat(date, 'isoDate');
 };
 
 // 年月日 时分秒 2018-08-24 10:56:25
 util.formatDate = function (date) {
-    return dateFormat(date,'isoDate') + ' ' + dateFormat(date, 'isoTime');;
+	return dateFormat(date, 'isoDate') + ' ' + dateFormat(date, 'isoTime');;
 };
-
+// 2022 - 03 - 25 00: 00: 00
 //sDate1和sDate2是2002-12-18格式
-util.getDays = function(sDate1,  sDate2){
+util.getDays = function (sDate1, sDate2) {
 
-	var  aDate,oDate1,oDate2,iDays;
-	aDate  =  sDate1.toString().split("-");
+	var aDate, oDate1, oDate2, iDays;
+	aDate = sDate1.toString().split("-");
 	//转换为12-18-2002格式,即时间字符串的格式：月-日-年
-	oDate1  =  new  Date(aDate[1]  +  '-'  +  aDate[2]  +  '-'  +  aDate[0]);
-	aDate  =  sDate2.toString().split("-");
-	oDate2  =  new  Date(aDate[1]  +  '-'  +  aDate[2]  +  '-'  +  aDate[0]);
+	oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+	aDate = sDate2.toString().split("-");
+	oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
 	//把相差的毫秒数转换为天数
-	iDays  =  parseInt((oDate1  -  oDate2)  /  1000  /  60  /  60  /24);
+	iDays = parseInt((oDate1 - oDate2) / 1000 / 60 / 60 / 24);
 
-	return  iDays;
+	return iDays;
 }
 
-util.minusDays = function(sDate1, sDate2) {
-	console.log(sDate1  -  sDate2);
-	var days = parseInt((sDate1  -  sDate2)  /  1000  /  60  /  60  /24);
+util.minusDays = function (sDate1, sDate2) {
+	console.log(sDate1 - sDate2);
+	var days = parseInt((sDate1 - sDate2) / 1000 / 60 / 60 / 24);
 
 	return days > 0 ? days : -days;
 }
 
 // let time = "2018-07-24 15:14:33";
 // let time2 = "2018-07-24 15:14:34";
-util.minusDateTime = function(sDate1, sDate2) {
+util.minusDateTime = function (sDate1, sDate2) {
 
-    return sDate1  -  sDate2;
+	return sDate1 - sDate2;
 }
 
 //使用
-function  btnCount_Click(){
+function btnCount_Click() {
 	//s1  =  "2002-1-10";
 	//s2  =  "2002-10-1" ;
-	alert(getDays(s1,s2));
+	alert(getDays(s1, s2));
 }
 
-util.geoToString = function(lat,lng) {
+util.geoToString = function (lat, lng) {
 	return lat + '_' + lng;
 };
 
-util.parseGeoString = function(geoString) {
+util.parseGeoString = function (geoString) {
 	return geoString.split(',');
 };
 
@@ -274,30 +272,30 @@ function testDateCompare() {
 	let date = new Date();
 
 	let time = "2018-07-24 15:14:33";
-    let time2 = "2018-07-24 15:14:34";
+	let time2 = "2018-07-24 15:14:34";
 
 	// time = time.replace("-", "/");
 	// let d1 = new Date(Date.parse(time));
 	// let today = new Date();
-    //
+	//
 	// if (d1 > today) {
 	// 	console.log('大于');
 	// } else {
 	// 	console.log('小于');
 	// }
-    //
+	//
 	// console.log((today - d1) / (1000*60*60));
 
 	let d = Date.parse(time);
-    let d2 = Date.parse(time2);
+	let d2 = Date.parse(time2);
 
-    // let days = util.getDays(util.formatDate(d), util.formatDate(new Date()));
+	// let days = util.getDays(util.formatDate(d), util.formatDate(new Date()));
 
-	let st = dateFormat(d,'isoDate') + ' ' + dateFormat(d, 'isoTime');
-    console.log('days:' + st);
+	let st = dateFormat(d, 'isoDate') + ' ' + dateFormat(d, 'isoTime');
+	console.log('days:' + st);
 
 
-    console.log('days:' + util.minusDays(d, d2));
+	console.log('days:' + util.minusDays(d, d2));
 }
 
 
@@ -320,7 +318,7 @@ function testDateSort() {
 	var user1 = new User;
 	user1.date = date1;
 	user1.gender = '1';
-	user1.save(function(err, obj){
+	user1.save(function (err, obj) {
 
 
 		console.log(user1)
@@ -330,7 +328,7 @@ function testDateSort() {
 	var user2 = new User;
 	user2.date = date2;
 	user2.gender = '2';
-	user2.save(function(err, obj){
+	user2.save(function (err, obj) {
 
 
 		console.log(user2)
@@ -340,7 +338,7 @@ function testDateSort() {
 	var user3 = new User;
 	user3.date = date3;
 	user3.gender = '3';
-	user3.save(function(err, obj){
+	user3.save(function (err, obj) {
 
 
 		console.log(user3)
@@ -349,7 +347,7 @@ function testDateSort() {
 
 
 	//User.find().sort({date :-1}).exec(function(err, users) {
-    //
+	//
 	//	users.forEach(function(user) {
 	//		console.log(user);
 	//	});
@@ -357,7 +355,7 @@ function testDateSort() {
 
 }
 
-util.getNowFormatDate = function() {
+util.getNowFormatDate = function () {
 	var date = new Date();
 
 	var seperator1 = "-";
@@ -378,14 +376,14 @@ util.getNowFormatDate = function() {
 	return currentdate;
 };
 
-util.getFilePath = function(filepath, next) {
+util.getFilePath = function (filepath, next) {
 
 	//创建文件夹存储图片
 	fs.exists(filepath, function (exists) {
 
 		if (!exists) {
 
-            mkdirp(filepath, function (err) {
+			mkdirp(filepath, function (err) {
 
 				if (!err) {
 
@@ -401,6 +399,61 @@ util.getFilePath = function(filepath, next) {
 	});
 };
 
+// 	原文链接：https://blog.csdn.net/seavers/article/details/84292222
+util.stringSimilarity = function (x, y) {
+
+	return Levenshtein(x, y) > 0.7;
+}
+
+util.stringSimilaritySecond = function (x, y) {
+
+	return Levenshtein(x, y);
+}
+
+/** 
+	* 　
+	* 检查两个字符串的相似度
+	* 可以用在 DNA分析 　　拼字检查 　　语音辨识 　　抄袭侦测 
+	* @createTime 2012-1-12 
+	*/
+function Levenshtein(s, t, f) {
+	if (!s || !t) {
+		return 0
+	}
+	var l = s.length > t.length ? s.length : t.length
+	var n = s.length
+	var m = t.length
+	var d = []
+	f = f || 3
+	var min = function (a, b, c) {
+		return a < b ? (a < c ? a : c) : (b < c ? b : c)
+	}
+	var i, j, si, tj, cost
+	if (n === 0) return m
+	if (m === 0) return n
+	for (i = 0; i <= n; i++) {
+		d[i] = []
+		d[i][0] = i
+	}
+	for (j = 0; j <= m; j++) {
+		d[0][j] = j
+	}
+	for (i = 1; i <= n; i++) {
+		si = s.charAt(i - 1)
+		for (j = 1; j <= m; j++) {
+			tj = t.charAt(j - 1)
+			if (si === tj) {
+				cost = 0
+			} else {
+				cost = 1
+			}
+			d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost)
+		}
+	}
+	let res = (1 - d[n][m] / l)
+	let sim = res.toFixed(f)
+	return sim
+}
 
 
 module.exports = util;

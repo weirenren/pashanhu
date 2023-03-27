@@ -11,11 +11,11 @@ var elasticsearch;
 
 var client;
 
-var House = require("./h_model/house_upload");
+var House = require(__dirname + "/h_model/house_upload");
 
 var MongoClient = require('mongodb').MongoClient;
-var settings=require("./settings");
-MongoClient.connect("mongodb://"+settings.ip+"/"+settings.db, function(err, db) {
+var settings = require(__dirname + "/settings");
+MongoClient.connect("mongodb://" + settings.ip + "/" + settings.db, function (err, db) {
 
 });
 
@@ -25,12 +25,12 @@ var typename = 'hourse_type';
 var filename = 'hourse.json';
 var mkdirp = require('mkdirp');
 
-var User_House = require('./h_model/user_house');
-var House = require('./h_model/house_upload');
+var User_House = require(__dirname + '/h_model/user_house');
+var House = require(__dirname + '/h_model/house_upload');
 
 var superagent = require("superagent");
 require('superagent-proxy')(superagent);
-// var proxy_uri = process.env.http_proxy || 'http://127.0.0.1:1087';
+// var proxy_uri = process.env.http_proxy || 'http://203.198.94.132:80';
 var proxy_uri = process.env.http_proxy
 var domain = require('domain');
 
@@ -51,13 +51,14 @@ var async = require('async');
 //nodejs自带文件和文件夹处理库
 //此处应用图片下载和文件夹创建
 var fs = require('fs');
-var util = require('./util');
+var util = require(__dirname + '/util');
 var space = '/';
-var baseCacheDir = '.' + space + 'datasource';
+var baseCacheDir = __dirname + space + 'datasource';
 
 var CAPTURE_PAGE_MAX = 8;
 
-var PAGE_MAX = 20;
+var PAGE_MAX = 2;
+var UPLOAD_NUM_MAX = 20;
 
 
 var CAPTURE_TASK_TYPE_TOTAL = 1;
@@ -75,25 +76,25 @@ var iconv = require('iconv-lite');
 
 let ELASTIC_SEARCH_NORMAL = 0;
 
-var spider_source_settings = require('./spider_source_domain_setting');
+var spider_source_settings = require(__dirname + '/spider_source_domain_setting');
 
 //https://www.douban.com/group/beijingzufang/discussion?start=0 // 25递增
 var baseUrl = 'https://www.douban.com/group/beijingzufang/discussion?start=';
 
 var header = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'
 }
 
 var headertest = {
-    'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'
+    'User-Agent': ' Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15'
 }
 
 var header2 = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 12_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.2985.134 Safari/537.36'
+    'User-Agent': ' Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15'
 }
 
 
-var baseDir = './public/images';
+var baseDir = __dirname + '/public/images';
 
 //var base = 'images';
 var base = 'images';
@@ -106,7 +107,7 @@ var resultArray = []; //解析完后的数据
 var picUrlList = []; //存储图片地址，并发下载
 var mmLaList = []; //存储信息
 
-var hourseMap = {'id': 33};
+var hourseMap = { 'id': 33 };
 
 
 
@@ -130,7 +131,10 @@ var capture_state = CAPTURE_INIT;
 let root_timer;
 var parent_timer;
 
+let Regular = require(__dirname + '/Test_Regular')
+
 let from = '豆瓣租房';
+let houseDateMap = new Map(); // key: date, value: string数组，list<title>
 let houseUrlMap = new Map(); // href 去重
 var tagHrefMap = new Map(); // title tag 去重
 var newTagSet = []; //未解析列表页链接tag
@@ -177,7 +181,7 @@ function dropIndex() {
 
 
 function initIndex() {
-    return client.indices.create({index: indexname});
+    return client.indices.create({ index: indexname });
 }
 
 function bulkIndex(index, type, data) {
@@ -196,7 +200,7 @@ function bulkIndex(index, type, data) {
 
     });
 
-    client.bulk({body: bulkBody})
+    client.bulk({ body: bulkBody })
         .then(response => {
             let errorCount = 0;
             response.items.forEach(item => {
@@ -208,7 +212,7 @@ function bulkIndex(index, type, data) {
         }).catch((err) => {
             console.log(err.toString());
             ELASTIC_SEARCH_NORMAL = -1;
-    });
+        });
 }
 
 function addtoMyIndex() {
@@ -234,6 +238,11 @@ function getMD5(string) {
     return crypto.createHash('md5').update(string).digest("hex");
 }
 
+var ProxyPool = require(__dirname + '/proxy/proxy_pool.js')
+
+
+let UseProxy = false
+
 let ONE_DAY_CAPTURE = 0;
 let FULL_DAY_CAPTURE = 1;
 let capture_type = ONE_DAY_CAPTURE;
@@ -241,13 +250,13 @@ let capture_type = ONE_DAY_CAPTURE;
 function doCapture() {
 
     if (capture_type === ONE_DAY_CAPTURE) {
-        doLoopWorkForDay((err)=>{
+        doLoopWorkForDay((err) => {
             console.log('doCapture:' + err);
         });
     }
 
     if (capture_type === FULL_DAY_CAPTURE) {
-        doLoopWorkForTotal((err)=>{
+        doLoopWorkForTotal((err) => {
             console.log('doCapture:' + err);
         });
     }
@@ -285,6 +294,46 @@ function doLoopWorkForTotal(next) {
     }, 200 * 60 * 1000); // 一小时间隔 抓一次；
 }
 
+function testProxyPool() {
+
+    ProxyPool.startWork()
+    // await ProxyPool.loadIpData()
+    // var check = ProxyPool.run
+    // await check()
+
+    // // ProxyPool.ips((err, response) => {
+    // //     console.log('ips:' + JSON.stringify(response))
+    // // })
+
+    // const rsp = await ProxyPool.getRandomIP()
+
+    // console.log('rsp:' + JSON.stringify(rsp))
+
+}
+
+function checkProxyConfig() {
+    var check = ProxyPool.check
+    check()
+    console.log('check checkProxyConfig start')
+    UseProxy = !UseProxy
+    if (UseProxy) {
+        // ProxyPool.ips((err, response) => {
+
+        //     if (response.length > 0) {
+        //         const proxy = response[0]
+        //         if (proxy) {
+
+        //         }
+        //         // proxy_uri = `${proxy.type.toLowerCase()}://${proxy.ip}:${proxy.port}`
+        //         console.log('check checkProxyConfig ips:' + JSON.stringify(response[0]))
+        //     }
+        // })
+
+    } else {
+        // proxy_uri = process.env.http_proxy
+    }
+}
+
 // 抓取最近更新的数据，detect重复过多就停止
 function doLoopWorkForDay(next) {
     console.log('doLoopWorkForDay 非全量抓取');
@@ -295,16 +344,23 @@ function doLoopWorkForDay(next) {
     PAGE_MAX = 1;
     initDoCatch();
 
+    checkProxyConfig()
+    setInterval(function () {
+
+        checkProxyConfig()
+
+    }, 10 * 60 * 1000); // 10分钟上传一次
+
     doWork(next);
     parent_timer = setInterval(function () {
         last_page_start = 0;
         console.log("doLoopWork start time:" + util.formatDate(new Date()));
         doWork(next);
-    }, 100 * 60 * 1000); // 一小时间隔 抓一次；
+    }, 200 * 60 * 1000); // 两小时间隔 抓一次；
 
     setInterval(function () {
-        uploadhouselist(1);
-    }, 120 * 1000);
+        uploadhouselist(1); // 
+    }, 3 * 60 * 1000); // 3分钟上传一次
 }
 
 function doWork(next) {
@@ -316,7 +372,7 @@ function doWork(next) {
             console.log("doWork start time:" + util.formatDate(new Date()) + ' page start: ' + i * 25);
             doWorkTask(city_arr, next)
 
-        }, i * 5 * 60 * 1000) // 翻页抓取间隔三分钟
+        }, i * 8 * 60 * 1000) // 翻页抓取间隔7分钟
     }
 }
 
@@ -328,7 +384,7 @@ function doWorkTask(city_arr, next) {
         let ll = url_arr.length;
         for (let j = 0; j < ll; j++) {
 
-            let wait = (total_index++) * 100 * 1000;
+            let wait = (total_index++) * 120 * 1000;
 
             console.log('doWorkTask:' + url_arr[j] + ' waiting :' + wait + ', time:' + util.formatDate(new Date()));
             setTimeout(() => {
@@ -375,17 +431,21 @@ function cratchList(dir, _city, url, next) {
 
     superagent.get(url)
         .proxy(proxy_uri)
-        .set('header', header)
+        .set('header', ProxyPool.getRandomUserAgent())
+        // .disableTLSCerts()
         .end(function (error, data) {
             if (error) {
                 console.log("execption scratching over cratch href " + url + " error exception occured :" + error.toString() + ' ' + util.formatDate(new Date()));
                 var fs = require('fs');
-                fs.writeFile("./execption.txt", util.formatDate(new Date()), function(err) {
-                    if(err) {
-                        return console.log(err);
+                fs.writeFile(__dirname + "/execption.txt", util.formatDate(new Date()), function (err) {
+                    if (err) {
+                        console.log(err);
                     }
                 });
-                process.exit(0)
+                setTimeout(() => {
+                    process.exit(0)
+                }, 1000 * 2);
+
                 next(-1, error.toString());
                 return;
             }
@@ -407,18 +467,21 @@ function cratchList(dir, _city, url, next) {
                     var href = $$('a').attr('href');
                     var title = $$('a').attr('title');
 
-                    let tag = getMD5(name + '_' + title);
-                    if (!tagHrefMap.has(tag) && !houseUrlMap.has(href)) {
-                        console.log('push tag:' + tag + ' href:' + href + ' time:' + util.formatDate(new Date()));
+                    if (title.length > 10) {
+                        let tag = getMD5(name + '_' + title);
+                        if (!tagHrefMap.has(tag) && !houseUrlMap.has(href)) {
+                            console.log('push tag:' + tag + ' href:' + href + ' time:' + util.formatDate(new Date()));
 
-                        tagHrefMap.set(tag, {href: href, city: city});
-                        houseUrlMap.set(href, 0);
-                        newTagSet.push(tag);
-                        DETECT = 0;
-                    } else {
-                        DETECT++;
-                        console.log(href + ' exist before DETECT is : ' + DETECT);
+                            tagHrefMap.set(tag, { href: href, city: city });
+                            houseUrlMap.set(href, 0);
+                            newTagSet.push(tag);
+                            DETECT = 0;
+                        } else {
+                            DETECT++;
+                            console.log(href + ' exist before DETECT is : ' + DETECT);
+                        }
                     }
+
                 } else {
 
                 }
@@ -455,7 +518,7 @@ var mkdirs = function (dirpath, callback) {
 
 function loopParse(dir, _city) {
     const city = _city
-    var delay = randomNum(5000, 12000);
+    var delay = randomNum(10000, 20000);
     var timer = setInterval(function () {
         if (newTagSet.length < 1) {
             clearInterval(timer);
@@ -494,7 +557,7 @@ function parseListHref(dir, _city) {
                 }
 
                 //var html = iconv.decode(data.text, 'gb2312')
-                var $ = cheerio.load(data.text, {decodeEntities: false}) //注意传递的是data.text而不是data本身
+                var $ = cheerio.load(data.text, { decodeEntities: false }) //注意传递的是data.text而不是data本身
 
                 var title = $('.tablecc ').text();
 
@@ -534,7 +597,7 @@ function parseListHref(dir, _city) {
 
                     $('.topic-content .image-container .image-wrapper img').each(function (idx, element) {
                         var $element = $(element);
-                        console.log('img href: ' +$element.attr("src"));
+                        console.log('img href: ' + $element.attr("src"));
                         if (imgHrefArray.length <= 10) {
                             imgHrefArray.push($element.attr("src"));
                         }
@@ -553,7 +616,7 @@ function parseListHref(dir, _city) {
                     $('.topic-content .image-container .image-wrapper img').each(function (idx, element) {
                         var $element = $(element);
 
-                        console.log('img href: ' +$element.attr("src"));
+                        console.log('img href: ' + $element.attr("src"));
                         if (imgHrefArray.length <= 10) {
                             imgHrefArray.push($element.attr("src"));
                         }
@@ -580,23 +643,178 @@ function parseListHref(dir, _city) {
 
 let request_queue = [];
 // let baseUploadHouseApi = 'https://sharevideo.cn/51finder/ch_list';
-// let baseUploadHouseApi = 'http://127.0.0.1:3000/51finder/ch_list';
+// let baseUploadHouseApi = 'http://127.0.0.1:3000/api/topic/upload520';
 let baseUploadHouseApi = 'https://sharevideo.cn/api/topic/upload520';
 // let baseUploadHouseApi = 'https://sharevideo.cn/51finder/ch_list';
 
+
+var mGeoStationJson = {}
+
+/**
+ * city: geolist ()
+ */
+var mGeoStationMap = new Map()
+
+function loadGeoStationDataJson() {
+
+    // 同步读取
+    var data = fs.readFileSync(__dirname + '/GeoStationData.json');
+    // console.log("同步读取: " + JSON.stringify(JSON.parse(data.toString()).subway_region[0].subways_detail));
+
+    mGeoStationJson = JSON.parse(data.toString())
+
+    var geoList = []
+    if (mGeoStationJson.data.length > 0) {
+        geoList = mGeoStationJson.data
+    }
+
+    const beijingGeoList = []
+    const wuhanGeoList = []
+
+    geoList.forEach((item) => {
+
+        if (item.city === '北京') {
+            beijingGeoList.push(item)
+        }
+
+        if (item.city === '武汉') {
+            wuhanGeoList.push(item)
+        }
+
+    })
+
+    mGeoStationMap.set('北京', beijingGeoList)
+    mGeoStationMap.set('武汉', wuhanGeoList)
+    Regular.loadSubwaysJson()
+
+    // const subways_detail = subway_region.subways_detail
+    // const regions_detail = subway_region.regions_detail
+
+    // subways_detail.forEach(item => {
+
+    //     mSubwayStationsMap.set(item.subway_name, item.station_list)
+    //     // console.log('subways_detail item:' + item.subway_name)
+    // });
+
+    // regions_detail.forEach(item => {
+    //     mRegionStationsMap.set(item.region_name, item.station_list)
+    // })
+
+    // console.log('mSubwayStationsMap:' + mSubwayStationsMap)
+
+
+    // mSubwayStationsJson = '' // read file json
+}
+
+
+function getTags(city, title, content) { // todo
+    return Regular.matchTags(title + ' ' + content);
+}
+
+function getRentGeoTags(city, title, content) {
+    return Regular.regularRentContent(city, title + ' ' + content)
+}
+
+function getRentGeoFullTags(city, title, content) {
+    const titleTags = Regular.regularRentContent(city, title)
+    if (titleTags.length === 0) {
+        return Regular.regularRentContent(city, content)
+    }
+    return titleTags
+}
+
+// tags to ids
+function getRentGeoIds(city, title, content) {
+
+    const rentGeoIds = []
+    const rentGeoTags = getRentGeoFullTags(city, title, content)
+    const geoHashs = []
+
+    const geoList = mGeoStationMap.get(city)
+    const tagNameArray = []
+
+    console.log('rentGeoTags:' + JSON.stringify(rentGeoTags))
+    if (geoList) {
+        rentGeoTags.forEach(item => {
+            // console.log('item:' + JSON.stringify(item))
+
+            if (item.pname !== '' && item.cname !== '') {
+                for (const it of geoList) {
+                    if (it.pname === item.pname && it.cname === item.cname) {
+
+                        rentGeoIds.push(it.geoStationId)
+                        // geoHashs.push(it.geoHash)
+                        tagNameArray.push(it.pname + '-' + it.cname)
+                        break
+                    }
+                }
+            } else {
+
+                if (item.pname !== '') {
+                    tagNameArray.push(item.pname) // 只有parent name,即 行政名称 或者地铁名称
+                }
+            }
+        })
+    }
+
+    const result = {
+        rentGeoIds: rentGeoIds,
+        tags: tagNameArray
+    }
+
+    return result
+}
+
+function test_getRentGeoIds() {
+    var testContent = `6号线 物资学院 新建村二期 大阳光房出租`
+
+    // console.log(orignJson.district_list)
+
+    var result = getRentGeoIds('北京', "", testContent)
+
+    console.log('match result:' + JSON.stringify(result))
+}
+
+function checkQiuzu(content) {
+
+}
+
 function combine(tag, dir, city, href, datetime, title, content, imgHrefArray) {
-    console.log('combine start href ' + href + " imgs :" + imgHrefArray);
+    console.log('combine start href ' + href + " title :" + title + " datetime:" + datetime + " city:" + city);
+
+    if (isExistingHouse(datetime, title, city)) {
+        console.log('重复')
+        return
+    }
 
     var from = '豆瓣租房';
 
-    var house = new House({
+    let tags = []
+    if (city === '北京' || city === '武汉') {
+        tags = getTags(city, title, content);
+        console.log('combine start href ' + href + " tags :" + tags);
+    }
+
+    var rentGeoIds = []
+    if (city === '北京' || city === '武汉') {
+        const result = getRentGeoIds(city, title, content)
+        rentGeoIds = result.rentGeoIds
+        tags = result.tags
+        console.log('rent match tags: ' + JSON.stringify(result))
+    } else {
+        console.log('no rentGeoIds');
+    }
+
+    const house = new House({
         from: from,
         title: title,
         href: href,
         imgurl_list: imgHrefArray,
         content: content,
         date: datetime,
-        city: city
+        city: city,
+        tags: tags,
+        rentGeoIds: rentGeoIds
     });
 
     request_queue.push(house);
@@ -606,10 +824,9 @@ function combine(tag, dir, city, href, datetime, title, content, imgHrefArray) {
     house.save((err, obj) => {
 
         if (!err) {
-           console.log('house save:' + JSON.stringify(obj));
+            console.log('house save:' + JSON.stringify(obj));
         } else {
             console.log(err);
-
         }
     });
 
@@ -623,7 +840,7 @@ function uploadhouselist(force) {
     }
 
     if (force === 0) {
-        if (request_queue.length > 10) {
+        if (request_queue.length > UPLOAD_NUM_MAX) {
             uploadDate(request_queue);
             request_queue = [];
         }
@@ -638,8 +855,8 @@ var https = require("http");
 
 function uploadDate(data) {
 
-    let body = {adu: 'weichao_admin', houselist: data};
- 
+    let body = { adu: 'weichao_admin', houselist: data };
+
     // var postData=JSON.stringify(body);
     //
     // var options = {
@@ -679,7 +896,7 @@ function uploadDate(data) {
             'Connection': 'keep-alive'
         },
         body: body
-    }, function(error, response, body) {
+    }, function (error, response, body) {
         if (response.statusCode === 200) {
             console.log("upload success : " + JSON.stringify(response) + " " + util.formatDate(new Date()))
         } else {
@@ -784,7 +1001,7 @@ function updateCityToEs() {
 
             let target = root + space + file + space + fi;
 
-            fs.readFile(target, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
+            fs.readFile(target, { flag: 'r+', encoding: 'utf8' }, function (err, data) {
 
                 if (!err) {
                     data.split('|').forEach(item => {
@@ -820,46 +1037,46 @@ function updateCityToEs() {
 
         let houseData = [];
         console.log('readHouseDataFromESToFile ' + ' time:' + util.formatDate(new Date()));
-        client.search({index: indexname, type: typename, body: body})
+        client.search({ index: indexname, type: typename, body: body })
             .then(results => {
 
                 let ind = 0;
 
                 results.hits.hits.forEach((hit, index) => {
 
-                        // houseData.push({
-                        //     title: hit._source.title,
-                        //     content: hit._source.content,
-                        //     hrefArray: hit._source.hrefArray,
-                        //     imgpath: hit._source.imgpath,
-                        //     datetime: hit._source.datatime,
-                        //     href: hit._source.href,
-                        //     _id: hit._id
-                        // });
+                    // houseData.push({
+                    //     title: hit._source.title,
+                    //     content: hit._source.content,
+                    //     hrefArray: hit._source.hrefArray,
+                    //     imgpath: hit._source.imgpath,
+                    //     datetime: hit._source.datatime,
+                    //     href: hit._source.href,
+                    //     _id: hit._id
+                    // });
 
 
-                        let href = hit._source.href;
-                        let city_en = href_city_map.get(href);
+                    let href = hit._source.href;
+                    let city_en = href_city_map.get(href);
 
-                        let city_ch = getCityChineseName(city_en);
-                        let datetime = hit._source.datatime;
+                    let city_ch = getCityChineseName(city_en);
+                    let datetime = hit._source.datatime;
 
-                        let body = {
-                            doc: {
-                                // city: city_ch,
-                                // from: from,
-                                // forbid: 0
-                                times: new Date(datetime)
-                            }
-                        };
+                    let body = {
+                        doc: {
+                            // city: city_ch,
+                            // from: from,
+                            // forbid: 0
+                            times: new Date(datetime)
+                        }
+                    };
 
-                        console.log(href + '........' + city_ch + ' ,index: '+ (ind++));
+                    console.log(href + '........' + city_ch + ' ,index: ' + (ind++));
 
-                        client.update({index: indexname, type: typename, id: hit._id, body: body}, (err, rsp) => {
+                    client.update({ index: indexname, type: typename, id: hit._id, body: body }, (err, rsp) => {
 
-                        });
+                    });
 
-                    }
+                }
                 );
             });
     })
@@ -904,7 +1121,7 @@ function sortDatetime(a, b) {
     return Date.parse(a.datatime) - Date.parse(b.datatime);
 }
 
-let backup_dir = '.' + space + 'backup';
+let backup_dir = __dirname + space + 'backup';
 
 
 function updateHouseDataFromESToFile() {
@@ -927,7 +1144,7 @@ function updateHouseDataFromESToFile() {
         console.log('count:' + result.count);
         let body = {
             size: result.count,
-            sort: [{"times": {"order": "desc"}}],
+            sort: [{ "times": { "order": "desc" } }],
             query: {
                 match_all: {}
             }
@@ -935,37 +1152,37 @@ function updateHouseDataFromESToFile() {
 
         let houseData = [];
         // console.log('readHouseDataFromESToFile ' + ' time:' + util.formatDate(new Date()));
-        client.search({index: indexname, type: typename, body: body})
+        client.search({ index: indexname, type: typename, body: body })
             .then(results => {
 
 
                 results.hits.hits.forEach((hit, index) => {
 
-                        houseData.push({
-                            title: hit._source.title,
-                            content: hit._source.content,
-                            hrefArray: hit._source.hrefArray,
-                            imgpath: hit._source.imgpath,
-                            datetime: hit._source.datatime,
-                            href: hit._source.href,
-                            _id: hit._id
-                        });
+                    houseData.push({
+                        title: hit._source.title,
+                        content: hit._source.content,
+                        hrefArray: hit._source.hrefArray,
+                        imgpath: hit._source.imgpath,
+                        datetime: hit._source.datatime,
+                        href: hit._source.href,
+                        _id: hit._id
+                    });
 
 
-                        console.log(hit._source.datatime);
-                        let body = {
-                            doc: {
-                                // from: '豆瓣租房',
-                                // city: '北京',
-                                // times: new Date(hit._source.datatime)
-                            }
-                        };
+                    console.log(hit._source.datatime);
+                    let body = {
+                        doc: {
+                            // from: '豆瓣租房',
+                            // city: '北京',
+                            // times: new Date(hit._source.datatime)
+                        }
+                    };
 
-                        client.update({index: indexname, type: typename, id: hit._id, body: body}, (err, rsp) => {
+                    client.update({ index: indexname, type: typename, id: hit._id, body: body }, (err, rsp) => {
 
-                        });
+                    });
 
-                    }
+                }
                 );
             });
     })
@@ -988,30 +1205,30 @@ function readHouseDataFromESToFile() {
 
         let houseData = [];
         console.log('readHouseDataFromESToFile ' + ' time:' + util.formatDate(new Date()));
-        client.search({index: indexname, type: typename, body: body})
+        client.search({ index: indexname, type: typename, body: body })
             .then(results => {
 
                 console.log('before ' + results.hits.hits.length + ' time:' + util.formatDate(new Date()));
 
                 results.hits.hits.forEach((hit, index) => {
 
-                        houseData.push({
-                            from: hit._source.from,
-                            city: hit._source.city,
-                            title: hit._source.title,
-                            content: hit._source.content,
-                            hrefArray: hit._source.hrefArray,
-                            imgpath: hit._source.imgpath,
-                            datetime: hit._source.datatime,
-                            href: hit._source.href,
-                            _id: hit._id
-                        });
+                    houseData.push({
+                        from: hit._source.from,
+                        city: hit._source.city,
+                        title: hit._source.title,
+                        content: hit._source.content,
+                        hrefArray: hit._source.hrefArray,
+                        imgpath: hit._source.imgpath,
+                        datetime: hit._source.datatime,
+                        href: hit._source.href,
+                        _id: hit._id
+                    });
 
-                    }
+                }
                 );
 
                 houseData.sort(sortDatetime);
-                backup_dir = backup_dir + space +  util.getNowFormatDate();
+                backup_dir = backup_dir + space + util.getNowFormatDate();
                 let file = backup_dir + space + 'house_es' + '.txt';
                 console.log('write');
 
@@ -1020,7 +1237,7 @@ function readHouseDataFromESToFile() {
                 fs.exists(backup_dir, function (exist) {
 
                     if (exist) {
-                        fs.writeFileSync(file,"");
+                        fs.writeFileSync(file, "");
 
                         houseData.forEach((item, index) => {
                             let cont = genHouseItemString(item.from, item.city, item.title, item.content, item.hrefArray, item.imgpath, item.datetime, item.href);
@@ -1076,11 +1293,11 @@ function writeHouseDataFromFileToES() {
     let parent_delt = '&$';
     let child_delt = '@#';
 
-    let file = backup_dir + space +  util.getNowFormatDate() + space + 'house_es' + '.txt';
+    let file = backup_dir + space + util.getNowFormatDate() + space + 'house_es' + '.txt';
 
     let indexname = 'house_back_' + util.getNowFormatDate();
 
-    client.indices.exists({index: indexname}).then((exist) => {
+    client.indices.exists({ index: indexname }).then((exist) => {
         if (exist) {
             console.log('delete index:' + indexname);
             return client.indices.delete({
@@ -1088,13 +1305,13 @@ function writeHouseDataFromFileToES() {
             });
         }
     }).then(() => {
-        client.indices.create({index: indexname}, (err, res) => {
+        client.indices.create({ index: indexname }, (err, res) => {
 
             fs.exists(file, function (exist) {
 
                 if (exist) {
 
-                    fs.readFile(file, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
+                    fs.readFile(file, { flag: 'r+', encoding: 'utf8' }, function (err, data) {
 
                         if (!err) {
                             let totalNum = 0;
@@ -1116,8 +1333,8 @@ function writeHouseDataFromFileToES() {
                                         href: array[7]
                                     });
                                     totalNum++;
-                                    const  ind = totalNum;
-                                    setTimeout(()=>{
+                                    const ind = totalNum;
+                                    setTimeout(() => {
 
                                         bulkIndex(indexname, typename, houseData);
                                         console.log('writeHouseDataFromFileToES success. total num:' + ind);
@@ -1227,7 +1444,7 @@ function readHrefSet(dir, filename, callback) {
 
         if (exist) {
 
-            fs.readFile(file, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
+            fs.readFile(file, { flag: 'r+', encoding: 'utf8' }, function (err, data) {
 
                 if (!err) {
                     data.split('|').forEach(item => {
@@ -1256,23 +1473,23 @@ function queryBatch() {
 
     let body = {
         docs: [
-            {_index: indexname, _type: typename, _id:'d6eZfmUBGbOJNG1ZaRnS'},
-            {_index: indexname, _type: typename, _id:'YqcIamUBGbOJNG1ZyAb1'}
+            { _index: indexname, _type: typename, _id: 'd6eZfmUBGbOJNG1ZaRnS' },
+            { _index: indexname, _type: typename, _id: 'YqcIamUBGbOJNG1ZyAb1' }
         ]
     };
 
-    client.mget({index: indexname, type: typename, body: {ids :['d6eZfmUBGbOJNG1ZaRnS', 'YqcIamUBGbOJNG1ZyAb1']}})
+    client.mget({ index: indexname, type: typename, body: { ids: ['d6eZfmUBGbOJNG1ZaRnS', 'YqcIamUBGbOJNG1ZyAb1'] } })
         .then(results => {
 
             console.log(results);
             // console.log('before ' + results.hits.hits.length + ' time:' + util.formatDate(new Date()));
             // console.log('');
             results.docs.forEach((hit, index) => {
-                    var datetime = hit._source.datatime;
+                var datetime = hit._source.datatime;
 
-                    console.log(datetime);
+                console.log(datetime);
 
-                }
+            }
             );
 
 
@@ -1302,26 +1519,26 @@ function deleteOldHouseData() {
         }
     };
     console.log('deleteing house deleteOldHouseData ' + ' time:' + util.formatDate(new Date()));
-    client.search({_index: indexname, _type: typename, body: body})
+    client.search({ _index: indexname, _type: typename, body: body })
         .then(results => {
 
             console.log('before ' + results.hits.hits.length + ' time:' + util.formatDate(new Date()));
 
             results.hits.hits.forEach((hit, index) => {
-                    var datetime = hit._source.datatime;
+                var datetime = hit._source.datatime;
 
-                    var nowDay = util.getNowFormatDate();
+                var nowDay = util.getNowFormatDate();
 
-                    if (util.getDays(nowDay, datetime) > DELETE_DAY_SIZE) {
+                if (util.getDays(nowDay, datetime) > DELETE_DAY_SIZE) {
 
-                        goingDeleteHouseData.push({
-                            datetime: datetime,
-                            href: hit._source.href,
-                            _id: hit._id
-                        });
+                    goingDeleteHouseData.push({
+                        datetime: datetime,
+                        href: hit._source.href,
+                        _id: hit._id
+                    });
 
-                    }
                 }
+            }
             );
 
             if (goingDeleteHouseData.length > 0) {
@@ -1343,7 +1560,7 @@ function deleteOldHouseData() {
                             return
                         }
 
-                        House.remove({_id: house._id}, function (err, obj) {
+                        House.remove({ _id: house._id }, function (err, obj) {
                             if (err) {
                                 console.log(err.toString() + ' time:' + util.formatDate(new Date()));
                                 return;
@@ -1353,7 +1570,7 @@ function deleteOldHouseData() {
                             }
                         });
 
-                        User_House.remove({house_id: house._id}, (err, obj) => {
+                        User_House.remove({ house_id: house._id }, (err, obj) => {
                             if (err) {
                                 console.log(err.toString() + ' time:' + util.formatDate(new Date()));
                                 return;
@@ -1391,13 +1608,15 @@ function initDoCatch() {
             let size = 0;
             results.forEach((obj, ind) => {
                 if (obj.from_type === 0 && houseUrlMap.has(obj.href)) {
-                    House.remove({title: obj.title},(err, res)=>{
+                    House.remove({ title: obj.title }, (err, res) => {
                         // if (!err) {
-                            console.log(obj.title + ':' + JSON.stringify(res))
+                        console.log(obj.title + ':' + JSON.stringify(res))
                         // }
                     })
                 } else {
                     houseUrlMap.set(obj.href, ind);
+
+                    setToOldDateHouseDataSource(obj)
                 }
 
                 size = ind;
@@ -1409,6 +1628,37 @@ function initDoCatch() {
         }
 
     });
+}
+
+function setToOldDateHouseDataSource(obj) {
+    const date = JSON.stringify(obj.date)
+
+    const key = date.split('T')[0].split('"')[1]
+    if (houseDateMap.has(key)) {
+        houseDateMap.get(key).push(obj)
+    } else {
+        var array = new Array()
+        array.push(obj)
+        houseDateMap.set(key, array)
+    }
+}
+
+function isExistingHouse(datetime, title, city) {
+    // console.log('houseDateMap:' + JSON.stringify(houseDateMap))
+    const date = datetime
+    var isExist = false
+    if (houseDateMap.has(date)) {
+        const array = houseDateMap.get(date)
+        array.forEach(key => {
+            if (city === key.city) {
+                if (util.stringSimilarity(key.title, title)) {
+                    isExist = true
+                    return true
+                }
+            }
+        });
+    }
+    return isExist
 }
 
 // 16天
@@ -1477,7 +1727,7 @@ function test() {
                 console.log("error exception occured !" + error.toString());
                 return next(error);
             }
-            var $ = cheerio.load(data.text, {decodeEntities: false});    //注意传递的是data.text而不是data本身
+            var $ = cheerio.load(data.text, { decodeEntities: false });    //注意传递的是data.text而不是data本身
             //console.log('catch ' +$('.topic-doc .topic-content p').html());
 
             var html = '';
@@ -1546,7 +1796,7 @@ function find_user() {
 
 
     let body = {
-        sort: [{"times": {"order": "desc"}}],
+        sort: [{ "times": { "order": "desc" } }],
         // sort: [{ "datatime": { "order": "asc" } }],
         query: {
             match: {
@@ -1567,15 +1817,15 @@ function find_user() {
         if (response.hits && response.hits.hits) {
 
             response.hits.hits.forEach((hit, index) => {
-                    array.push({
-                        'title': hit._source.title,
-                        'content': hit._source.content,
-                        'hrefArray': hit._source.hrefArray,
-                        'from': hit._source.from,
-                        '_id': hit._id,
-                        'datatime': hit._source.datatime
-                    })
-                }
+                array.push({
+                    'title': hit._source.title,
+                    'content': hit._source.content,
+                    'hrefArray': hit._source.hrefArray,
+                    'from': hit._source.from,
+                    '_id': hit._id,
+                    'datatime': hit._source.datatime
+                })
+            }
             );
 
             if (20 > array.length && response.hits.total > 20) {
@@ -1620,18 +1870,27 @@ function test_string_simmiar() {
     console.log('test_string_simmiar:' + similarity);
 }
 
-function test_list() {
+function test_isExistingHouse() {
 
-    var items = [
-        { character: "Guybrush Threepwood", game: "The Secret of Monkey Island" },
-        { character: "Manny Calavera", game: "Grim Fandango" },
-        { character: "Bernard Bernoulli", game: "Maniac Mansion" }
-    ];
+    // var items = [
+    //     { character: "Guybrush Threepwood", game: "The Secret of Monkey Island" },
+    //     { character: "Manny Calavera", game: "Grim Fandango" },
+    //     { character: "Bernard Bernoulli", game: "Maniac Mansion" }
+    // ];
 
-    var list = new List('users', items);
+    // var list = new List('users', items);
 
-    list.search('gu thre'); // return none
-    list.fuzzySearch.search('gu thre')
+    // list.search('gu thre'); // return none
+    // list.fuzzySearch.search('gu thre')
+    var datetime = "2021-05-23"
+    var title = "通州梨园"
+
+
+    setTimeout(() => {
+        isExistingHouse(datetime, title, "北京")
+    }, 15000)
+
+
 }
 
 
@@ -1643,20 +1902,27 @@ module.exports = Spider;
 
 
 Promise.resolve()
-// .then(indexOf('1000转租东坝金隅汇景苑单间（近将台）'));
-// .then(catch_list);
-//  .then(dropIndex)
-// .then(initIndex)
-//     .then(test_list())
-// .then(test_date_compare())
-//     .then(test_date_compare())
+    // .then(indexOf('1000转租东坝金隅汇景苑单间（近将台）'));
+    // .then(catch_list);
+    //  .then(dropIndex)
+    // .then(initIndex)
+    //     .then(test_list())
+    // .then(test_date_compare())
+    //     .then(test_date_compare())
     // .then(uploadDate(""))
+    // .then(testProxyPool)
+    .then(loadGeoStationDataJson())
+    // .then(initDoCatch)
     .then(doCapture())
+    // .then(test_isExistingHouse())
+    // .then(test_getRentGeoIds())
+
     // .then(() => {
-    //     console.log('constl:' + util.getDistance(116.323294, 39.893874, 116.319429, 40.070882))
+    //     console.log('hello')
+    //     // console.log('constl:' + util.getDistance(116.323294, 39.893874, 116.319429, 40.070882))
     // })
     // .then(test_string_simmiar())
-    // .then(queryBatch)
+    // .then(initDoCatch)
     // .then(updateCityToEs)
     // .then(readHouseDataFromESToFile)
  // .then(updateHouseDataFromESToFile)

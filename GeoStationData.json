@@ -1,0 +1,7154 @@
+{
+    "errorCode": 0,
+    "message": "",
+    "data": [
+        {
+            "geoStationId": 2019,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "安定门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2020,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "安贞",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2021,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "北京南站",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2022,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "朝阳门外",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2023,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "朝阳门内",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2024,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "崇文门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2025,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "东单",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2026,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "东直门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2027,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "地安门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2028,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "东花市",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2029,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "东四",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2030,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "灯市口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2031,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "国展",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2032,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "广渠门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2033,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "工体",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2034,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "惠新西街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2035,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "和平里",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2036,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "交道口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2037,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "劲松",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2038,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "建国门外",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2039,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "建国门内",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2040,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "金宝街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2041,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "六铺炕",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2042,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "木樨园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2043,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "马甸",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2044,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "蒲黄榆",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2045,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "前门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2046,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "双井",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2047,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "陶然亭",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2048,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "天坛",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2049,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "西四",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2050,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "西罗园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2051,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "西单",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2052,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "永定门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2053,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "洋桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2054,
+            "dtype": 1,
+            "pname": "东城",
+            "cname": "左安门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2055,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "白纸坊",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2056,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "菜户营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2057,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "长椿街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2058,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "崇文门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2059,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "车公庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2060,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "地安门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2061,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "德胜门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2062,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "阜成门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2063,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "广安门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2065,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "金融街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2066,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "六铺炕",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2067,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "马甸",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2068,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "马连道",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2069,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "木樨地",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2070,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "牛街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2071,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "陶然亭",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2072,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "太平桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2073,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "天宁寺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2074,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "西四",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2075,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "小西天",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2076,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "宣武门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2077,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "西直门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2078,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "新街口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2079,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "西单",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2080,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "月坛",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2081,
+            "dtype": 1,
+            "pname": "西城",
+            "cname": "右安门内",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2082,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "安贞",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2083,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "奥林匹克公园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2084,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "北苑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2085,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "北关",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2086,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "北工大",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2087,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "百子湾",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2088,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "北七家",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2089,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "成寿寺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2090,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "常营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2091,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "朝阳门外",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2092,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "CBD",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2093,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "朝青",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2094,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "朝阳公园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2095,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "东直门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2096,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "东坝",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2097,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "大望路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2098,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "东大桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2099,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "大山子",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2100,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "豆各庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2101,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "定福庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2102,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "方庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2103,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "垡头",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2104,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "广渠门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2105,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "工体",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2106,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "高碑店",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2107,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "国展",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2108,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "甘露园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2109,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "管庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2110,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "和平里",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2111,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "后沙峪",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2112,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "欢乐谷",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2113,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "惠新西街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2114,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "红庙",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2115,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "华威桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2116,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "旧宫",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2117,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "健翔桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2118,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "酒仙桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2119,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "劲松",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2120,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "建国门外",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2121,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "马甸",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2122,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "农展馆",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2123,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "南沙滩",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2124,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "潘家园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2125,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "清河",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2126,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "三元桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2127,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "芍药居",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2128,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "石佛营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2129,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "十里堡",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2130,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "首都机场",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2131,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "双井",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2132,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "十里河",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2133,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "十八里店",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2134,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "双桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2135,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "三里屯",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2136,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "四惠",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2137,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "天竺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2138,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "通州北苑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2139,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "团结湖",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2140,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "太阳宫",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2141,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "甜水园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2142,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "望京",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2143,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "西坝河",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2144,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "亚运村",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2145,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "亚运村小营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2146,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "燕莎",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2147,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "中央别墅区",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2148,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "朝阳其它",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2149,
+            "dtype": 1,
+            "pname": "朝阳",
+            "cname": "左安门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2150,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "奥林匹克公园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2151,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "安宁庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2152,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "白石桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2153,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "北太平庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2154,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "厂洼",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2155,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "定慧寺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2156,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "二里庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2157,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "公主坟",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2158,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "甘家口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2159,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "海淀其它",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2160,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "海淀北部新区",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2161,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "军博",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2162,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "老山",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2163,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "鲁谷",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2164,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "牡丹园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2165,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "马甸",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2166,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "马连洼",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2167,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "清河",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2168,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "苏州桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2169,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "上地",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2170,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "世纪城",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2171,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "四季青",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2172,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "双榆树",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2173,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "田村",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2174,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "五道口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2175,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "魏公村",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2176,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "五棵松",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2177,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "万柳",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2178,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "万寿路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2179,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "西山",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2180,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "西三旗",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2181,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "西北旺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2182,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "学院路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2183,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "小西天",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2184,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "西直门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2185,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "新街口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2186,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "西二旗",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2187,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "杨庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2188,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "玉泉路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2189,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "圆明园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2190,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "颐和园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2191,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "知春路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2192,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "皂君庙",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2193,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "中关村",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2194,
+            "dtype": 1,
+            "pname": "海淀",
+            "cname": "紫竹桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2195,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "北京南站",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2196,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "北大地",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2197,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "成寿寺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2198,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "草桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2199,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "菜户营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2200,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "大红门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2201,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "丰台其它",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2202,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "方庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2203,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "广安门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2204,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "和义",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2205,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "花乡",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2206,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "旧宫",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2207,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "角门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2208,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "科技园区",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2209,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "看丹桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2210,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "六里桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2211,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "刘家窑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2212,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "丽泽",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2213,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "卢沟桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2214,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "马连道",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2215,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "马家堡",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2216,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "木樨园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2217,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "蒲黄榆",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2218,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "七里庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2219,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "青塔",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2220,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "十里河",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2221,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "宋家庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2222,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "太平桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2223,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "五里店",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2224,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "五棵松",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2225,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "西红门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2226,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "西罗园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2227,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "新宫",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2228,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "洋桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2229,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "永定门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2230,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "玉泉营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2231,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "岳各庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2232,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "右安门外",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2233,
+            "dtype": 1,
+            "pname": "丰台",
+            "cname": "赵公口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2234,
+            "dtype": 1,
+            "pname": "石景山",
+            "cname": "八角",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2235,
+            "dtype": 1,
+            "pname": "石景山",
+            "cname": "城子",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2236,
+            "dtype": 1,
+            "pname": "石景山",
+            "cname": "古城",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2237,
+            "dtype": 1,
+            "pname": "石景山",
+            "cname": "老山",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2238,
+            "dtype": 1,
+            "pname": "石景山",
+            "cname": "鲁谷",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2239,
+            "dtype": 1,
+            "pname": "石景山",
+            "cname": "苹果园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2240,
+            "dtype": 1,
+            "pname": "石景山",
+            "cname": "石景山其它",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2241,
+            "dtype": 1,
+            "pname": "石景山",
+            "cname": "杨庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2242,
+            "dtype": 1,
+            "pname": "石景山",
+            "cname": "玉泉路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2243,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "北关",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2244,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "果园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2245,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "管庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2246,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "九棵树",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2247,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "潞苑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2248,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "梨园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2249,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "临河里",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2250,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "马驹桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2251,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "乔庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2252,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "首都机场",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2253,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "通州北苑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2254,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "通州其它",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2255,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "武夷花园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2256,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "新华大街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2257,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "亦庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2258,
+            "dtype": 1,
+            "pname": "通州",
+            "cname": "玉桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2259,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "奥林匹克公园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2260,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "安宁庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2261,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "百善镇",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2262,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "北七家",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2263,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "昌平其它",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2264,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "东关",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2265,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "鼓楼大街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2266,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "海淀北部新区",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2267,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "回龙观",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2268,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "霍营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2269,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "立水桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2270,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "龙泽",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2271,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "南邵",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2272,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "南口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2273,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "沙河",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2274,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "天通苑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2275,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "西关环岛",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2276,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "西三旗",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2277,
+            "dtype": 1,
+            "pname": "昌平",
+            "cname": "小汤山",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2278,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "大兴其它",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2279,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "观音寺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2280,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "黄村火车站",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2281,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "黄村北",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2282,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "黄村中",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2283,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "和义",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2284,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "旧宫",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2285,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "科技园区",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2286,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "十八里店",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2287,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "天宫院",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2288,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "西红门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2289,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "亦庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2290,
+            "dtype": 1,
+            "pname": "大兴",
+            "cname": "枣园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2291,
+            "dtype": 1,
+            "pname": "亦庄",
+            "cname": "马驹桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2292,
+            "dtype": 1,
+            "pname": "亦庄",
+            "cname": "十八里店",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2293,
+            "dtype": 1,
+            "pname": "亦庄",
+            "cname": "亦庄开发区其它",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2294,
+            "dtype": 1,
+            "pname": "亦庄",
+            "cname": "亦庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2295,
+            "dtype": 1,
+            "pname": "顺义",
+            "cname": "北七家",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2296,
+            "dtype": 1,
+            "pname": "顺义",
+            "cname": "后沙峪",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2297,
+            "dtype": 1,
+            "pname": "顺义",
+            "cname": "李桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2298,
+            "dtype": 1,
+            "pname": "顺义",
+            "cname": "马坡",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2299,
+            "dtype": 1,
+            "pname": "顺义",
+            "cname": "顺义城",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2300,
+            "dtype": 1,
+            "pname": "顺义",
+            "cname": "顺义其它",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2301,
+            "dtype": 1,
+            "pname": "顺义",
+            "cname": "首都机场",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2302,
+            "dtype": 1,
+            "pname": "顺义",
+            "cname": "天竺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2303,
+            "dtype": 1,
+            "pname": "顺义",
+            "cname": "中央别墅区",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2304,
+            "dtype": 1,
+            "pname": "房山",
+            "cname": "长阳",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2305,
+            "dtype": 1,
+            "pname": "房山",
+            "cname": "城关",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2306,
+            "dtype": 1,
+            "pname": "房山",
+            "cname": "窦店",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2307,
+            "dtype": 1,
+            "pname": "房山",
+            "cname": "房山其它",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2308,
+            "dtype": 1,
+            "pname": "房山",
+            "cname": "韩村河",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2309,
+            "dtype": 1,
+            "pname": "房山",
+            "cname": "良乡",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2310,
+            "dtype": 1,
+            "pname": "房山",
+            "cname": "琉璃河",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2311,
+            "dtype": 1,
+            "pname": "房山",
+            "cname": "燕山",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2312,
+            "dtype": 1,
+            "pname": "房山",
+            "cname": "阎村",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2313,
+            "dtype": 1,
+            "pname": "门头沟",
+            "cname": "滨河西区",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2314,
+            "dtype": 1,
+            "pname": "门头沟",
+            "cname": "城子",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2315,
+            "dtype": 1,
+            "pname": "门头沟",
+            "cname": "大峪",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2316,
+            "dtype": 1,
+            "pname": "门头沟",
+            "cname": "冯村",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2317,
+            "dtype": 1,
+            "pname": "门头沟",
+            "cname": "门头沟其它",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2318,
+            "dtype": 1,
+            "pname": "门头沟",
+            "cname": "石门营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2324,
+            "dtype": 1,
+            "pname": "燕郊",
+            "cname": "燕郊城区",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 19,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "苹果园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 20,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "古城",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 21,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "八角游乐园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 22,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "八宝山",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 23,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "玉泉路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 24,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "五棵松",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 25,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "万寿路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 26,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "公主坟",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 27,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "军事博物馆",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 28,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "木樨地",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 29,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "南礼士路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 30,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "复兴门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 31,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "西单",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 32,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "天安门西",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 33,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "天安门东",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 34,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "王府井",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 35,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "东单",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 36,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "建国门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 37,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "永安里",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 38,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "国贸",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 39,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "大望路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 40,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "四惠",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 41,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "四惠东",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 42,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "积水潭",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 43,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "鼓楼大街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 44,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "安定门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 45,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "雍和宫",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 46,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "东直门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 47,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "东四十条",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 48,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "朝阳门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 49,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "建国门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 50,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "北京站",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 51,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "崇文门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 52,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "前门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 53,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "和平门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 54,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "宣武门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 55,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "长椿街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 56,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "复兴门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 57,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "阜成门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 58,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "车公庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 59,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "西直门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 400,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "田村",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 401,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "永定路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 402,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "永定路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 403,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "定慧桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 404,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "西钓鱼台",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 405,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "航天桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 406,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "白堆子",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 407,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "展览路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 408,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "阜成门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 409,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "北海公园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 410,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "中国美术馆",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 411,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "东四十条",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 412,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "工人体育场",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 413,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "团结湖",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 414,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "朝阳公园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 415,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "石佛营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 416,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "姚家园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 417,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "高杨树",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 418,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "东坝",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 60,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "天宫院",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 61,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "生物医药基地",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 62,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "义和庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 63,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "黄村火车站",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 64,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "黄村西大街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 65,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "清源路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 66,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "枣园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 67,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "高米店南",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 68,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "高米店北",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 69,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "西红门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 70,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "新宫",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 71,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "公益西桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 72,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "角门西",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 73,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "马家堡",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 74,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "北京南站",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 75,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "陶然亭",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 76,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "菜市口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 77,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "宣武门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 78,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "西单",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 79,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "灵境胡同",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 80,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "西四",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 81,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "平安里",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 82,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "新街口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 83,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "西直门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 84,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "动物园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 85,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "国家图书馆",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 86,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "魏公村",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 87,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "人民大学",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 88,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "海淀黄庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 89,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "中关村",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 90,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "北京大学东门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 91,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "圆明园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 92,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "西苑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 93,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "北宫门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 94,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "安河桥北",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 95,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "天通苑北",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 96,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "天通苑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 97,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "天通苑南",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 98,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "立水桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 99,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "立水桥南",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 100,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "北苑路北",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 101,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "大屯路东",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 102,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "惠新西街北口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 103,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "惠新西街南口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 104,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "和平西桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 105,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "和平里北街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 106,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "雍和宫",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 107,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "北新桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 108,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "张自忠路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 109,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "东四",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 110,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "灯市口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 111,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "东单",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 112,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "崇文门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 113,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "磁器口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 114,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "天坛东门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 115,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "蒲黄榆",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 116,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "刘家窑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 117,
+            "dtype": 0,
+            "pname": "5号线",
+            "cname": "宋家庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 118,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "潞城",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 119,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "东厦园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 120,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "郝家府",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 121,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "北运河东",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 122,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "北运河西",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 123,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "通运门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 124,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "通州北关",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 125,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "物资学院路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 126,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "草房",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 127,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "常营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 128,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "黄渠",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 129,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "褡裢坡",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 130,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "青年路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 131,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "十里堡",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 132,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "金台路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 133,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "呼家楼",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 134,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "东大桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 135,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "朝阳门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 136,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "东四",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 137,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "南锣鼓巷",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 138,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "北海北",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 139,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "平安里",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 140,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "车公庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 141,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "车公庄西",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 142,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "白石桥南",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 143,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "花园桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 144,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "慈寿寺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 145,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "海淀五路居",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 146,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "北京西站",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 147,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "湾子",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 148,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "达官营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 149,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "广安门内",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 150,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "菜市口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 151,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "虎坊桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 152,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "珠市口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 153,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "桥湾",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 154,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "磁器口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 155,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "广渠门内",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 156,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "广渠门外",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 157,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "九龙山",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 158,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "大郊亭",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 159,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "百子湾",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 160,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "化工",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 161,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "南楼梓庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 162,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "欢乐谷景区",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 163,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "垡头",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 164,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "双合",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 165,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "焦化厂",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 166,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "朱辛庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 167,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "育知路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 168,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "平西府",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 169,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "回龙观东大街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 170,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "霍营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 171,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "育新",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 172,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "西小口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 173,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "永泰庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 174,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "林萃桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 175,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "森林公园南门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 176,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "奥林匹克公园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 177,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "奥体中心",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 178,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "北土城",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 179,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "安华桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 180,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "安德里北街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 181,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "鼓楼大街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 182,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "什刹海",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 183,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "南锣鼓巷",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 184,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "中国美术馆",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 185,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "王府井北",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 186,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "天桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 187,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "永定门外",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 188,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "木樨园北",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 189,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "木樨园南",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 190,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "大红门桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 191,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "和义",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 192,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "西洼地",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 193,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "六营门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 194,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "五福堂",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 195,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "国家图书馆",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 196,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "白石桥南",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 197,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "白堆子",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 198,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "军事博物馆",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 199,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "北京西站",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 200,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "六里桥东",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 201,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "六里桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 202,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "七里庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 203,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "丰台东大街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 204,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "丰台南路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 205,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "科怡路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 206,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "丰台科技园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 207,
+            "dtype": 0,
+            "pname": "9号线",
+            "cname": "郭公庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 208,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "车道沟",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 209,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "西局",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 210,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "六里桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 211,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "莲花桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 212,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "公主坟",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 213,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "西钓鱼台",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 214,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "慈寿寺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 215,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "长春桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 216,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "火器营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 217,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "巴沟",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 218,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "苏州街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 219,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "海淀黄庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 220,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "知春里",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 221,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "知春路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 222,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "西土城",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 223,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "牡丹园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 224,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "健德门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 225,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "北土城",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 226,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "安贞门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 227,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "惠新西街南口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 228,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "芍药居",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 229,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "太阳宫",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 230,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "三元桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 231,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "亮马桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 232,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "农业展览馆",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 233,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "团结湖",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 234,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "呼家楼",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 235,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "金台夕照",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 236,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "国贸",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 237,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "双井",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 238,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "劲松",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 239,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "潘家园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 240,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "十里河",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 241,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "分钟寺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 242,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "成寿寺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 243,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "宋家庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 244,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "石榴庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 245,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "大红门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 246,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "角门东",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 247,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "角门西",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 248,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "草桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 249,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "纪家庙",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 250,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "首经贸",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 251,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "丰台站",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 252,
+            "dtype": 0,
+            "pname": "10号线",
+            "cname": "泥洼",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 253,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "西直门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 254,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "大钟寺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 255,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "知春路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 256,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "五道口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 257,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "上地",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 258,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "西二旗",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 259,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "龙泽",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 260,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "回龙观",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 261,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "霍营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 262,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "立水桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 263,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "北苑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 264,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "望京西",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 265,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "芍药居",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 266,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "光熙门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 267,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "柳芳",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 268,
+            "dtype": 0,
+            "pname": "13号线",
+            "cname": "东直门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 269,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "北京南站",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 270,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "蒲黄榆",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 271,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "方庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 272,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "东管头",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 273,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "丽泽商务区",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 274,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "菜户营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 275,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "西铁营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 276,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "右安门外",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 277,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "陶然桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 278,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "永定门外",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 279,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "景泰",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 280,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "南八里庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 281,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "北工大西门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 282,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "平乐园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 283,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "红庙",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 284,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "金台路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 285,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "朝阳公园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 286,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "枣营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 287,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "东风北桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 288,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "将台",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 289,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "高家园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 290,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "望京南",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 291,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "阜通",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 292,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "望京",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 293,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "东湖渠",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 294,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "来广营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 295,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "善各庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 296,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "张郭庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 297,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "园博园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 298,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "西局",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 299,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "七里庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 300,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "大井",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 301,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "郭庄子",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 302,
+            "dtype": 0,
+            "pname": "14号线",
+            "cname": "大瓦窑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 303,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "俸伯",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 304,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "顺义",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 305,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "石门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 306,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "南法信",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 307,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "后沙峪",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 308,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "花梨坎",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 309,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "国展",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 310,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "孙河",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 311,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "马泉营",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 312,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "崔各庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 313,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "望京",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 314,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "望京西",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 315,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "关庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 316,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "大屯路东",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 317,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "安立路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 318,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "奥林匹克公园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 319,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "北沙滩",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 320,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "六道口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 321,
+            "dtype": 0,
+            "pname": "15号线",
+            "cname": "清华东路西口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 322,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "四惠",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 323,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "四惠东",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 324,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "高碑店",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 325,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "传媒大学",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 326,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "双桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 327,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "管庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 328,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "八里桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 329,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "通州北苑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 330,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "果园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 331,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "九棵树",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 332,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "梨园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 333,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "临河里",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 334,
+            "dtype": 0,
+            "pname": "八通线",
+            "cname": "土桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 335,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "宋家庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 336,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "肖村",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 337,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "小红门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 338,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "旧宫",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 339,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "亦庄桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 340,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "亦庄文化园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 341,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "万源街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 342,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "荣京东街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 343,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "荣昌东街",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 344,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "同济南路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 345,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "经海路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 346,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "次渠南",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 347,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "次渠",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 348,
+            "dtype": 0,
+            "pname": "亦庄线",
+            "cname": "亦庄火车站",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 349,
+            "dtype": 0,
+            "pname": "昌平线",
+            "cname": "西二旗",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 350,
+            "dtype": 0,
+            "pname": "昌平线",
+            "cname": "生命科学园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 351,
+            "dtype": 0,
+            "pname": "昌平线",
+            "cname": "朱辛庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 352,
+            "dtype": 0,
+            "pname": "昌平线",
+            "cname": "巩华城",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 353,
+            "dtype": 0,
+            "pname": "昌平线",
+            "cname": "沙河",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 354,
+            "dtype": 0,
+            "pname": "昌平线",
+            "cname": "沙河高教园",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 355,
+            "dtype": 0,
+            "pname": "昌平线",
+            "cname": "南邵",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 356,
+            "dtype": 0,
+            "pname": "昌平线",
+            "cname": "北邵洼",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 357,
+            "dtype": 0,
+            "pname": "昌平线",
+            "cname": "昌平东关",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 358,
+            "dtype": 0,
+            "pname": "昌平线",
+            "cname": "昌平",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 359,
+            "dtype": 0,
+            "pname": "昌平线",
+            "cname": "十三陵景区",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 360,
+            "dtype": 0,
+            "pname": "昌平线",
+            "cname": "昌平西山口",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 361,
+            "dtype": 0,
+            "pname": "房山线",
+            "cname": "苏庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 362,
+            "dtype": 0,
+            "pname": "房山线",
+            "cname": "良乡南关",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 363,
+            "dtype": 0,
+            "pname": "房山线",
+            "cname": "良乡大学城西",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 364,
+            "dtype": 0,
+            "pname": "房山线",
+            "cname": "良乡大学城",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 365,
+            "dtype": 0,
+            "pname": "房山线",
+            "cname": "良乡大学城北",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 366,
+            "dtype": 0,
+            "pname": "房山线",
+            "cname": "广阳城",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 367,
+            "dtype": 0,
+            "pname": "房山线",
+            "cname": "篱笆房",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 368,
+            "dtype": 0,
+            "pname": "房山线",
+            "cname": "长阳",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 369,
+            "dtype": 0,
+            "pname": "房山线",
+            "cname": "稻田",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 370,
+            "dtype": 0,
+            "pname": "房山线",
+            "cname": "大葆台",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 371,
+            "dtype": 0,
+            "pname": "房山线",
+            "cname": "郭公庄",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 372,
+            "dtype": 0,
+            "pname": "机场线",
+            "cname": "东直门",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 373,
+            "dtype": 0,
+            "pname": "机场线",
+            "cname": "三元桥",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 374,
+            "dtype": 0,
+            "pname": "机场线",
+            "cname": "T3航站楼",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 375,
+            "dtype": 0,
+            "pname": "机场线",
+            "cname": "T2航站楼",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 377,
+            "dtype": 0,
+            "pname": "16号线",
+            "cname": "北安河",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 378,
+            "dtype": 0,
+            "pname": "16号线",
+            "cname": "温阳路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 379,
+            "dtype": 0,
+            "pname": "16号线",
+            "cname": "稻香湖路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 380,
+            "dtype": 0,
+            "pname": "16号线",
+            "cname": "屯佃",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 381,
+            "dtype": 0,
+            "pname": "16号线",
+            "cname": "永丰",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 384,
+            "dtype": 0,
+            "pname": "16号线",
+            "cname": "永丰南",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 385,
+            "dtype": 0,
+            "pname": "16号线",
+            "cname": "西北旺",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 386,
+            "dtype": 0,
+            "pname": "16号线",
+            "cname": "马连洼",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 387,
+            "dtype": 0,
+            "pname": "16号线",
+            "cname": "农大南路",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 388,
+            "dtype": 0,
+            "pname": "16号线",
+            "cname": "西苑",
+            "city": "北京"
+        },
+        {
+            "geoStationId": 2015,
+            "dtype": 1,
+            "pname": "江岸",
+            "cname": "百步亭",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2016,
+            "dtype": 1,
+            "pname": "江岸",
+            "cname": "大智路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2017,
+            "dtype": 1,
+            "pname": "江岸",
+            "cname": "堤角",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2018,
+            "dtype": 1,
+            "pname": "江岸",
+            "cname": "二七",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2019,
+            "dtype": 1,
+            "pname": "江岸",
+            "cname": "后湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2020,
+            "dtype": 1,
+            "pname": "江岸",
+            "cname": "黄埔永清",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2021,
+            "dtype": 1,
+            "pname": "江岸",
+            "cname": "前进江汉",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2022,
+            "dtype": 1,
+            "pname": "江岸",
+            "cname": "三阳路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2023,
+            "dtype": 1,
+            "pname": "江岸",
+            "cname": "台北香港路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2024,
+            "dtype": 1,
+            "pname": "江岸",
+            "cname": "唐家墩",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2025,
+            "dtype": 1,
+            "pname": "江岸",
+            "cname": "塔子湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2026,
+            "dtype": 1,
+            "pname": "江岸",
+            "cname": "育才花桥",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2027,
+            "dtype": 1,
+            "pname": "江汉",
+            "cname": "宝丰崇仁",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2028,
+            "dtype": 1,
+            "pname": "江汉",
+            "cname": "常青路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2029,
+            "dtype": 1,
+            "pname": "江汉",
+            "cname": "长丰常码头",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2030,
+            "dtype": 1,
+            "pname": "江汉",
+            "cname": "CBD西北湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2031,
+            "dtype": 1,
+            "pname": "江汉",
+            "cname": "长港路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2032,
+            "dtype": 1,
+            "pname": "江汉",
+            "cname": "前进江汉",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2033,
+            "dtype": 1,
+            "pname": "江汉",
+            "cname": "台北香港路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2034,
+            "dtype": 1,
+            "pname": "江汉",
+            "cname": "唐家墩",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2035,
+            "dtype": 1,
+            "pname": "江汉",
+            "cname": "塔子湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2036,
+            "dtype": 1,
+            "pname": "江汉",
+            "cname": "武广万松园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2037,
+            "dtype": 1,
+            "pname": "江汉",
+            "cname": "新华路万达",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2038,
+            "dtype": 1,
+            "pname": "江汉",
+            "cname": "杨汊湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2039,
+            "dtype": 1,
+            "pname": "硚口",
+            "cname": "宝丰崇仁",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2040,
+            "dtype": 1,
+            "pname": "硚口",
+            "cname": "长丰常码头",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2041,
+            "dtype": 1,
+            "pname": "硚口",
+            "cname": "CBD西北湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2042,
+            "dtype": 1,
+            "pname": "硚口",
+            "cname": "古田",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2043,
+            "dtype": 1,
+            "pname": "硚口",
+            "cname": "汉正街",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2044,
+            "dtype": 1,
+            "pname": "硚口",
+            "cname": "集贤",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2045,
+            "dtype": 1,
+            "pname": "硚口",
+            "cname": "吴家山",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2046,
+            "dtype": 1,
+            "pname": "硚口",
+            "cname": "武广万松园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2047,
+            "dtype": 1,
+            "pname": "硚口",
+            "cname": "宗关",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2048,
+            "dtype": 1,
+            "pname": "东西湖",
+            "cname": "常青花园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2049,
+            "dtype": 1,
+            "pname": "东西湖",
+            "cname": "东西湖其它",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2050,
+            "dtype": 1,
+            "pname": "东西湖",
+            "cname": "金银湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2051,
+            "dtype": 1,
+            "pname": "东西湖",
+            "cname": "将军路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2052,
+            "dtype": 1,
+            "pname": "东西湖",
+            "cname": "吴家山",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2053,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "白沙洲",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2054,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "楚河汉街",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2055,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "东湖东亭",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2056,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "街道口",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2057,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "积玉桥",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2058,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "水果湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2059,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "首义",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2060,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "沙湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2061,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "团结大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2062,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "武昌火车站",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2063,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "徐东",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2064,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "杨园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2065,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "中北路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2066,
+            "dtype": 1,
+            "pname": "武昌",
+            "cname": "中南丁字桥",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2067,
+            "dtype": 1,
+            "pname": "青山",
+            "cname": "洪山其它",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2068,
+            "dtype": 1,
+            "pname": "青山",
+            "cname": "青山",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2069,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "白沙洲",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2070,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "楚河汉街",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2071,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "东湖东亭",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2072,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "光谷广场",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2073,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "洪山其它",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2074,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "虎泉杨家湾",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2075,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "江夏其它",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2076,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "街道口",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2077,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "珞狮南路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2078,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "老南湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2079,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "民族大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2080,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "南湖沃尔玛",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2081,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "青山",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2082,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "沙湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2083,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "团结大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2084,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "武昌火车站",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2085,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "文化大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2086,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "徐东",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2087,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "新南湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2088,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "中南丁字桥",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2089,
+            "dtype": 1,
+            "pname": "洪山",
+            "cname": "卓刀泉",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2090,
+            "dtype": 1,
+            "pname": "汉阳",
+            "cname": "七里庙",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2091,
+            "dtype": 1,
+            "pname": "汉阳",
+            "cname": "四新",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2092,
+            "dtype": 1,
+            "pname": "汉阳",
+            "cname": "王家湾",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2093,
+            "dtype": 1,
+            "pname": "汉阳",
+            "cname": "钟家村",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2094,
+            "dtype": 1,
+            "pname": "东湖高新",
+            "cname": "关西长职",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2095,
+            "dtype": 1,
+            "pname": "东湖高新",
+            "cname": "光谷广场",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2096,
+            "dtype": 1,
+            "pname": "东湖高新",
+            "cname": "关山大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2097,
+            "dtype": 1,
+            "pname": "东湖高新",
+            "cname": "光谷南",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2098,
+            "dtype": 1,
+            "pname": "东湖高新",
+            "cname": "光谷东",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2099,
+            "dtype": 1,
+            "pname": "东湖高新",
+            "cname": "华科大",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2100,
+            "dtype": 1,
+            "pname": "东湖高新",
+            "cname": "洪山其它",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2101,
+            "dtype": 1,
+            "pname": "东湖高新",
+            "cname": "江夏其它",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2102,
+            "dtype": 1,
+            "pname": "东湖高新",
+            "cname": "金融港",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2103,
+            "dtype": 1,
+            "pname": "东湖高新",
+            "cname": "民族大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2104,
+            "dtype": 1,
+            "pname": "东湖高新",
+            "cname": "三环南",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2105,
+            "dtype": 1,
+            "pname": "江夏",
+            "cname": "藏龙岛",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2106,
+            "dtype": 1,
+            "pname": "江夏",
+            "cname": "光谷南",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2107,
+            "dtype": 1,
+            "pname": "江夏",
+            "cname": "江夏其它",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2108,
+            "dtype": 1,
+            "pname": "江夏",
+            "cname": "庙山",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2109,
+            "dtype": 1,
+            "pname": "江夏",
+            "cname": "文化大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2110,
+            "dtype": 1,
+            "pname": "蔡甸",
+            "cname": "蔡甸城区",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2111,
+            "dtype": 1,
+            "pname": "蔡甸",
+            "cname": "蔡甸其它",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2112,
+            "dtype": 1,
+            "pname": "蔡甸",
+            "cname": "后官湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2113,
+            "dtype": 1,
+            "pname": "蔡甸",
+            "cname": "中法生态城",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2114,
+            "dtype": 1,
+            "pname": "黄陂",
+            "cname": "汉口北",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2115,
+            "dtype": 1,
+            "pname": "黄陂",
+            "cname": "黄陂其它",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2116,
+            "dtype": 1,
+            "pname": "黄陂",
+            "cname": "盘龙城",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2117,
+            "dtype": 1,
+            "pname": "黄陂",
+            "cname": "前川",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2118,
+            "dtype": 1,
+            "pname": "黄陂",
+            "cname": "武湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2119,
+            "dtype": 1,
+            "pname": "新洲",
+            "cname": "新洲其它",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2120,
+            "dtype": 1,
+            "pname": "新洲",
+            "cname": "阳逻",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 2121,
+            "dtype": 1,
+            "pname": "沌口",
+            "cname": "沌口",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 14,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "径河",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 15,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "三店",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 16,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "码头潭公园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 17,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "东吴大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 18,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "五环大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 19,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "额头湾",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 20,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "竹叶海",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 21,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "舵落口",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 22,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "古田一路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 23,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "古田二路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 24,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "古田三路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 25,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "古田四路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 26,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "汉西一路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 27,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "宗关",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 28,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "太平洋",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 29,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "硚口路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 30,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "崇仁路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 31,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "利济北路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 32,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "友谊路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 33,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "循礼门",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 34,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "大智路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 35,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "三阳路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 36,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "黄浦路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 37,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "头道街",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 38,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "二七路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 39,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "徐州新村",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 40,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "丹水池",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 41,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "新荣",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 42,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "堤角",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 43,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "滕子岗",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 44,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "滠口新城",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 45,
+            "dtype": 0,
+            "pname": "1号线",
+            "cname": "汉口北",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 46,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "天河机场",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 47,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "航空总部",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 48,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "宋家岗",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 49,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "巨龙大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 50,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "盘龙城",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 51,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "宏图大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 52,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "常青城",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 53,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "金银潭",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 54,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "常青花园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 55,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "长港路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 56,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "汉口火车站",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 57,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "范湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 58,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "王家墩东",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 59,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "青年路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 60,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "中山公园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 61,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "循礼门",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 62,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "江汉路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 63,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "积玉桥",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 64,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "螃蟹岬",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 65,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "小龟山",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 66,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "洪山广场",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 67,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "中南路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 68,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "宝通寺",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 69,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "街道口",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 70,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "广埠屯",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 71,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "虎泉",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 72,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "杨家湾",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 73,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "光谷广场",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 74,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "珞雄路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 75,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "华中科技大学",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 76,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "光谷大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 77,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "佳园路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 78,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "光谷火车站",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 79,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "黄龙山路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 80,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "金融港北",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 81,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "秀湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 82,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "藏龙东街",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 83,
+            "dtype": 0,
+            "pname": "2号线",
+            "cname": "佛祖岭",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 84,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "宏图大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 85,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "市民之家",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 86,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "后湖大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 87,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "兴业路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 88,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "二七小路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 89,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "罗家庄",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 90,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "赵家条",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 91,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "惠济二路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 92,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "香港路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 93,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "菱角湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 94,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "范湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 95,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "云飞路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 96,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "武汉商务区",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 97,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "双墩",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 98,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "宗关",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 99,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "王家湾",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 100,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "龙阳村",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 101,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "陶家岭",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 102,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "四新大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 103,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "汉阳客运站",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 104,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "三角湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 105,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "体育中心",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 106,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "东风公司",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 107,
+            "dtype": 0,
+            "pname": "3号线",
+            "cname": "沌阳大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 108,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "柏林",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 109,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "新庙村",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 110,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "临嶂大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 111,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "蔡甸广场",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 112,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "凤凰路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 113,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "新农",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 114,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "知音",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 115,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "集贤",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 116,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "新天",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 117,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "黄金口",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 118,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "孟家铺",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 119,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "永安堂",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 120,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "玉龙路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 121,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "王家湾",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 122,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "十里铺",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 123,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "七里庙",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 124,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "五里墩",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 125,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "汉阳火车站",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 126,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "钟家村",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 127,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "拦江路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 128,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "复兴路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 129,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "首义路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 130,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "武昌火车站",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 131,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "梅苑小区",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 132,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "中南路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 133,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "洪山广场",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 134,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "楚河汉街",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 135,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "青鱼嘴",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 136,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "东亭",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 137,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "岳家嘴",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 138,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "铁机路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 139,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "罗家港",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 140,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "园林路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 141,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "仁和路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 142,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "工业四路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 143,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "杨春湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 144,
+            "dtype": 0,
+            "pname": "4号线",
+            "cname": "武汉火车站",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 145,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "金银湖公园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 146,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "金银湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 147,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "园博园北",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 148,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "轻工大学",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 149,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "常青花园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 150,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "杨汊湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 151,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "石桥",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 152,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "唐家墩",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 153,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "三眼桥",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 154,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "香港路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 155,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "苗栗路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 156,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "大智路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 157,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "江汉路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 158,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "六渡桥",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 159,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "汉正街",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 160,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "武胜路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 161,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "琴台",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 162,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "钟家村",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 163,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "马鹦路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 164,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "建港",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 165,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "前进村",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 166,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "国博中心北",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 167,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "国博中心南",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 168,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "老关村",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 169,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "江城大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 170,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "车城东路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 171,
+            "dtype": 0,
+            "pname": "6号线",
+            "cname": "东风公司",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 172,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "青龙山地铁小镇",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 173,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "纸坊大街",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 174,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "北华街",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 175,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "谭鑫培公园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 176,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "江夏客厅",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 177,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "大花岭",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 178,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "新路村",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 179,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "野芷湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 180,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "板桥",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 181,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "湖工大",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 182,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "建安街",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 183,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "瑞安街",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 184,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "武昌火车站",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 185,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "小东门",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 186,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "螃蟹岬",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 187,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "新河街",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 188,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "湖北大学",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 189,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "徐家棚",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 190,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "三阳路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 191,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "香港路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 192,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "取水楼",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 193,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "王家墩东",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 194,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "武汉商务区",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 195,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "常码头",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 196,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "园博园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 197,
+            "dtype": 0,
+            "pname": "7号线",
+            "cname": "园博园北",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 198,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "金潭路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 199,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "宏图大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 200,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "塔子湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 201,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "中一路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 202,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "竹叶山",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 203,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "赵家条",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 204,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "黄浦路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 205,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "徐家棚",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 206,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "徐东",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 207,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "汪家墩",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 208,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "岳家嘴",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 209,
+            "dtype": 0,
+            "pname": "8号线",
+            "cname": "梨园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 11,
+            "dtype": 0,
+            "pname": "8号线三期",
+            "cname": "野芷湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 12,
+            "dtype": 0,
+            "pname": "8号线三期",
+            "cname": "黄家湖地铁小镇",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 13,
+            "dtype": 0,
+            "pname": "8号线三期",
+            "cname": "军运村",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 210,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "光谷火车站",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 211,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "湖口",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 212,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "光谷同济医院",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 213,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "光谷生物园",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 214,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "光谷四路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 215,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "光谷五路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 216,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "光谷六路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 217,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "豹澥",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 218,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "光谷七路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 219,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "长岭山",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 220,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "未来一路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 221,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "未来三路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 222,
+            "dtype": 0,
+            "pname": "11号线",
+            "cname": "左岭",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 223,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "后湖大道",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 224,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "百步亭花园路",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 225,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "新荣客运站",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 226,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "幸福湾",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 227,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "朱家河",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 228,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "谌家矶",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 229,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "青龙",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 230,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "高车",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 231,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "武湖",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 232,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "沙口",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 233,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "军民村",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 234,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "武生院",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 235,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "阳逻",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 236,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "阳逻开发区",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 237,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "施岗",
+            "city": "武汉"
+        },
+        {
+            "geoStationId": 238,
+            "dtype": 0,
+            "pname": "阳逻线",
+            "cname": "金台",
+            "city": "武汉"
+        }
+    ],
+    "success": true
+}
